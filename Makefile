@@ -58,6 +58,8 @@ UT_FLAGS	=	--coverage -lcriterion -Wno-div-by-zero -lgcov
 COVR_FLAGS	=	--exclude tests/ --gcov-ignore-errors=no_working_dir_found	\
 				--gcov-executable "llvm-cov-20 gcov"
 
+VALGR_FLAGS	=	-s --leak-check=full
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
@@ -76,6 +78,9 @@ re: fclean all
 
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
+
+memory_check: debug
+	@valgrind $(VALGR_FLAGS) ./$(NAME)
 
 tests_run: clean
 	@clang -o $(UT_NAME) $(UT_SRC) $(UT_FLAGS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
