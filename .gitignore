@@ -1,0 +1,19 @@
+# Temp
+*~
+\#*#
+
+# Binaries
+*.o
+*.a
+wolf3d
+unit_tests
+
+# Unit tests
+*.gcno
+*.gcda
+
+# VS Code
+*.json
+.cache
+.vscode
+*.log
