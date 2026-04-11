@@ -11,21 +11,43 @@ RM			=	rm -f
 
 NAME    	=	wolf3d
 
-LIB_FILES	=
+LIBMY_FILES			=	minidprintf.c	\
+						my_pow.c		\
+						my_round.c		\
+						my_strcmp.c		\
+						my_strlen.c		\
+						my_strncmp.c	\
+						my_strtol.c
 
-SRC_FILES	=	$(addprefix lib/, $(LIB_FILES))	\
+LIBGRAPHICS_FILES	=	destroy_game.c		\
+						display_game.c		\
+						init_game.c			\
+						main_loop.c			\
+						update_game.c		\
+						entity_functions.c	\
+						button_functions.c	\
+						is_clicked.c		\
+						display_env_exist.c
+
+SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
+				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				main.c
 
 SRC			=	$(addprefix src/, $(SRC_FILES))	\
 
 OBJ			=	$(SRC:.c=.o)
 
-CFLAGS		+=	-Wall -Wextra
+CFLAGS		+=	-Wall -Wextra -fno-builtin
 
 CPPFLAGS	+=	-iquote ./include
 
 DEBUG_FLAGS	=	-g3
 
-LDFLAGS		+=
+LDFLAGS		+=	-lcsfml-graphics	\
+				-lcsfml-window		\
+				-lcsfml-system		\
+				-lcsfml-audio		\
+				-lm
 
 UT_SRC		=	$(addprefix src/, $(SRC_FILES)) \
 
@@ -39,7 +61,7 @@ COVR_FLAGS	=	--exclude tests/ --gcov-ignore-errors=no_working_dir_found	\
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ)	$(LDFLAGS)
 
 clean:
 	@$(RM) $(OBJ)
