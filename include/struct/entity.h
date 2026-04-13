@@ -38,7 +38,7 @@ typedef struct entity_s {
     void (*destroy)(component_t *component);
 } entity_t;
 
-typedef struct entitiy_sprite_s {
+typedef struct entity_sprite_s {
     entity_id_t id;
     char *texture_path;
     sfTexture *texture;

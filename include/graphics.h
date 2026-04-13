@@ -27,7 +27,7 @@ void update_nothing(game_t *game, const component_t *component);
 void display_sprite(sfRenderWindow *window, sfSprite *sprite,
     const component_t *component);
 void destroy_component(component_t *component);
-size_t is_clicked(const sfRenderWindow *window, const component_t *component);
+sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 void b_start(game_t *game, const component_t *component);
 void b_quit(game_t *game, const component_t *component);
 

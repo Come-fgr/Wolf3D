@@ -23,6 +23,6 @@ static void display_scene(sfRenderWindow *window,
 void display_game(game_t *game)
 {
     sfRenderWindow_clear(game->window, sfBlack);
-    display_scene(game->window, &game->entity, game->cur_scene);
+    display_scene(game->window, game->entity, game->cur_scene);
     sfRenderWindow_display(game->window);
 }
