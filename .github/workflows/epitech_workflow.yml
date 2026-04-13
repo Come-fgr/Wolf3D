@@ -29,7 +29,7 @@ env:
 jobs:
 
   check_repo_size:
-    if: ${{ github.repository_owner == 'vdunon' }}
+    if: ${{ github.repository_owner != 'EpitechPGE1-2025' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -107,4 +107,4 @@ jobs:
             ${{ vars.MIRROR_SSH_URL }}
           ssh_private_key:
             ${{ secrets.GIT_SSH_PRIVATE_KEY }}
-    needs: [check_compilation_and_coding_style, run_tests]
+    needs: [search_forbidden_functions, check_coverage, run_tests]
