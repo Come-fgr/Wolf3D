@@ -8,9 +8,9 @@
 #ifndef MAP_H_
     #define MAP_H_
 
-#define TILE_SIZE 64
-#define MAP_WIDTH 8
-#define MAP_HEIGHT 8
+    #define TILE_SIZE 64
+    #define MAP_WIDTH 8
+    #define MAP_HEIGHT 8
 
 extern int map[MAP_HEIGHT][MAP_WIDTH];
 
