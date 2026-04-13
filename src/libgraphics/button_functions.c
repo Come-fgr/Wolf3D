@@ -16,13 +16,13 @@
 void b_start(game_t *game, const component_t *component)
 {
     if (game->event->type == sfEvtMouseButtonPressed &&
-        is_clicked(game->window, component))
+        is_clicked(&game->event->mouseButton, component))
         game->cur_scene = GAME;
 }
 
 void b_quit(game_t *game, const component_t *component)
 {
     if (game->event->type == sfEvtMouseButtonPressed &&
-        is_clicked(game->window, component))
+        is_clicked(&game->event->mouseButton, component))
         sfRenderWindow_close(game->window);
 }
