@@ -8,15 +8,20 @@
 #ifndef MACRO_H
     #define MACRO_H
 
+    // Exit status
+
     #define SUCCESS 0
     #define FAIL 1
     #define ERROR -1
     #define EPIFAIL 84
 
+    // Bases
+
 static const char DECA_BASE[] = "0123456789";
 static const char HEXA_BASE[] = "0123456789abcdef";
 static const char PRINT_NULL[] = "(null)";
 
-    #define NB_DIGITS 6
+    // Number of digits after the dot for mini_printf
+    #define FLOAT_PRECISION 2
 
 #endif /* !MACRO_H */

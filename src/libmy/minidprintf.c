@@ -81,7 +81,7 @@ static size_t print_args(int std, char flag, va_list args)
             return my_putnbr_base(std, va_arg(args, int), DECA_BASE);
         case 'f':
             return my_putfloat_base(std, va_arg(args, double), DECA_BASE,
-                NB_DIGITS);
+                FLOAT_PRECISION);
         default:
             return my_putchar(std, '%');
     }
