@@ -29,13 +29,17 @@ typedef struct component_s {
 
 struct game_s;
 
+typedef void (entity_update_fn_t)(struct game_s *, const component_t *);
+typedef void (entity_display_fn_t)(sfRenderWindow *, sfSprite *,
+    const component_t *);
+typedef void (entity_destroy_fn_t)(component_t *);
+
 typedef struct entity_s {
     entity_id_t id;
     char *texture_path;
-    void (*update)(struct game_s *game, const component_t *component);
-    void (*display)(sfRenderWindow *window, sfSprite *sprite,
-        const component_t *component);
-    void (*destroy)(component_t *component);
+    entity_update_fn_t *update;
+    entity_display_fn_t *display;
+    entity_destroy_fn_t *destroy;
 } entity_t;
 
 typedef struct entity_sprite_s {
