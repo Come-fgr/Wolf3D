@@ -8,12 +8,13 @@
 #include <unistd.h>
 #include "graphics.h"
 #include "my.h"
+#include "map.h"
 #include "macro.h"
 
 int main(int argc, char *argv[], char *env[])
 {
     if (!display_env_exist(env))
-        return EPIFAIL;;
+        return EPIFAIL;
     if (argc == 1)
         return main_loop();
     if (argc == 2 && my_strcmp(argv[1], "-h") == 0) {
