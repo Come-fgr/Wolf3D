@@ -10,19 +10,19 @@
 #include "graphics.h"
 
 static void display_scene(sfRenderWindow *window,
-    entity_sprite_t entity[NB_ENT], scene_id_t scene_id)
+    component_sprite_t sprite_list[NB_ENT], scene_id_t scene_id)
 {
     const component_t *component_list = SCENES[scene_id].component_list;
 
-    for (entity_id_t index = 0; component_list[index].id != NB_ENT; index++) {
-        ENTITY[component_list[index].id].display(window,
-            entity[component_list[index].id].sprite, &component_list[index]);
-    }
+    for (entity_id_t index = 0; component_list[index].entity != NB_ENT; index++)
+        ENTITY[component_list[index].entity].display(window,
+            sprite_list[component_list[index].entity].sprite,
+            &component_list[index]);
 }
 
 void display_game(game_t *game)
 {
     sfRenderWindow_clear(game->window, sfBlack);
-    display_scene(game->window, game->entity, game->cur_scene);
+    display_scene(game->window, game->sprite_list, game->cur_scene);
     sfRenderWindow_display(game->window);
 }

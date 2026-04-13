@@ -13,13 +13,13 @@
 #include "struct/game.h"
 
 //! sfSprite_destroy crash if texture loading fail
-static void destroy_entitys(entity_sprite_t *entity)
+static void destroy_entitys(component_sprite_t *sprite_list)
 {
     for (entity_id_t id = 0; id < NB_ENT; id++) {
-        if (entity[id].texture != NULL)
-            sfTexture_destroy(entity[id].texture);
-        if (entity[id].sprite != NULL)
-            sfSprite_destroy(entity[id].sprite);
+        if (sprite_list[id].texture != NULL)
+            sfTexture_destroy(sprite_list[id].texture);
+        if (sprite_list[id].sprite != NULL)
+            sfSprite_destroy(sprite_list[id].sprite);
     }
 }
 
@@ -31,5 +31,5 @@ void destroy_game(game_t *game)
         sfClock_destroy(game->clock);
     if (game->event != NULL)
         free(game->event);
-    destroy_entitys(game->entity);
+    destroy_entitys(game->sprite_list);
 }

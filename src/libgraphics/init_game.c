@@ -13,17 +13,20 @@
 #include "macro.h"
 #include "graphics.h"
 
-static int init_entity_sprite(entity_sprite_t *entity, entity_id_t id,
-    char *texture_path)
+static int init_sprite_list(component_sprite_t *sprite_list)
 {
-    entity->id = id;
-    entity->texture = sfTexture_createFromFile(texture_path, NULL);
-    if (!entity->texture)
-        return ERROR;
-    entity->sprite = sfSprite_create();
-    if (!entity->sprite)
-        return ERROR;
-    sfSprite_setTexture(entity->sprite, entity->texture, sfTrue);
+    for (texture_id_t id = 0; id < NB_TEXTURE; id++) {
+        sprite_list[id].id = id;
+        sprite_list[id].texture = sfTexture_createFromFile(
+            TEXTURE_LIST[id].texture_path, NULL);
+        if (!sprite_list[id].texture)
+            return ERROR;
+        sprite_list[id].sprite = sfSprite_create();
+        if (!sprite_list[id].sprite)
+            return ERROR;
+        sfSprite_setTexture(sprite_list[id].sprite, sprite_list[id].texture,
+            sfTrue);
+    }
     return SUCCESS;
 }
 
@@ -35,9 +38,7 @@ int init_game(game_t *game)
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->event = malloc(sizeof(sfEvent));
     game->clock = sfClock_create();
-    for (entity_id_t id = 0; id < NB_ENT; id++)
-        error += init_entity_sprite(&game->entity[id], id,
-            ENTITY[id].texture_path);
+    error += init_sprite_list(game->sprite_list);
     if (error || !game->window || !game->event || !game->clock) {
         destroy_game(game);
         return ERROR;

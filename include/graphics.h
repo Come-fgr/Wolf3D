@@ -32,22 +32,23 @@ void b_start(game_t *game, const component_t *component);
 void b_quit(game_t *game, const component_t *component);
 
 static const entity_t ENTITY[NB_ENT] = {
-    {B_QUIT, QUIT_TEXTURE, b_quit, display_sprite, destroy_component},
-    {B_START, START_TEXTURE, b_start, display_sprite, destroy_component}
+    {BUTTON, b_start, display_sprite, destroy_component},
+    //{B_QUIT, b_quit, display_sprite, destroy_component},
+    //{B_START, b_start, display_sprite, destroy_component}
 };
 
 static const component_t start_scene[] = {
-    {B_QUIT, (sfVector2f){925, 550},
+    {BUTTON, B_QUIT, (sfVector2f){925, 550},
         (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, NULL},
-    {B_START, (sfVector2f){922, 500},
+    {BUTTON, B_START, (sfVector2f){922, 500},
         (sfIntRect){0, 0, START_WIDTH, START_HEIGHT}, NULL},
-    {NB_ENT, {}, {}, NULL}
+    {NB_ENT, NB_TEXTURE, {}, {}, NULL}
 };
 
 static const component_t main_scene[] = {
-    {B_QUIT, (sfVector2f){10, 60},
+    {BUTTON, B_QUIT, (sfVector2f){10, 60},
         (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, NULL},
-    {NB_ENT, {}, {}, NULL}
+    {NB_ENT, NB_TEXTURE, {}, {}, NULL}
 };
 
 static const scene_t SCENES[NB_SCENE] = {
