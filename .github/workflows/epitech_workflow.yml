@@ -1,0 +1,110 @@
+name: EPITECH - CI/CD for wolf3d
+
+on:
+  push:
+    branches: ['**', '!no-ga/*']
+  pull_request:
+    branches: ['**', '!no-ga/*']
+
+permissions:
+  contents: read
+
+env:
+  CC: epiclang
+  # Separate EXECUTABLES or LIBRARIES by ','
+  EXECUTABLES: "wolf3d"
+  LIBRARIES: ""
+  COVERAGE_REQUIRED: false  # false | true
+  COVERAGE_MIN_PERCENT: 80  # Between 0 and 100
+  ALLOWED_FUNCTIONS: "ALL"
+  STATICS_REQUIRED: true    # false | true: Stop the workflow if not static fn
+  MAX_REPO_SIZE: 15000      # Must be in bytes
+
+  # Logs files - DO NOT TOUCH
+  BANANA_LOGS_FILE: "banana_logs.txt"
+  BUILD_LOGS_FILE: "build_logs.txt"
+  COVERAGE_LOGS_FILE: "coverage_logs.txt"
+  MEMORY_LOGS_FILE: "memory_logs.txt"
+
+jobs:
+
+  check_repo_size:
+    if: ${{ github.repository_owner == 'vdunon' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify size
+        run: bash ./.github/workflows/scripts/check_repo_size.sh ${{ env.MAX_REPO_SIZE }}
+
+  check_compilation_and_coding_style:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check coding style
+        run: bash ./.github/workflows/scripts/print_banana_errors.sh
+      - name: Build binaries
+        run: make 2> ${{ env.BUILD_LOGS_FILE }}
+        timeout-minutes: 2
+      - name: Print coding style errors
+        run: bash ./.github/workflows/scripts/print_coding_style_errors.sh ${{ env.BUILD_LOGS_FILE }}
+      - name: Clean repository
+        run: make clean
+      - name: Check binaries creation
+        run: bash ./.github/workflows/scripts/check_files.sh ${{ env.EXECUTABLES }} true
+      - name: Check libraries creation
+        run: bash ./.github/workflows/scripts/check_files.sh ${{ env.LIBRARIES }} false
+    needs: [check_repo_size]
+
+  run_tests:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run tests
+        run: make tests_run
+        timeout-minutes: 2
+    needs: check_compilation_and_coding_style
+
+  check_coverage:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check coverage output
+        run: bash ./.github/workflows/scripts/check_coverage.sh ${{ env.COVERAGE_MIN_PERCENT }} ${{ env.COVERAGE_REQUIRED }}
+        timeout-minutes: 2
+    needs: check_compilation_and_coding_style
+
+  search_forbidden_functions:
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check if we wanna check for forbidden functions
+        run: |
+          if [ "${{ env.ALLOWED_FUNCTIONS }}" = "ALL" ]; then
+            echo "::notice title=Skipped allowed functions check::Unset ALLOWED_FUNCTIONS from ALL to cancel that";
+            exit 0
+          fi
+      - name: Build
+        run: make
+      - name: Check for forbidden functions
+        run: bash ./.github/workflows/scripts/check_allowed_functions.sh ${{ env.ALLOWED_FUNCTIONS }} ${{ env.EXECUTABLES }} ${{ env.STATICS_REQUIRED }}
+        timeout-minutes: 2
+    needs: [check_compilation_and_coding_style]
+
+  push_to_mirror:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ vars.MIRROR_SSH_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+    needs: [check_compilation_and_coding_style, run_tests]
