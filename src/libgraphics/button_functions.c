@@ -26,3 +26,8 @@ void b_quit(game_t *game, const component_t *component)
         is_clicked(&game->event->mouseButton, component))
         sfRenderWindow_close(game->window);
 }
+
+void update_button(game_t *game, const component_t *component)
+{
+    ((entity_update_fn_t *)component->data)(game, component);
+}
