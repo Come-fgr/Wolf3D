@@ -16,7 +16,7 @@ static void display_scene(sfRenderWindow *window,
 
     for (entity_id_t index = 0; component_list[index].entity != NB_ENT; index++)
         ENTITY[component_list[index].entity].display(window,
-            sprite_list[component_list[index].entity].sprite,
+            sprite_list[component_list[index].texture].sprite,
             &component_list[index]);
 }
 
