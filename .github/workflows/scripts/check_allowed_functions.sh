@@ -6,34 +6,57 @@ if [[ ! "$1" || "$1" = "-h" || ! "$2" ]]; then
     exit 1
 fi
 
+## Params
 alloweds="$1"
 bins="$2"
+static_required="$3"
+
+## Authorized binaries array
 bins_arr=(${bins//","/ })
-throw_error=false
+
+## All headers files with prototypes
 all_defs=$(find ./include -iname "*.h" -type f -exec cat {} +)
-for bin in "${bins_arr[@]}"; do
-    echo "Checking inside $bin binary"
-    functions=$(nm -P $bin -g | awk '$1 !~ /^_/ && $1 != "main" && $1 != "data_start" {print $1}')
-    functions=(${functions})
+
+## An error occured
+throw_error=false
+
+should_be_static() {
+    if [[ $static_required = "false" ]]; then
+        echo "::warning title=Function should be static '$f'::$f - Not defined inside a header"
+        return
+    fi
+    echo "::error title=Function should be static '$f'::$f - Not defined inside a header"
+    throw_error=true
+}
+
+function_not_found_in_headers() {
+    if [[ $is_extern == $f ]]; then
+        should_be_static $static_required
+    elif [[ $alloweds != "ALL" ]]; then
+        echo "::error title=Function not allowed '$f'::$f - Not allowed - Allowed functions are $alloweds"
+        throw_error=true
+    fi
+}
+
+check_if_function_is_authorized() {
     for fn in "${functions[@]}"; do
         f=$(echo "$fn" | cut -d "@" -f 1)
         is_extern=$(echo "$fn" | cut -d "@" -f 2)
+        if [[ ! $is_extern && $f =~ "sf*" ]]; then continue; fi
         def=$(echo "$all_defs" | grep "$f(" || true)
         if [[ "$def" = "" && ! $(echo "$alloweds" | grep "$f") ]]; then
-            if [[ $is_extern == $f ]]; then
-                if [[ $3 = "false" ]]; then
-                    echo "::warning title=Function should be static '$f'::$f - Not defined inside a header"
-                    continue;
-                fi
-                echo "::error title=Function should be static '$f'::$f - Not defined inside a header"
-                throw_error=true
-            elif [[ $alloweds != "ALL" ]]; then
-                echo "::error title=Function not allowed '$f'::$f - Not allowed - Allowed functions are $alloweds"
-                throw_error=true
-            fi
+            function_not_found_in_headers
         else
             echo "[✅] - Function $f is authorized or not external"
         fi
     done
+}
+
+for bin in "${bins_arr[@]}"; do
+    echo "Checking inside $bin binary"
+    functions=$(nm -P $bin -g | awk '$1 !~ /^_/ && $1 != "main" && $1 != "data_start" {print $1}')
+    functions=(${functions})
+    check_if_function_is_authorized
 done
+
 if [ $throw_error = "true" ]; then exit 1; fi
