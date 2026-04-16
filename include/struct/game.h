@@ -11,6 +11,8 @@
     #include <stddef.h>
     #include <SFML/System/Clock.h>
     #include <SFML/Window/Event.h>
+    #include <SFML/System/InputStream.h>
+
     #include "struct/scene.h"
 
 typedef struct game_s {
@@ -20,6 +22,7 @@ typedef struct game_s {
     component_sprite_t sprite_list[NB_TEXTURE];
     scene_id_t cur_scene;
     double frame_sec;
+    _Bool keys[sfKeyCount];
 } game_t;
 
 int init_game(game_t *game);

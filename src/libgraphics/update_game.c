@@ -9,6 +9,8 @@
 #include <SFML/System/Clock.h>
 #include <SFML/System/Types.h>
 #include <SFML/Window/Keyboard.h>
+
+#include "events/events.h"
 #include "graphics.h"
 
 static void update_scene(game_t *game, const scene_id_t scene_id)
@@ -31,11 +33,7 @@ static double update_frame_rate(sfClock *clock)
 
 void update_game(game_t *game)
 {
-    while (sfRenderWindow_pollEvent(game->window, game->event)) {
-        if (game->event->type == sfEvtClosed ||
-            sfKeyboard_isKeyPressed(sfKeyEscape))
-            sfRenderWindow_close(game->window);
-    }
+    analyse_events(game->window, game);
     update_scene(game, game->cur_scene);
     game->frame_sec = update_frame_rate(game->clock);
 }

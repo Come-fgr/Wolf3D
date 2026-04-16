@@ -29,8 +29,12 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						is_clicked.c		\
 						display_env_exist.c
 
+EVENTS_FILES		=	analyse_events.c 	\
+						key_event.c
+
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
-				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))
+				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				$(addprefix events/, $(EVENTS_FILES))
 
 SRC			=	$(addprefix src/, $(SRC_FILES))	\
 				src/main.c
