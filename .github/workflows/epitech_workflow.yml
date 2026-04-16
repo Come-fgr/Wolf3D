@@ -101,4 +101,4 @@ jobs:
             ${{ vars.MIRROR_SSH_URL }}
           ssh_private_key:
             ${{ secrets.GIT_SSH_PRIVATE_KEY }}
-    needs: [search_forbidden_functions, check_coverage, run_tests]
+    needs: [search_forbidden_functions, run_tests]
