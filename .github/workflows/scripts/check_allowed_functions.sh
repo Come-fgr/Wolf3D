@@ -9,7 +9,7 @@ fi
 alloweds="$1"
 bins="$2"
 bins_arr=(${bins//","/ })
-not_found=false
+throw_error=false
 all_defs=$(find ./include -iname "*.h" -type f -exec cat {} +)
 for bin in "${bins_arr[@]}"; do
     echo "Checking inside $bin binary"
@@ -26,13 +26,14 @@ for bin in "${bins_arr[@]}"; do
                     continue;
                 fi
                 echo "::error title=Function should be static '$f'::$f - Not defined inside a header"
-            else
+                throw_error=true
+            elif [[ $alloweds != "ALL" ]]; then
                 echo "::error title=Function not allowed '$f'::$f - Not allowed - Allowed functions are $alloweds"
+                throw_error=true
             fi
-            not_found=true
         else
             echo "[✅] - Function $f is authorized or not external"
         fi
     done
 done
-if [ $not_found = "true" ]; then exit 1; fi
+if [ $throw_error = "true" ]; then exit 1; fi

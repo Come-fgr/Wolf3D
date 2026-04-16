@@ -81,12 +81,6 @@ jobs:
     container: epitechcontent/epitest-docker:latest
     steps:
       - uses: actions/checkout@v6
-      - name: Check if we wanna check for forbidden functions
-        run: |
-          if [ "${{ env.ALLOWED_FUNCTIONS }}" = "ALL" ]; then
-            echo "::notice title=Skipped allowed functions check::Unset ALLOWED_FUNCTIONS from ALL to cancel that";
-            exit 0
-          fi
       - name: Build
         run: make
       - name: Check for forbidden functions

@@ -11,7 +11,7 @@ make coverage | (
         arr=(${p//" "/ })
         percent=$(echo "${arr[3]}")
         percent="${percent//%/}"
-        re='[0-9][0-9]'
+        re='\b[0-9]\b'
         if [[ $percent =~ $re ]] ; then
             if [[ ${arr[0]} != 'TOTAL' ]]; then
                 if [[ ! $percent -gt "$min_percent" ]] ; then
