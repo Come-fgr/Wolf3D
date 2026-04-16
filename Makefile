@@ -30,10 +30,10 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_env_exist.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
-				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
-				main.c
+				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))
 
 SRC			=	$(addprefix src/, $(SRC_FILES))	\
+				src/main.c
 
 OBJ			=	$(SRC:.c=.o)
 
