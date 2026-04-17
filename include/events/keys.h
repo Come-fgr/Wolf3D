@@ -31,10 +31,16 @@ typedef struct key_event_e {
 } key_event_t;
 
 ////////////////////////////////////////////
-////      Managing game fncts         ////
+////      Managing game fncts           ////
 ////////////////////////////////////////////
 
-// Add functions prototypes here
+void player_move_left(game_t *game);
+void player_move_right(game_t *game);
+void player_move_forward(game_t *game);
+void player_move_backward(game_t *game);
+
+void player_move_stop_x(game_t *game);
+void player_move_stop_y(game_t *game);
 
 ////////////////////////////////////////////
 ////   Handler of KeyPressed Event
@@ -60,6 +66,10 @@ void key_released(sfEvent *evt, game_t *game);
  * @brief Associates keys to functions to handle KeyReleased evt
  */
 static const key_event_t key_pressed_evts[] = {
+    { sfKeyQ, &player_move_left },
+    { sfKeyD, &player_move_right },
+    { sfKeyZ, &player_move_forward },
+    { sfKeyS, &player_move_backward },
     { sfKeyUnknown, NULL }
 };
 
@@ -67,6 +77,10 @@ static const key_event_t key_pressed_evts[] = {
  * @brief Associates keys to functions to handle KeyPressed evt
  */
 static const key_event_t key_released_evts[] = {
+    { sfKeyQ, &player_move_stop_x },
+    { sfKeyD, &player_move_stop_x },
+    { sfKeyZ, &player_move_stop_y },
+    { sfKeyS, &player_move_stop_y },
     { sfKeyUnknown, NULL }
 };
 

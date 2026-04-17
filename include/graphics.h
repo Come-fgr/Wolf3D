@@ -23,6 +23,7 @@
 
 bool display_env_exist(char **env);
 int main_loop(void);
+void update_player(game_t *game);
 void update_nothing(game_t *game, const component_t *component);
 void display_sprite(sfRenderWindow *window, sfSprite *sprite,
     const component_t *component);

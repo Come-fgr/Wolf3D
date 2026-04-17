@@ -5,7 +5,7 @@
 ** player_move
 */
 
-#include "game.h"
+#include "struct/game.h"
 
 void player_move_left(game_t *game)
 {

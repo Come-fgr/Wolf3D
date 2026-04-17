@@ -6,7 +6,7 @@
 ** sent to the function as a string
 */
 
-#include "my/string.h"
+#include "my_string.h"
 #include "my.h"
 
 long my_strtol(char const *str, char **restrict endptr)
