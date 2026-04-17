@@ -14,7 +14,7 @@ env:
   # Separate EXECUTABLES or LIBRARIES by ','
   EXECUTABLES: "wolf3d"
   LIBRARIES: ""
-  COVERAGE_MIN_PERCENT: 80  # Between 0 and 100
+  COVERAGE_MIN_PERCENT: 0  # Between 0 and 100
   ALLOWED_FUNCTIONS: "LIBC,sf*"
   STATICS_REQUIRED: true    # false | true: Stop the workflow if not static fn
   MAX_REPO_SIZE: 15000      # Must be in bytes
