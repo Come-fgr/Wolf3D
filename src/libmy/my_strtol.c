@@ -6,12 +6,8 @@
 ** sent to the function as a string
 */
 
+#include "my/string.h"
 #include "my.h"
-
-size_t my_isdigits(char c)
-{
-    return '0' <= c && c <= '9';
-}
 
 long my_strtol(char const *str, char **restrict endptr)
 {
@@ -24,12 +20,12 @@ long my_strtol(char const *str, char **restrict endptr)
     for (i = 0; str[i] != 0; i++) {
         if (str[i] == '-' && is_sign)
             sign = -sign;
-        if (my_isdigits(str[i])) {
+        if (IS_DIGIT(str[i])) {
             is_sign = 0;
             res += (str[i] - '0') * my_pow(10, (len - 1) - i);
         }
         if (!((str[i] == '-' || str[i] == '+') && is_sign)
-            && !my_isdigits(str[i]))
+            && !IS_DIGIT(str[i]))
             return (res / my_pow(10, len - i)) * sign;
     }
     *endptr = (char *)&str[i];

@@ -95,7 +95,7 @@ size_t minidprintf(int std, const char *format, ...)
     if (format == NULL)
         return count;
     va_start(args, format);
-    for (int i = 0; format[i] != '\0'; i++) {
+    for (size_t i = 0; format[i] != '\0'; i++) {
         if (format[i] == '%') {
             i++;
             count += print_args(std, format[i], args);

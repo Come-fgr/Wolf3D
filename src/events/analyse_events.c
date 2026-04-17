@@ -12,7 +12,7 @@
 #include "events/events.h"
 #include "struct/game.h"
 
-void trigger_associated_ev(sfEvent *evt, game_t *game)
+static void trigger_associated_ev(sfEvent *evt, game_t *game)
 {
     for (int i = 0; evts_types[i].type != sfEvtCount; i++)
         if (evts_types[i].fnct && evts_types[i].type == evt->type)

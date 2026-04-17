@@ -21,7 +21,7 @@ long long my_pow(int nb, int p);
 double my_round(double nbr, size_t digits);
 size_t my_strlen(char const *str);
 int my_strcmp(char const *s1, char const *s2);
-int my_strncmp(char const *s1, char const *s2, int n);
+int my_strncmp(char const *s1, char const *s2, size_t n);
 long my_strtol(char const *str, char **restrict endptr);
 
 #endif /* !MY_H_ */
