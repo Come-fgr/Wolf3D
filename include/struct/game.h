@@ -14,6 +14,7 @@
     #include <SFML/System/InputStream.h>
 
     #include "struct/scene.h"
+    #include "struct/player.h"
 
     // Takes game struct pointer as argument
     #define GET_FPS(x) (1 / ((game_t *)(x))->delta_time)
@@ -24,6 +25,7 @@ typedef struct game_s {
     sfClock *clock;
     component_sprite_t sprite_list[NB_TEXTURE];
     scene_id_t cur_scene;
+    player_t *plr;
     float delta_time;
     _Bool keys[sfKeyCount];
 } game_t;
