@@ -16,7 +16,7 @@ env:
   LIBRARIES: ""
   COVERAGE_REQUIRED: false  # false | true
   COVERAGE_MIN_PERCENT: 80  # Between 0 and 100
-  ALLOWED_FUNCTIONS: "ALL"
+  ALLOWED_FUNCTIONS: "LIBC,sf*"
   STATICS_REQUIRED: true    # false | true: Stop the workflow if not static fn
   MAX_REPO_SIZE: 15000      # Must be in bytes
 
