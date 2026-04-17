@@ -15,13 +15,16 @@
 
     #include "struct/scene.h"
 
+    // Takes game struct pointer as argument
+    #define GET_FPS(x) (1 / ((game_t *)(x))->delta_time)
+
 typedef struct game_s {
     sfRenderWindow *window;
     sfEvent *event;
     sfClock *clock;
     component_sprite_t sprite_list[NB_TEXTURE];
     scene_id_t cur_scene;
-    double frame_sec;
+    float delta_time;
     _Bool keys[sfKeyCount];
 } game_t;
 

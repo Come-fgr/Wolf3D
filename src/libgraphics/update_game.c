@@ -22,18 +22,16 @@ static void update_scene(game_t *game, const scene_id_t scene_id)
             &component_list[index]);
 }
 
-static double update_frame_rate(sfClock *clock)
+static float get_delta_time(sfClock *clock)
 {
-    sfTime time = sfClock_getElapsedTime(clock);
-    double seconds = sfTime_asSeconds(time);
+    sfTime time = sfClock_restart(clock);
 
-    sfClock_restart(clock);
-    return 1 / seconds;
+    return sfTime_asSeconds(time);
 }
 
 void update_game(game_t *game)
 {
     analyse_events(game->window, game);
     update_scene(game, game->cur_scene);
-    game->frame_sec = update_frame_rate(game->clock);
+    game->delta_time = get_delta_time(game->clock);
 }
