@@ -17,7 +17,7 @@ static void update_scene(game_t *game, const scene_id_t scene_id)
 {
     const component_t *component_list = SCENES[scene_id].component_list;
 
-    for (entity_id_t index = 0; component_list[index].entity != NB_ENT; index++)
+    for (size_t index = 0; component_list[index].entity != NB_ENT; index++)
         if (ENTITY[component_list[index].entity].update != NULL)
             ENTITY[component_list[index].entity].update(
                 game, &component_list[index]);

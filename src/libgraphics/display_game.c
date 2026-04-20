@@ -14,7 +14,7 @@ static void display_scene(sfRenderWindow *window,
 {
     const component_t *component_list = SCENES[scene_id].component_list;
 
-    for (entity_id_t index = 0; component_list[index].entity != NB_ENT; index++)
+    for (size_t index = 0; component_list[index].entity != NB_ENT; index++)
         ENTITY[component_list[index].entity].display(window,
             sprite_list[component_list[index].texture].sprite,
             &component_list[index]);
