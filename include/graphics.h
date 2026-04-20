@@ -16,7 +16,7 @@
 
     #define WINDOW_HEIGHT 1080
     #define WINDOW_WIDTH 1920
-    #define WINDOW_NAME "my_world"
+    #define WINDOW_NAME "Wolf3d"
     #define FRAMERATE_LIMIT 60
     #define MAIN_SCENE MENU_START
     #define DISPLAY_ENV "DISPLAY"
