@@ -33,7 +33,8 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\
 						player_move_stop.c 	\
-						player_move.c
+						player_move.c		\
+						handle_buttons_click.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
 				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\

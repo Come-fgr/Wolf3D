@@ -23,6 +23,5 @@ void display_sprite(sfRenderWindow *window, sfSprite *sprite,
 
 void destroy_component(component_t *component)
 {
-    free(component->data);
     free(component);
 }

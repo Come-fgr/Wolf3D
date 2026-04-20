@@ -35,12 +35,16 @@ typedef struct event_type_e {
 ////            Functions               ////
 ////////////////////////////////////////////
 
+void handle_buttons_click(sfEvent *evt, game_t *game);
+
+
 /***
  * @brief Associates keys to functions to handle KeyPressed evt
  */
 static const event_type_t evts_types[] = {
     { sfEvtKeyReleased, &key_released },
     { sfEvtKeyPressed, &key_pressed },
+    { sfEvtMouseButtonPressed, &handle_buttons_click },
     { sfEvtCount, NULL }
 };
 
