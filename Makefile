@@ -75,8 +75,8 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(RM) $(OBJ)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 
 fclean: clean
 	@$(RM) $(NAME)
