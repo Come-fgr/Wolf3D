@@ -16,6 +16,8 @@
 static void key_manage(
     sfEvent *evt, game_t *game, _Bool add_to_keys, const key_event_t arr[])
 {
+    if (evt == NULL || game == NULL || arr == NULL)
+        return;
     game->keys[evt->key.code] = add_to_keys;
     for (int i = 0; arr && arr[i].key != sfKeyUnknown; i++) {
         if (evt->key.code == arr[i].key && arr[i].fnct) {
