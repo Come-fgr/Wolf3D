@@ -21,13 +21,6 @@ void display_sprite(sfRenderWindow *window, sfSprite *sprite,
     sfRenderWindow_drawSprite(window, sprite, NULL);
 }
 
-void update_nothing(game_t *game, const component_t *component)
-{
-    (void)game;
-    (void)component;
-    return;
-}
-
 void destroy_component(component_t *component)
 {
     free(component->data);
