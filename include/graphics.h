@@ -25,7 +25,6 @@
 
 int main_loop(void);
 void update_player(game_t *game);
-void update_button(game_t *game, const component_t *component);
 
 // Display
 
