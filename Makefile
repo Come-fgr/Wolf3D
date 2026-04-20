@@ -96,8 +96,8 @@ tests_run: clean
 
 coverage: tests_run
 	gcovr $(COVR_FLAGS)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 	@$(RM) $(UT_NAME)
 
 .PHONY:
