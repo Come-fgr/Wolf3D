@@ -5,7 +5,6 @@
 ** analyse_events
 */
 #include <stdio.h>
-#include "my.h"
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Window/Event.h>
 

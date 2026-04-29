@@ -11,7 +11,6 @@
 
 #include "events/keys.h"
 #include "struct/game.h"
-#include "my.h"
 
 static void key_manage(
     sfEvent *evt, game_t *game, _Bool add_to_keys, const key_event_t arr[])
