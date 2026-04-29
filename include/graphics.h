@@ -45,7 +45,7 @@ void b_quit(game_t *game);
 // Scenes, entities & components lists
 
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, NULL, &display_sprite, &destroy_component },
+    {BUTTON, NULL, &display_sprite, &destroy_component, CLICKABLE},
 };
 
 static const component_t start_scene[] = {

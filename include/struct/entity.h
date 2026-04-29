@@ -10,7 +10,12 @@
 
     #include "texture.h"
 
-typedef enum entity_id_s {
+typedef enum properties_e {
+    CLICKABLE,
+    NB_PROPERTIES
+} properties_t;
+
+typedef enum entity_id_e {
     BUTTON,
     NB_ENT
 } entity_id_t;
@@ -25,7 +30,7 @@ typedef struct component_s {
     texture_id_t texture;
     sfVector2f pos;
     sfIntRect rect;
-    component_fn_t *triggered;
+    void *data;
 } component_t;
 
 // Events
@@ -46,7 +51,7 @@ typedef struct entity_s {
     entity_update_fn_t *update;     // Executed at each frame
     entity_display_fn_t *display;
     entity_destroy_fn_t *destroy;
-    //entity_click_fn_t *onclick;     // Only GUI elements for now
+    properties_t props;
 } entity_t;
 
 #endif /* !ENTITY_H */
