@@ -23,15 +23,13 @@ typedef struct texture_s
 {
     texture_id_t id;
     char *texture_path;
-    size_t width;
-    size_t height;
 } texture_t;
 
     #include "button.h"
 
 static const texture_t TEXTURE_LIST[NB_TEXTURE] = {
-    {B_QUIT, QUIT_TEXTURE, QUIT_WIDTH, QUIT_HEIGHT},
-    {B_START, START_TEXTURE, START_WIDTH, START_HEIGHT}
+    {B_QUIT, QUIT_TEXTURE},
+    {B_START, START_TEXTURE}
 };
 
 typedef struct component_sprite_s {
