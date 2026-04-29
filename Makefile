@@ -11,14 +11,6 @@ RM			:=	rm -f
 
 NAME    	:=	wolf3d
 
-LIBMY_FILES			=	minidprintf.c	\
-						my_pow.c		\
-						my_round.c		\
-						my_strcmp.c		\
-						my_strlen.c		\
-						my_strncmp.c	\
-						my_strtol.c
-
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
 						init_game.c			\
@@ -36,8 +28,7 @@ EVENTS_FILES		=	analyse_events.c 	\
 						player_move.c		\
 						handle_buttons_click.c
 
-SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
-				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
 				$(addprefix events/, $(EVENTS_FILES))
 
 SRC			=	$(addprefix src/, $(SRC_FILES))	\
