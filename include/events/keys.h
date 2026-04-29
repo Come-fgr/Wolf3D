@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** game
+** Wolf3d
 ** File description:
 ** myevents
 */

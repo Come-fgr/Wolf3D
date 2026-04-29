@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** myradar
+** Wolf3d
 ** File description:
 ** events_types
 */
