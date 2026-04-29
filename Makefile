@@ -7,9 +7,9 @@
 
 CC			:=	epiclang
 
-RM			=	rm -f
+RM			:=	rm -f
 
-NAME    	=	wolf3d
+NAME    	:=	wolf3d
 
 LIBMY_FILES			=	minidprintf.c	\
 						my_pow.c		\
@@ -27,10 +27,18 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						entity_functions.c	\
 						button_functions.c	\
 						is_clicked.c		\
-						display_env_exist.c
+						display_env_exist.c	\
+						update_player.c
+
+EVENTS_FILES		=	analyse_events.c 	\
+						key_event.c			\
+						player_move_stop.c 	\
+						player_move.c		\
+						handle_buttons_click.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
-				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))
+				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				$(addprefix events/, $(EVENTS_FILES))
 
 SRC			=	$(addprefix src/, $(SRC_FILES))	\
 				src/main.c
@@ -39,7 +47,7 @@ OBJ			=	$(SRC:.c=.o)
 
 CFLAGS		+=	-Wall -Wextra -fno-builtin
 
-CPPFLAGS	+=	-iquote ./include
+CPPFLAGS	+=	-iquote ./include -iquote ./include/my
 
 DEBUG_FLAGS	=	-g3
 
@@ -67,8 +75,8 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(RM) $(OBJ)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -88,8 +96,8 @@ tests_run: clean
 
 coverage: tests_run
 	gcovr $(COVR_FLAGS)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 	@$(RM) $(UT_NAME)
 
 .PHONY:

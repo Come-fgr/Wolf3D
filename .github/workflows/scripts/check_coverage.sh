@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ ! "$1" || "$1" = "-h" ]]; then
-    >&2 echo "check_coverage: expected format: ./check_coverage.sh [MIN_PERCENT] (COVERAGE_REQUIRED)"
+    >&2 echo "check_coverage: expected format: ./check_coverage.sh [MIN_PERCENT]"
     exit 1
 fi
 
@@ -24,10 +24,11 @@ make coverage | (
             else
                 if [[ ! $percent -gt "$min_percent" ]] ; then
                     echo "::error title=Not enought global coverage::$percent% coverage - expected at least $min_percent"
-                    [ "$2" = "true" ] && exit 1
+                    exit 1
                 else
                     echo "--------------------------------------"
                     echo "[✅] - Repository has enought coverage: $percent%/$min_percent%"
+                    exit 0
                 fi
             fi
         fi
