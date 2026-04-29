@@ -7,6 +7,9 @@
 
 CC			:=	epiclang
 
+SRC_DIR		:=	src
+OBJ_DIR		:=	build
+
 RM			:=	rm -f
 
 NAME    	:=	wolf3d
@@ -31,10 +34,10 @@ EVENTS_FILES		=	analyse_events.c 	\
 SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
 				$(addprefix events/, $(EVENTS_FILES))
 
-SRC			=	$(addprefix src/, $(SRC_FILES))	\
-				src/main.c
+SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))	\
+				$(SRC_DIR)/main.c
 
-OBJ			=	$(SRC:.c=.o)
+OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CFLAGS		+=	-Wall -Wextra -fno-builtin
 
@@ -45,10 +48,9 @@ DEBUG_FLAGS	=	-g3
 LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-window		\
 				-lcsfml-system		\
-				-lcsfml-audio		\
-				-lm
+				-lcsfml-audio
 
-UT_SRC		=	$(addprefix src/, $(SRC_FILES)) \
+UT_SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
 
 UT_NAME		=	unit_tests
 
@@ -61,11 +63,17 @@ VALGR_FLAGS	=	-s --leak-check=full
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJ)
 	$(CC) -o $(NAME) $(OBJ)	$(LDFLAGS)
 
+$(OBJ_DIR):
+	rsync -a --include='*/' --exclude='*' $(SRC_DIR)/ $(OBJ_DIR)/
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) -o $@ -c $^ $(CFLAGS) $(CPPFLAGS)
+
 clean:
-	@$(RM) $(OBJ)
+	$(RM) $(OBJ)
 	@$(RM) *.gcda
 	@$(RM) *.gcno
 
