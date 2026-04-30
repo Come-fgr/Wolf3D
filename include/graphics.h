@@ -21,7 +21,7 @@
     #define MAIN_SCENE MENU_START
     #define DISPLAY_ENV "DISPLAY"
 
-bool display_env_exist(char **env);
+bool display_env_exist(char *const *env);
 int main_loop(void);
 void update_nothing(game_t *game, const component_t *component);
 void display_sprite(sfRenderWindow *window, sfSprite *sprite,

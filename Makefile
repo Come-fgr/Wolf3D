@@ -17,7 +17,9 @@ LIBMY_FILES			=	minidprintf.c	\
 						my_strcmp.c		\
 						my_strlen.c		\
 						my_strncmp.c	\
-						my_strtol.c
+						my_strtol.c		\
+						get_flags.c		\
+						get_index.c
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\

@@ -8,7 +8,7 @@
 #include "graphics.h"
 #include "my.h"
 
-bool display_env_exist(char **env)
+bool display_env_exist(char *const *env)
 {
     size_t len = my_strlen(DISPLAY_ENV);
 

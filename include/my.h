@@ -9,6 +9,7 @@
     #define MY_H_
 
     #include <stddef.h>
+    #include <stdbool.h>
 
     #define ABS(value) value < 0 ? -value : value
 
@@ -23,5 +24,16 @@ size_t my_strlen(char const *str);
 int my_strcmp(char const *s1, char const *s2);
 int my_strncmp(char const *s1, char const *s2, int n);
 long my_strtol(char const *str, char **restrict endptr);
+
+typedef enum {
+    HELP,
+    DEBUG,
+    NB_FLAGS
+} flag_t;
+
+static const char FLAGS_CHAR[NB_FLAGS] = "hd";
+
+int get_index(char c, const char *str);
+int get_flags(int argc, char *const *argv, bool flag_list[NB_FLAGS]);
 
 #endif /* !MY_H_ */
