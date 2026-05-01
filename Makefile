@@ -18,6 +18,7 @@ LIBMY_FILES			=	minidprintf.c	\
 						my_strlen.c		\
 						my_strncmp.c	\
 						my_strtol.c		\
+						my_strdup.c		\
 						get_flags.c		\
 						get_index.c
 
@@ -29,7 +30,8 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						entity_functions.c	\
 						button_functions.c	\
 						is_clicked.c		\
-						display_env_exist.c
+						display_env_exist.c	\
+						load_ressource.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
 				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\

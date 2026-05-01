@@ -24,6 +24,7 @@ size_t my_strlen(char const *str);
 int my_strcmp(char const *s1, char const *s2);
 int my_strncmp(char const *s1, char const *s2, int n);
 long my_strtol(char const *str, char **restrict endptr);
+char *my_strdup(char const *src);
 
 typedef enum {
     HELP,
