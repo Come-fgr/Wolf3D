@@ -21,6 +21,7 @@ int init_text(component_t *component,
     sfText_setString(text, data->string);
     sfText_setFont(text, ressource_list[component->texture].font);
     sfText_setCharacterSize(text, data->size);
+    data->text = text;
     return SUCCESS;
 }
 
