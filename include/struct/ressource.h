@@ -19,16 +19,25 @@ typedef enum {
     NB_RESSOURCE
 } ressource_id_t;
 
+typedef enum {
+    TEXTURE,
+    MUSIC,
+    FONT,
+    NB_RESSOURCE_TYPE
+} ressource_type_t;
+
 typedef struct ressource_s {
     ressource_id_t id;
+    ressource_type_t type;
     char *ressource_path;
 } ressource_t;
 
     #include "button.h"
 
 static const ressource_t RESSOURCE_LIST[NB_RESSOURCE] = {
-    {B_QUIT, QUIT_TEXTURE},
-    {B_START, START_TEXTURE}
+    {B_QUIT, TEXTURE, QUIT_TEXTURE},
+    {B_START, TEXTURE, START_TEXTURE}
+//    {TITANFALL_FONT, FONT, "assets/font/titanfall.ttf"},
 };
 
 typedef struct component_ressource_s {
@@ -39,13 +48,6 @@ typedef struct component_ressource_s {
 
 static const char ASSETS_DIR[] = "assets";
 static const char SPRITE_DIR[] = "assets/sprite";
-
-typedef enum {
-    TEXTURE,
-    MUSIC,
-    FONT,
-    NB_RESSOURCE_TYPE
-} ressource_type_t;
 
 //typedef struct ressource_dir_s {
 //    char *name;

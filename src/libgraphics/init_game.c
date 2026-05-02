@@ -13,19 +13,30 @@
 #include "macro.h"
 #include "graphics.h"
 
+static int init_sprite(component_ressource_t *sprite, char *texture_path)
+{
+    sprite->texture = sfTexture_createFromFile(texture_path, NULL);
+    if (!sprite->texture)
+        return ERROR;
+    sprite->sprite = sfSprite_create();
+    if (!sprite->sprite)
+        return ERROR;
+    sfSprite_setTexture(sprite->sprite, sprite->texture,
+        sfTrue);
+    return SUCCESS;
+}
+
 static int init_sprite_list(component_ressource_t *sprite_list)
 {
+    int exit = SUCCESS;
+
     for (ressource_id_t id = 0; id < NB_RESSOURCE; id++) {
         sprite_list[id].id = id;
-        sprite_list[id].texture = sfTexture_createFromFile(
-            RESSOURCE_LIST[id].ressource_path, NULL);
-        if (!sprite_list[id].texture)
+        if (RESSOURCE_LIST[id].type == TEXTURE)
+            exit = init_sprite(&sprite_list[id],
+                RESSOURCE_LIST[id].ressource_path);
+        if (exit == ERROR)
             return ERROR;
-        sprite_list[id].sprite = sfSprite_create();
-        if (!sprite_list[id].sprite)
-            return ERROR;
-        sfSprite_setTexture(sprite_list[id].sprite, sprite_list[id].texture,
-            sfTrue);
     }
     return SUCCESS;
 }
