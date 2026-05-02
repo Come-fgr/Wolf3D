@@ -21,7 +21,7 @@ typedef enum {
 
 typedef struct scene_s {
     scene_id_t id;
-    const component_t *component_list;
+    component_t *component_list;
 } scene_t;
 
 #endif /* !SCENE_H */

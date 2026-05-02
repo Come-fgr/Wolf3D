@@ -12,6 +12,7 @@
 
 typedef enum entity_id_s {
     BUTTON,
+    TEXT,
     NB_ENT
 } entity_id_t;
 
@@ -27,6 +28,8 @@ typedef struct component_s {
 
 struct game_s;
 
+typedef int (entity_init_fn_t)(component_t *, component_ressource_t
+    ressource_list[NB_RESSOURCE]);
 typedef void (entity_update_fn_t)(struct game_s *, const component_t *);
 typedef void (entity_display_fn_t)(sfRenderWindow *, sfSprite *,
     const component_t *);
@@ -34,6 +37,7 @@ typedef void (entity_destroy_fn_t)(component_t *);
 
 typedef struct entity_s {
     entity_id_t id;
+    entity_init_fn_t *init;
     entity_update_fn_t *update;
     entity_display_fn_t *display;
     entity_destroy_fn_t *destroy;

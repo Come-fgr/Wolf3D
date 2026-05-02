@@ -31,7 +31,8 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						button_functions.c	\
 						is_clicked.c		\
 						display_env_exist.c	\
-						load_ressource.c
+						load_ressource.c	\
+						text_function.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
 				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\

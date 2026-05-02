@@ -57,6 +57,33 @@ static int init_sprite_list(component_ressource_t *sprite_list)
     return SUCCESS;
 }
 
+static int init_component(component_t *component_list,
+    component_ressource_t ressource_list[NB_RESSOURCE])
+{
+    entity_t entity = {};
+    component_ressource_t ressource = {};
+    int exit = SUCCESS;
+
+    for (size_t i = 0; component_list[i].entity != NB_ENT; i++) {
+        entity = ENTITY[component_list[i].entity];
+        ressource = ressource_list[component_list[i].texture];
+        if (entity.init != NULL)
+            exit = entity.init(&component_list[i], &ressource);
+        if (exit == ERROR)
+            return ERROR;
+    }
+    return SUCCESS;
+}
+
+static int init_scene(component_ressource_t ressource_list[NB_RESSOURCE])
+{
+    for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
+        if (init_component(SCENES[scene_id].component_list, ressource_list)
+            == ERROR)
+            return ERROR;
+    return SUCCESS;
+}
+
 int init_game(game_t *game)
 {
     int error = SUCCESS;
@@ -67,6 +94,10 @@ int init_game(game_t *game)
     game->clock = sfClock_create();
     error += init_sprite_list(game->sprite_list);
     if (error || !game->window || !game->event || !game->clock) {
+        destroy_game(game);
+        return ERROR;
+    }
+    if (init_scene(game->sprite_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }
