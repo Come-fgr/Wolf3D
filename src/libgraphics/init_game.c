@@ -10,19 +10,28 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
+#include <SFML/Graphics/Font.h>
 #include "macro.h"
 #include "graphics.h"
 
-static int init_sprite(component_ressource_t *sprite, char *texture_path)
+static int init_sprite(component_ressource_t *ressource, char *texture_path)
 {
-    sprite->texture = sfTexture_createFromFile(texture_path, NULL);
-    if (!sprite->texture)
+    ressource->texture = sfTexture_createFromFile(texture_path, NULL);
+    if (!ressource->texture)
         return ERROR;
-    sprite->sprite = sfSprite_create();
-    if (!sprite->sprite)
+    ressource->sprite = sfSprite_create();
+    if (!ressource->sprite)
         return ERROR;
-    sfSprite_setTexture(sprite->sprite, sprite->texture,
+    sfSprite_setTexture(ressource->sprite, ressource->texture,
         sfTrue);
+    return SUCCESS;
+}
+
+static int init_font(component_ressource_t *ressource, char *font_path)
+{
+    ressource->font = sfFont_createFromFile(font_path);
+    if (ressource->font == NULL)
+        return ERROR;
     return SUCCESS;
 }
 
@@ -32,9 +41,16 @@ static int init_sprite_list(component_ressource_t *sprite_list)
 
     for (ressource_id_t id = 0; id < NB_RESSOURCE; id++) {
         sprite_list[id].id = id;
-        if (RESSOURCE_LIST[id].type == TEXTURE)
-            exit = init_sprite(&sprite_list[id],
-                RESSOURCE_LIST[id].ressource_path);
+        switch (RESSOURCE_LIST[id].type) {
+            case TEXTURE:
+                exit = init_sprite(&sprite_list[id],
+                    RESSOURCE_LIST[id].ressource_path);
+                break;
+            case FONT:
+                exit = init_font(&sprite_list[id],
+                    RESSOURCE_LIST[id].ressource_path);
+                break;
+        }
         if (exit == ERROR)
             return ERROR;
     }

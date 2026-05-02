@@ -16,6 +16,7 @@
 typedef enum {
     B_QUIT,
     B_START,
+    TITANFALL_FONT,
     NB_RESSOURCE
 } ressource_id_t;
 
@@ -23,7 +24,6 @@ typedef enum {
     TEXTURE,
     MUSIC,
     FONT,
-    NB_RESSOURCE_TYPE
 } ressource_type_t;
 
 typedef struct ressource_s {
@@ -36,14 +36,15 @@ typedef struct ressource_s {
 
 static const ressource_t RESSOURCE_LIST[NB_RESSOURCE] = {
     {B_QUIT, TEXTURE, QUIT_TEXTURE},
-    {B_START, TEXTURE, START_TEXTURE}
-//    {TITANFALL_FONT, FONT, "assets/font/titanfall.ttf"},
+    {B_START, TEXTURE, START_TEXTURE},
+    {TITANFALL_FONT, FONT, "assets/font/titanfall.ttf"},
 };
 
 typedef struct component_ressource_s {
     ressource_id_t id;
     sfTexture *texture;
     sfSprite *sprite;
+    sfFont *font;
 } component_ressource_t;
 
 static const char ASSETS_DIR[] = "assets";
