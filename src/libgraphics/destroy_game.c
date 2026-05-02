@@ -13,7 +13,7 @@
 #include "struct/game.h"
 
 //! sfSprite_destroy crash if texture loading fail
-static void destroy_entitys(component_sprite_t *sprite_list)
+static void destroy_entitys(component_ressource_t *sprite_list)
 {
     for (entity_id_t id = 0; id < NB_ENT; id++) {
         if (sprite_list[id].texture != NULL)

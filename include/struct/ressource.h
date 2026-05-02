@@ -8,6 +8,35 @@
 #ifndef RESSOURCE_H_
     #define RESSOURCE_H_
 
+    #include <stddef.h>
+    #include <SFML/Graphics/Types.h>
+    #include <SFML/System/Vector2.h>
+    #include <SFML/Graphics/Rect.h>
+
+typedef enum {
+    B_QUIT,
+    B_START,
+    NB_RESSOURCE
+} ressource_id_t;
+
+typedef struct ressource_s {
+    ressource_id_t id;
+    char *ressource_path;
+} ressource_t;
+
+    #include "button.h"
+
+static const ressource_t RESSOURCE_LIST[NB_RESSOURCE] = {
+    {B_QUIT, QUIT_TEXTURE},
+    {B_START, START_TEXTURE}
+};
+
+typedef struct component_ressource_s {
+    ressource_id_t id;
+    sfTexture *texture;
+    sfSprite *sprite;
+} component_ressource_t;
+
 static const char ASSETS_DIR[] = "assets";
 static const char SPRITE_DIR[] = "assets/sprite";
 
@@ -30,10 +59,10 @@ typedef enum {
 //    {"font", FONT}
 //};
 
-typedef struct ressource_s {
+typedef struct ressource_bis_s {
     char *name;
     ressource_type_t type;
     void *data;
-} ressource_t;
+} ressource_bis_t;
 
 #endif /* !RESSOURCE_H_ */

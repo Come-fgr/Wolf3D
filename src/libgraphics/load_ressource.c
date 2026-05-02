@@ -21,7 +21,7 @@ static int clean(char *name, sfTexture *texture)
     return ERROR;
 }
 
-int load_ressource(ressource_t *ressources)
+int load_ressource(ressource_bis_t *ressources)
 {
     DIR *dir = opendir(SPRITE_DIR);
     struct dirent *entry = readdir(dir);

@@ -8,7 +8,7 @@
 #ifndef ENTITY_H
     #define ENTITY_H
 
-    #include "texture.h"
+    #include "ressource.h"
 
 typedef enum entity_id_s {
     BUTTON,
@@ -19,7 +19,7 @@ typedef enum entity_id_s {
 
 typedef struct component_s {
     entity_id_t entity;
-    texture_id_t texture;
+    ressource_id_t texture;
     sfVector2f pos;
     sfIntRect rect;
     void *data;

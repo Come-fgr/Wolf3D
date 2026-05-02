@@ -10,7 +10,7 @@
 #include "graphics.h"
 
 static void display_scene(sfRenderWindow *window,
-    component_sprite_t sprite_list[NB_ENT], scene_id_t scene_id)
+    component_ressource_t sprite_list[NB_ENT], scene_id_t scene_id)
 {
     const component_t *component_list = SCENES[scene_id].component_list;
 

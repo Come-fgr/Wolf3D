@@ -13,12 +13,12 @@
 #include "macro.h"
 #include "graphics.h"
 
-static int init_sprite_list(component_sprite_t *sprite_list)
+static int init_sprite_list(component_ressource_t *sprite_list)
 {
-    for (texture_id_t id = 0; id < NB_TEXTURE; id++) {
+    for (ressource_id_t id = 0; id < NB_RESSOURCE; id++) {
         sprite_list[id].id = id;
         sprite_list[id].texture = sfTexture_createFromFile(
-            TEXTURE_LIST[id].texture_path, NULL);
+            RESSOURCE_LIST[id].ressource_path, NULL);
         if (!sprite_list[id].texture)
             return ERROR;
         sprite_list[id].sprite = sfSprite_create();

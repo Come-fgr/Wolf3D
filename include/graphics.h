@@ -41,13 +41,13 @@ static const component_t start_scene[] = {
         (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
     {BUTTON, B_START, (sfVector2f){922, 500},
         (sfIntRect){0, 0, START_WIDTH, START_HEIGHT}, b_start},
-    {NB_ENT, NB_TEXTURE, {}, {}, NULL}
+    {NB_ENT, NB_RESSOURCE, {}, {}, NULL}
 };
 
 static const component_t main_scene[] = {
     {BUTTON, B_QUIT, (sfVector2f){10, 60},
         (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
-    {NB_ENT, NB_TEXTURE, {}, {}, NULL}
+    {NB_ENT, NB_RESSOURCE, {}, {}, NULL}
 };
 
 static const scene_t SCENES[NB_SCENE] = {
