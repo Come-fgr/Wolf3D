@@ -8,6 +8,7 @@
 #ifndef RESSOURCE_H_
     #define RESSOURCE_H_
 
+static const char ASSETS_DIR[] = "assets";
 static const char SPRITE_DIR[] = "assets/sprite";
 
 typedef enum {
@@ -19,13 +20,14 @@ typedef enum {
 
 //typedef struct ressource_dir_s {
 //    char *name;
+//    char *extension
 //    ressource_type_t type;
 //} ressource_dir_t;
 //
 //static const ressource_dir_t RESSOURCE_DIR[NB_RESSOURCE_TYPE] = {
-//    {"assets/sprite", TEXTURE},
-//    {"", MUSIC},
-//    {"", FONT}
+//    {"sprite", ".png" TEXTURE},
+//    {"music", MUSIC},
+//    {"font", FONT}
 //};
 
 typedef struct ressource_s {
