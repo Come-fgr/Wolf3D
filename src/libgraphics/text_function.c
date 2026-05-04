@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Text.h>
 #include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/Font.h>
 #include "macro.h"
 #include "graphics.h"
 
@@ -15,12 +16,15 @@ int init_text(component_t *component,
 {
     text_t *data = component->data;
     sfText *text = sfText_create();
+    sfFont *font = sfFont_createFromFile("assets/font/titanfall.ttf");
 
-    if (text == NULL || data == NULL)
+    if (text == NULL || data == NULL || font == NULL)
         return ERROR;
     sfText_setString(text, data->string);
-    sfText_setFont(text, ressource_list[component->texture].font);
+    sfText_setFont(text, font); //ressource_list[component->texture].font);
     sfText_setCharacterSize(text, data->size);
+    sfText_setColor(text, sfWhite);
+    sfText_setPosition(text, component->pos);
     data->text = text;
     return SUCCESS;
 }

@@ -55,7 +55,7 @@ static component_t start_scene[] = {
     {BUTTON, B_START, (sfVector2f){922, 500},
         (sfIntRect){0, 0, START_WIDTH, START_HEIGHT}, b_start},
     {TEXT, TITANFALL_FONT, (sfVector2f){50, 50}, (sfIntRect){0}, &(text_t){NULL,
-            "Wolfenstein3D", 20}},
+            "Wolfenstein3D", 100}},
     {NB_ENT, NB_RESSOURCE, {}, {}, NULL}
 };
 
