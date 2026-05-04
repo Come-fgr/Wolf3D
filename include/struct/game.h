@@ -22,9 +22,9 @@ typedef struct game_s {
     double frame_sec;
 } game_t;
 
-int init_game(game_t *game);
-void update_game(game_t *game);
-void display_game(game_t *game);
+int init_game(game_t *game, scene_t scene_list[NB_SCENE]);
+void update_game(game_t *game, scene_t scene_list[NB_SCENE]);
+void display_game(game_t *game, scene_t scene_list[NB_SCENE]);
 void destroy_game(game_t *game);
 
 #endif /* !GAME_H */

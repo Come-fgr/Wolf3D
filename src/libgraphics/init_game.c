@@ -75,16 +75,17 @@ static int init_component(component_t *component_list,
     return SUCCESS;
 }
 
-static int init_scene(component_ressource_t ressource_list[NB_RESSOURCE])
+static int init_scene(component_ressource_t ressource_list[NB_RESSOURCE],
+    scene_t scene_list[NB_SCENE])
 {
     for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
-        if (init_component(SCENES[scene_id].component_list, ressource_list)
+        if (init_component(scene_list[scene_id].component_list, ressource_list)
             == ERROR)
             return ERROR;
     return SUCCESS;
 }
 
-int init_game(game_t *game)
+int init_game(game_t *game, scene_t scene_list[NB_SCENE])
 {
     int error = SUCCESS;
 
@@ -97,7 +98,7 @@ int init_game(game_t *game)
         destroy_game(game);
         return ERROR;
     }
-    if (init_scene(game->sprite_list) == ERROR) {
+    if (init_scene(game->sprite_list, scene_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }
