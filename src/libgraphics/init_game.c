@@ -14,6 +14,7 @@
 #include "macro.h"
 #include "graphics.h"
 #include "list.h"
+#include "my.h"
 
 static int init_sprite(component_ressource_t *ressource, char *texture_path)
 {
