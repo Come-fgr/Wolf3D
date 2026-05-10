@@ -21,17 +21,16 @@ int array_to_list(char *array[], list_t **list,
     return SUCCESS;
 }
 
-char **list_to_array(list_t **list, void *(*data_to_str)(const void *))
+char **list_to_array(list_t **list, void **array,
+    void *(*convert_data)(const void *))
 {
-    int count = list_len(list);
     list_t *cur_node = *list;
-    char **array = malloc(sizeof(char *) * (count + 1));
-    int i = 0;
+    size_t i = 0;
 
     if (array == NULL)
         return NULL;
     while (cur_node != NULL) {
-        array[i] = data_to_str(cur_node->data);
+        array[i] = convert_data(cur_node->data);
         if (!array[i])
             return NULL;
         cur_node = cur_node->next;

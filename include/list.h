@@ -22,6 +22,7 @@ size_t list_len(list_t *const *begin);
 list_t *file_to_list(char *filepath, size_t *nb_line);
 
 void *line_dup(const void *line);
-char **list_to_array(list_t **list, void *(*data_to_str)(const void *));
+char **list_to_array(list_t **list, void **array,
+    void *(*convert_data)(const void *));
 
 #endif /* !LIST_H_ */
