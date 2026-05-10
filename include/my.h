@@ -27,6 +27,8 @@ long my_strtol(char const *str, char **restrict endptr);
 char *my_strdup(char const *src);
 void print_array(char **array);
 void free_array(char **array);
+bool check_array_malloc(void **array, size_t len_array);
+char **str_to_array(char const *str, bool (*is_delimiter)(char c));
 
 typedef enum {
     HELP,

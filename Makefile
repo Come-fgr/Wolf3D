@@ -11,18 +11,20 @@ RM			=	rm -f
 
 NAME    	=	wolf3d
 
-LIBMY_FILES			=	minidprintf.c	\
-						my_pow.c		\
-						my_round.c		\
-						my_strcmp.c		\
-						my_strlen.c		\
-						my_strncmp.c	\
-						my_strtol.c		\
-						my_strdup.c		\
-						get_flags.c		\
-						get_index.c		\
-						print_array.c	\
-						free_array.c
+LIBMY_FILES			=	minidprintf.c		\
+						my_pow.c			\
+						my_round.c			\
+						my_strcmp.c			\
+						my_strlen.c			\
+						my_strncmp.c		\
+						my_strtol.c			\
+						my_strdup.c			\
+						get_flags.c			\
+						get_index.c			\
+						print_array.c		\
+						free_array.c		\
+						str_to_array.c		\
+						check_array_malloc.c
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
