@@ -12,7 +12,7 @@
 
 int add_node(list_t **list, void *data, void *(*data_dup)(const void *))
 {
-    list_t *new_node = malloc(sizeof(list_t));
+    list_t *new_node = calloc(1, sizeof(list_t));
 
     if (new_node == NULL)
         return ERROR;
