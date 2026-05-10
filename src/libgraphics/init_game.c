@@ -77,21 +77,48 @@ static int init_component(component_t *component_list,
     return SUCCESS;
 }
 
-static int init_scene(component_ressource_t ressource_list[NB_RESSOURCE],
+bool is_sep(char c)
+{
+    return c == SEPARATOR;
+}
+
+static component_t *str_to_component(char *str)
+{
+    component_t *component = calloc(1, sizeof(component_t));
+    char **array = str_to_array(str, is_sep);
+
+    if (component == NULL || array == NULL)
+        return NULL;
+    for (entity_id_t id = 0; id < NB_ENT; id++)
+        if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
+            return ENTITY[id].init(component, NULL) == ERROR ? NULL : component;
+        }
+    return NULL;
+}
+
+static int init_scene(scene_t *scene, char *config_file)
+{
+    size_t nb_comp = 0;
+    list_t *scene_config = file_to_list(config_file, &nb_comp);
+    component_t *scene_array = calloc(nb_comp + 1, sizeof(component_t *));
+
+    if (scene_config == NULL && scene_array == NULL)
+        return ERROR;
+    if (list_to_array(&scene_config, (void **)&scene_array,
+        (void *(*)(const void *))str_to_component) == ERROR)
+        return ERROR;
+    free_list(scene_config, free);
+    scene->component_list = scene_array;
+    return SUCCESS;
+}
+
+static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
     scene_t scene_list[NB_SCENE])
 {
-    size_t nb_line = 0;
-    list_t *scene = file_to_list("config/start_scene.config", &nb_line);
-    char **scene_array = malloc(sizeof(char *) * (nb_line + 1));
-
-    if (scene != NULL && scene_array != NULL)
-        scene_array = list_to_array(&scene, scene_array, line_dup);
     for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
         if (init_component(scene_list[scene_id].component_list, ressource_list)
             == ERROR)
             return ERROR;
-    free_list(scene, free);
-    free_array(scene_array);
     return SUCCESS;
 }
 
@@ -108,7 +135,7 @@ int init_game(game_t *game, scene_t scene_list[NB_SCENE])
         destroy_game(game);
         return ERROR;
     }
-    if (init_scene(game->sprite_list, scene_list) == ERROR) {
+    if (init_scene_list(game->sprite_list, scene_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }

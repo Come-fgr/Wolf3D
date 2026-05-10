@@ -37,6 +37,7 @@ typedef void (entity_destroy_fn_t)(component_t *);
 
 typedef struct entity_s {
     entity_id_t id;
+    char *name;
     entity_init_fn_t *init;
     entity_update_fn_t *update;
     entity_display_fn_t *display;

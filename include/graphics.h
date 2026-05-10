@@ -20,6 +20,7 @@
     #define FRAMERATE_LIMIT 60
     #define MAIN_SCENE MENU_START
     #define DISPLAY_ENV "DISPLAY"
+    #define SEPARATOR ';'
 
 bool display_env_exist(char *const *env);
 int main_loop(void);
@@ -38,8 +39,8 @@ void display_text(sfRenderWindow *, sfSprite *,
 void destroy_text(component_t *);
 
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, NULL, update_button, display_sprite, destroy_component},
-    {TEXT, init_text, update_nothing, display_text, destroy_text}
+    {BUTTON, "button", NULL, update_button, display_sprite, destroy_component},
+    {TEXT, "text", init_text, update_nothing, display_text, destroy_text}
 };
 
 typedef struct text_s {
@@ -47,7 +48,6 @@ typedef struct text_s {
     char *string;
     size_t size;
 } text_t;
-
 
 static component_t start_scene[] = {
     {BUTTON, B_QUIT, (sfVector2f){925, 550},
