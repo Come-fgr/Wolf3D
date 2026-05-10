@@ -34,8 +34,16 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						load_ressource.c	\
 						text_function.c
 
+LIBLIST_FILES		=	add_node.c			\
+						array_to_list.c		\
+						delete_node.c		\
+						display_list.c		\
+						free_list.c			\
+						list_len.c			\
+
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
 				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				$(addprefix list/, $(LIBLIST_FILES))		\
 				main.c
 
 SRC			=	$(addprefix src/, $(SRC_FILES))	\
