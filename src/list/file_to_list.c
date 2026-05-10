@@ -16,7 +16,7 @@ void *line_dup(const void *line)
     return my_strdup((char *)line);
 }
 
-list_t *file_to_list(char *filepath, int *nb_line)
+list_t *file_to_list(char *filepath, size_t *nb_line)
 {
     size_t line_size = 0;
     FILE *file = fopen(filepath, "r");

@@ -19,6 +19,6 @@ int delete_node(list_t **list, list_t *prev_node, list_t *current_node,
 int display_list(list_t *const *list, void (*display_data)(void *));
 void free_list(list_t *list, void (*free_data)(void *));
 size_t list_len(list_t *const *begin);
-list_t *file_to_list(char *filepath, int *nb_line);
+list_t *file_to_list(char *filepath, size_t *nb_line);
 
 #endif /* !LIST_H_ */
