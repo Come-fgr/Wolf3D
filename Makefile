@@ -21,7 +21,8 @@ LIBMY_FILES			=	minidprintf.c	\
 						my_strdup.c		\
 						get_flags.c		\
 						get_index.c		\
-						print_array.c
+						print_array.c	\
+						free_array.c
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
