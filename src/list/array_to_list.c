@@ -21,7 +21,7 @@ int array_to_list(char *array[], list_t **list,
     return SUCCESS;
 }
 
-char **list_to_array(list_t **list, void *(*data_to_str)(void *))
+char **list_to_array(list_t **list, void *(*data_to_str)(const void *))
 {
     int count = list_len(list);
     list_t *cur_node = *list;

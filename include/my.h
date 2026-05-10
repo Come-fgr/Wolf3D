@@ -26,6 +26,7 @@ int my_strncmp(char const *s1, char const *s2, int n);
 long my_strtol(char const *str, char **restrict endptr);
 char *my_strdup(char const *src);
 void print_array(char **array);
+void free_array(char **array);
 
 typedef enum {
     HELP,

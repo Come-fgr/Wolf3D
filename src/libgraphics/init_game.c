@@ -81,12 +81,16 @@ static int init_scene(component_ressource_t ressource_list[NB_RESSOURCE],
 {
     size_t nb_line = 0;
     list_t *scene = file_to_list("config/start_scene.config", &nb_line);
+    char **scene_array = NULL;
 
+    if (scene != NULL)
+        scene_array = list_to_array(&scene, line_dup);
     for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
         if (init_component(scene_list[scene_id].component_list, ressource_list)
             == ERROR)
             return ERROR;
     free_list(scene, free);
+    free_array(scene_array);
     return SUCCESS;
 }
 
