@@ -5,7 +5,7 @@
 ## Compile the project
 ##
 
-CC			:=	epiclang
+CC			:=	clang
 
 RM			=	rm -f
 
@@ -40,6 +40,7 @@ LIBLIST_FILES		=	add_node.c			\
 						display_list.c		\
 						free_list.c			\
 						list_len.c			\
+						file_to_list.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
 				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
