@@ -10,12 +10,20 @@
 
     #include "texture.h"
 
-typedef enum entity_id_s {
+typedef enum properties_e {
+    CLICKABLE,
+    NB_PROPERTIES
+} properties_t;
+
+typedef enum entity_id_e {
     BUTTON,
     NB_ENT
 } entity_id_t;
 
-///
+// Game struct
+struct game_s;
+
+typedef void (component_fn_t)(struct game_s *);
 
 typedef struct component_s {
     entity_id_t entity;
@@ -25,18 +33,25 @@ typedef struct component_s {
     void *data;
 } component_t;
 
-struct game_s;
+// Events
+
+typedef void (entity_click_fn_t)(struct game_s *);
+
+// Basic entities functions
 
 typedef void (entity_update_fn_t)(struct game_s *, const component_t *);
 typedef void (entity_display_fn_t)(sfRenderWindow *, sfSprite *,
     const component_t *);
 typedef void (entity_destroy_fn_t)(component_t *);
 
+// Entities struct
+
 typedef struct entity_s {
     entity_id_t id;
-    entity_update_fn_t *update;
+    entity_update_fn_t *update;     // Executed at each frame
     entity_display_fn_t *display;
     entity_destroy_fn_t *destroy;
+    properties_t props;
 } entity_t;
 
 #endif /* !ENTITY_H */

@@ -6,7 +6,7 @@ if [[ ! "$1" || "$1" = "-h" ]]; then
     exit 1
 fi
 
-if [ "$1" = "false" ]; then exit 0; fi
+if [[ "$1" == "false" ]]; then exit 0; fi
 IFS=','
 read -ra newarr <<< "$1"
 err_bins=false

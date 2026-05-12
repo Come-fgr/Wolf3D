@@ -36,10 +36,9 @@ int init_game(game_t *game)
 
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
-    game->event = malloc(sizeof(sfEvent));
     game->clock = sfClock_create();
     error += init_sprite_list(game->sprite_list);
-    if (error || !game->window || !game->event || !game->clock) {
+    if (error || !game->window || !game->clock) {
         destroy_game(game);
         return ERROR;
     }

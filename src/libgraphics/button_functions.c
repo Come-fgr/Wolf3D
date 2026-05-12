@@ -13,21 +13,16 @@
 #include "SFML/Graphics/RenderWindow.h"
 #include "graphics.h"
 
-void b_start(game_t *game, const component_t *component)
+void b_start(game_t *game)
 {
-    if (game->event->type == sfEvtMouseButtonPressed &&
-        is_clicked(&game->event->mouseButton, component))
-        game->cur_scene = GAME;
+    if (game == NULL)
+        return;
+    game->cur_scene = GAME;
 }
 
-void b_quit(game_t *game, const component_t *component)
+void b_quit(game_t *game)
 {
-    if (game->event->type == sfEvtMouseButtonPressed &&
-        is_clicked(&game->event->mouseButton, component))
-        sfRenderWindow_close(game->window);
-}
-
-void update_button(game_t *game, const component_t *component)
-{
-    ((entity_update_fn_t *)component->data)(game, component);
+    if (game == NULL)
+        return;
+    sfRenderWindow_close(game->window);
 }

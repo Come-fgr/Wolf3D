@@ -7,17 +7,12 @@
 
 CC			:=	epiclang
 
-RM			=	rm -f
+SRC_DIR		:=	src
+OBJ_DIR		:=	build
 
-NAME    	=	wolf3d
+RM			:=	rm -f
 
-LIBMY_FILES			=	minidprintf.c	\
-						my_pow.c		\
-						my_round.c		\
-						my_strcmp.c		\
-						my_strlen.c		\
-						my_strncmp.c	\
-						my_strtol.c
+NAME    	:=	wolf3d
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
@@ -27,29 +22,36 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						entity_functions.c	\
 						button_functions.c	\
 						is_clicked.c		\
-						display_env_exist.c
+						display_env_exist.c	\
+						update_player.c
 
-SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
-				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
-				main.c
+EVENTS_FILES		=	analyse_events.c 	\
+						key_event.c			\
+						player_move_stop.c 	\
+						player_move.c		\
+						go_to_menu_scene.c 	\
+						handle_buttons_click.c
 
-SRC			=	$(addprefix src/, $(SRC_FILES))	\
+SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				$(addprefix events/, $(EVENTS_FILES))
 
-OBJ			=	$(SRC:.c=.o)
+SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))	\
+				$(SRC_DIR)/main.c
+
+OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CFLAGS		+=	-Wall -Wextra -fno-builtin
 
-CPPFLAGS	+=	-iquote ./include
+CPPFLAGS	+=	-iquote ./include -iquote ./include/my
 
 DEBUG_FLAGS	=	-g3
 
 LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-window		\
 				-lcsfml-system		\
-				-lcsfml-audio		\
-				-lm
+				-lcsfml-audio
 
-UT_SRC		=	$(addprefix src/, $(SRC_FILES)) \
+UT_SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
 
 UT_NAME		=	unit_tests
 
@@ -62,13 +64,19 @@ VALGR_FLAGS	=	-s --leak-check=full
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJ)
 	$(CC) -o $(NAME) $(OBJ)	$(LDFLAGS)
 
+$(OBJ_DIR):
+	rsync -a --include='*/' --exclude='*' $(SRC_DIR)/ $(OBJ_DIR)/
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) -o $@ -c $^ $(CFLAGS) $(CPPFLAGS)
+
 clean:
-	@$(RM) $(OBJ)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	$(RM) $(OBJ)
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -88,8 +96,8 @@ tests_run: clean
 
 coverage: tests_run
 	gcovr $(COVR_FLAGS)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 	@$(RM) $(UT_NAME)
 
 .PHONY:
