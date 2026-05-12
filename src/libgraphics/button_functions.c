@@ -34,7 +34,7 @@ void update_button(game_t *game, const component_t *component)
     ((entity_update_fn_t *)component->data)(game, component);
 }
 
-static ressource_id_t get_texture(char *texture_name)
+static ressource_id_t get_texture(const char *texture_name)
 {
     for (ressource_id_t id = 0; id < NB_RESSOURCE; id++)
         if (my_strcmp(texture_name, RESSOURCE_LIST[id].name) == SUCCESS)
@@ -42,8 +42,8 @@ static ressource_id_t get_texture(char *texture_name)
     return NB_RESSOURCE;
 }
 
-int init_button(component_t *component, char **config, component_ressource_t
-    ressource_list[NB_RESSOURCE])
+int init_button(component_t *component, const char **config,
+    component_ressource_t ressource_list[NB_RESSOURCE])
 {
     char *endptr = NULL;
     size_t error = SUCCESS;
@@ -59,6 +59,6 @@ int init_button(component_t *component, char **config, component_ressource_t
     error += *endptr != '\0';
     component->rect.height = my_strtol(config[5], &endptr);
     component->texture = get_texture(config[1]);
-        error += component->texture != NB_RESSOURCE;
+    error += component->texture != NB_RESSOURCE;
     return error != SUCCESS ? ERROR : SUCCESS;
 }
