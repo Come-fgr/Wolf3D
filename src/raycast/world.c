@@ -33,15 +33,6 @@ static sfColor shade_color(float corrected_dist, bool flash)
     }
 }
 
-sfColor wall_color_for_id(int id)
-{
-    if (id == 1)
-        return (sfColor){200, 120, 80, 255};
-    if (id == 2)
-        return (sfColor){100, 200, 140, 255};
-    return (sfColor){170, 170, 170, 255};
-}
-
 int map_at(float x, float y)
 {
     int tx = 0;
@@ -76,14 +67,10 @@ static void display_wall(sfRenderWindow *win, raycaster_t *disp,
     players_t *player, int col)
 {
     sfRectangleShape *wall = sfRectangleShape_create();
-    sfColor base = {0, 0, 0, 0};
     sfColor shaded = {0, 0, 0, 0};
-    int texoff = 0;
 
     sfRectangleShape_setSize(wall, (sfVector2f){1.0f, disp->wall_height});
     sfRectangleShape_setPosition(wall, (sfVector2f){(float)col, disp->top});
-    texoff = ((int)disp->hitx + (int)disp->hity) % TILE_SIZE;
-    base = wall_color_for_id(disp->wall_id);
     shaded = shade_color(disp->corrected, player->flash);
     sfRectangleShape_setFillColor(wall, shaded);
     sfRenderWindow_drawRectangleShape(win, wall, NULL);

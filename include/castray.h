@@ -65,7 +65,6 @@ void display_window(sfRenderWindow *win, players_t *player);
 void updating_player(players_t *player);
 void events_game(sfRenderWindow *win, players_t *player);
 void draw_world(sfRenderWindow *win);
-sfColor wall_color_for_id(int id);
 raycaster_t *init_struct(void);
 void free_struct(raycaster_t *disp_value);
 int map_at(float x, float y);
