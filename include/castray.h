@@ -60,10 +60,10 @@ static const int MAP[MAP_H][MAP_W] = {
     {1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-int main_game(void);
+int main_game(sfRenderWindow *win);
 void display_window(sfRenderWindow *win, players_t *player);
 void updating_player(players_t *player);
-void events_game(sfRenderWindow *win, players_t *player);
+int events_game(sfRenderWindow *win, players_t *player);
 void draw_world(sfRenderWindow *win);
 sfColor wall_color_for_id(int id);
 raycaster_t *init_struct(void);

@@ -18,7 +18,7 @@ void b_start(game_t *game)
 {
     if (game == NULL)
         return;
-    main_game();
+    main_game(game->window);
 }
 
 void b_quit(game_t *game)

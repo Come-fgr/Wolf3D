@@ -7,10 +7,8 @@
 
 #include "castray.h"
 
-int main_game(void)
+int main_game(sfRenderWindow *win)
 {
-    sfVideoMode mode = {WIN_WIDTH, WIN_HEIGHT, 32};
-    sfRenderWindow *win = sfRenderWindow_create(mode, "Wolf3d", sfClose, NULL);
     players_t player = { 160.0f, 160.0f, (float)M_PI * 0.25f, false};
 
     if (!win)
