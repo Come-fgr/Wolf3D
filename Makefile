@@ -14,6 +14,13 @@ RM			:=	rm -f
 
 NAME    	:=	wolf3d
 
+RAYCAST_FILES		=	main_game.c			\
+						castray.c			\
+						world.c				\
+						event.c				\
+						update_player.c		\
+						struct_manip.c
+
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
 						init_game.c			\
@@ -33,7 +40,8 @@ EVENTS_FILES		=	analyse_events.c 	\
 						handle_buttons_click.c
 
 SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
-				$(addprefix events/, $(EVENTS_FILES))
+				$(addprefix events/, $(EVENTS_FILES))\
+				$(addprefix raycast/, $(RAYCAST_FILES))
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))	\
 				$(SRC_DIR)/main.c
@@ -49,7 +57,8 @@ DEBUG_FLAGS	=	-g3
 LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-window		\
 				-lcsfml-system		\
-				-lcsfml-audio
+				-lcsfml-audio		\
+				-lm
 
 UT_SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
 

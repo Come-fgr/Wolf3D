@@ -12,12 +12,13 @@
 #include <unistd.h>
 #include "SFML/Graphics/RenderWindow.h"
 #include "graphics.h"
+#include "castray.h"
 
 void b_start(game_t *game)
 {
     if (game == NULL)
         return;
-    game->cur_scene = GAME;
+    main_game();
 }
 
 void b_quit(game_t *game)
