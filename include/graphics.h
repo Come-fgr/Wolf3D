@@ -32,6 +32,8 @@ sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 void b_start(game_t *game, const component_t *component);
 void b_quit(game_t *game, const component_t *component);
 void update_button(game_t *game, const component_t *component);
+int init_button(component_t *component, char **config, component_ressource_t
+    ressource_list[NB_RESSOURCE]);
 int init_text(component_t *component,
     component_ressource_t sprite_list[NB_RESSOURCE]);
 void display_text(sfRenderWindow *, sfSprite *,
@@ -39,7 +41,8 @@ void display_text(sfRenderWindow *, sfSprite *,
 void destroy_text(component_t *);
 
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, "button", NULL, update_button, display_sprite, destroy_component},
+    {BUTTON, "button", init_button, update_button, display_sprite,
+        destroy_component},
     {TEXT, "text", init_text, update_nothing, display_text, destroy_text}
 };
 

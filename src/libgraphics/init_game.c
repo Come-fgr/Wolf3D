@@ -37,12 +37,14 @@ static int init_font(component_ressource_t *ressource, char *font_path)
     return SUCCESS;
 }
 
+//TODO: Use get_dir_content + add MUSIC
 static int init_sprite_list(component_ressource_t *sprite_list)
 {
     int exit = SUCCESS;
 
     for (ressource_id_t id = 0; id < NB_RESSOURCE; id++) {
         sprite_list[id].id = id;
+        sprite_list[id].name = my_strdup(RESSOURCE_LIST[id].name);
         switch (RESSOURCE_LIST[id].type) {
             case TEXTURE:
                 exit = init_sprite(&sprite_list[id],
@@ -59,6 +61,7 @@ static int init_sprite_list(component_ressource_t *sprite_list)
     return SUCCESS;
 }
 
+//! To delete
 static int init_component(component_t *component_list,
     component_ressource_t ressource_list[NB_RESSOURCE])
 {
@@ -70,7 +73,7 @@ static int init_component(component_t *component_list,
         entity = ENTITY[component_list[i].entity];
         ressource = ressource_list[component_list[i].texture];
         if (entity.init != NULL)
-            exit = entity.init(&component_list[i], &ressource);
+            exit = entity.init(&component_list[i], NULL, &ressource);
         if (exit == ERROR)
             return ERROR;
     }
@@ -82,7 +85,8 @@ bool is_sep(char c)
     return c == SEPARATOR;
 }
 
-static component_t *str_to_component(char *str)
+static component_t *str_to_component(char *str, component_ressource_t
+    ressource_list[NB_RESSOURCE])
 {
     component_t *component = calloc(1, sizeof(component_t));
     char **array = str_to_array(str, is_sep);
@@ -91,7 +95,8 @@ static component_t *str_to_component(char *str)
         return NULL;
     for (entity_id_t id = 0; id < NB_ENT; id++)
         if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
-            return ENTITY[id].init(component, NULL) == ERROR ? NULL : component;
+            return ENTITY[id].init(component, array, ressource_list) == ERROR ?
+                NULL : component;
         }
     return NULL;
 }
@@ -105,13 +110,15 @@ static int init_scene(scene_t *scene, char *config_file)
     if (scene_config == NULL && scene_array == NULL)
         return ERROR;
     if (list_to_array(&scene_config, (void **)&scene_array,
-        (void *(*)(const void *))str_to_component) == ERROR)
+        (void *(*)(const void *, component_ressource_t
+        [NB_RESSOURCE]))str_to_component) == ERROR)
         return ERROR;
     free_list(scene_config, free);
     scene->component_list = scene_array;
     return SUCCESS;
 }
 
+//TODO: Use init_scene
 static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
     scene_t scene_list[NB_SCENE])
 {

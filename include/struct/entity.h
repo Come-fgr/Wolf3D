@@ -28,7 +28,7 @@ typedef struct component_s {
 
 struct game_s;
 
-typedef int (entity_init_fn_t)(component_t *, component_ressource_t
+typedef int (entity_init_fn_t)(component_t *, char **, component_ressource_t
     ressource_list[NB_RESSOURCE]);
 typedef void (entity_update_fn_t)(struct game_s *, const component_t *);
 typedef void (entity_display_fn_t)(sfRenderWindow *, sfSprite *,

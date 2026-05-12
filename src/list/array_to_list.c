@@ -11,6 +11,7 @@
 #include "list.h"
 #include "macro.h"
 #include "my.h"
+#include "graphics.h"
 
 int array_to_list(char *array[], list_t **list,
     void *(*str_to_data)(const void *))
@@ -21,8 +22,11 @@ int array_to_list(char *array[], list_t **list,
     return SUCCESS;
 }
 
+//TODO: Make it more modular
 int list_to_array(list_t **list, void **array,
-    void *(*convert_data)(const void *))
+    void *(*convert_data)(const void *, component_ressource_t
+    ressource_list[NB_RESSOURCE]), component_ressource_t
+    ressource_list[NB_RESSOURCE])
 {
     list_t *cur_node = *list;
     size_t i = 0;
@@ -30,7 +34,7 @@ int list_to_array(list_t **list, void **array,
     if (array == NULL)
         return ERROR;
     while (cur_node != NULL) {
-        array[i] = convert_data(cur_node->data);
+        array[i] = convert_data(cur_node->data, ressource_list);
         if (array[i] == NULL)
             return ERROR;
         cur_node = cur_node->next;
