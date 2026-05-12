@@ -101,7 +101,8 @@ static component_t *str_to_component(char *str, component_ressource_t
     return NULL;
 }
 
-static int init_scene(scene_t *scene, char *config_file)
+static int init_scene(scene_t *scene, char *config_file,
+    component_ressource_t ressource_list[NB_RESSOURCE])
 {
     size_t nb_comp = 0;
     list_t *scene_config = file_to_list(config_file, &nb_comp);
@@ -111,7 +112,7 @@ static int init_scene(scene_t *scene, char *config_file)
         return ERROR;
     if (list_to_array(&scene_config, (void **)&scene_array,
         (void *(*)(const void *, component_ressource_t
-        [NB_RESSOURCE]))str_to_component) == ERROR)
+        [NB_RESSOURCE]))str_to_component, ressource_list) == ERROR)
         return ERROR;
     free_list(scene_config, free);
     scene->component_list = scene_array;

@@ -34,8 +34,8 @@ void b_quit(game_t *game, const component_t *component);
 void update_button(game_t *game, const component_t *component);
 int init_button(component_t *component, char **config, component_ressource_t
     ressource_list[NB_RESSOURCE]);
-int init_text(component_t *component,
-    component_ressource_t sprite_list[NB_RESSOURCE]);
+int init_text(component_t *component, char **config, component_ressource_t
+    ressource_list[NB_RESSOURCE]);
 void display_text(sfRenderWindow *, sfSprite *,
     const component_t *);
 void destroy_text(component_t *);

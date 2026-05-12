@@ -8,6 +8,8 @@
 #ifndef LIST_H_
     #define LIST_H_
 
+    #include "struct/ressource.h"
+
 typedef struct linked_list_s {
     void *data;
     struct linked_list_s *next;
@@ -21,6 +23,8 @@ void free_list(list_t *list, void (*free_data)(void *));
 size_t list_len(list_t *const *begin);
 list_t *file_to_list(char *filepath, size_t *nb_line);
 int list_to_array(list_t **list, void **array,
-    void *(*convert_data)(const void *));
+    void *(*convert_data)(const void *, component_ressource_t
+    ressource_list[NB_RESSOURCE]), component_ressource_t
+    ressource_list[NB_RESSOURCE]);
 
 #endif /* !LIST_H_ */

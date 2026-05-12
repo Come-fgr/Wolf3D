@@ -11,8 +11,8 @@
 #include "macro.h"
 #include "graphics.h"
 
-int init_text(component_t *component,
-    component_ressource_t ressource_list[NB_RESSOURCE])
+int init_text(component_t *component, char **config, component_ressource_t
+    ressource_list[NB_RESSOURCE])
 {
     text_t *data = component->data;
     sfText *text = sfText_create();
