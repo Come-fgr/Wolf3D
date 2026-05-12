@@ -24,7 +24,8 @@ LIBMY_FILES			=	minidprintf.c		\
 						print_array.c		\
 						free_array.c		\
 						str_to_array.c		\
-						check_array_malloc.c
+						check_array_malloc.c\
+						arraylen.c
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
