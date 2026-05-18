@@ -13,6 +13,7 @@
 
 void update_player(player_t *plr, float delta_time)
 {
+    plr->angle += PLR_ROTATE_VALUE * plr->rot_vel * delta_time;
     plr->pos.x += (cosf(plr->angle) * plr->speed * delta_time) * plr->vel.y;
     plr->pos.y += (sinf(plr->angle) * plr->speed * delta_time) * plr->vel.y;
 }

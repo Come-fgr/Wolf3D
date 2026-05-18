@@ -46,6 +46,7 @@ void go_to_menu_scene(game_t *game);
 
 void player_rotate_right(game_t *game);
 void player_rotate_left(game_t *game);
+void player_rotate_stop(game_t *game);
 
 void player_sprint_start(game_t *game);
 void player_sprint_stop(game_t *game);
@@ -93,6 +94,8 @@ static const key_event_t key_released_evts[] = {
     { sfKeyD, &player_move_stop_x },
     { sfKeyZ, &player_move_stop_y },
     { sfKeyS, &player_move_stop_y },
+    { sfKeyA, &player_rotate_stop },
+    { sfKeyE, &player_rotate_stop },
     { sfKeyLShift, &player_sprint_stop },
     { sfKeyUnknown, NULL }
 };

@@ -32,6 +32,13 @@ static int init_sprite_list(component_sprite_t *sprite_list)
     return SUCCESS;
 }
 
+static void init_player(player_t *plr)
+{
+    plr->pos = (sfVector2f){ 160.0f, 160.0f };
+    plr->angle = (float)M_PI * 0.25f;
+    plr->speed = DEFAULT_PLR_SPEED;
+}
+
 int init_game(game_t *game)
 {
     int error = SUCCESS;
@@ -39,8 +46,7 @@ int init_game(game_t *game)
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->clock = sfClock_create();
-    game->plr = (player_t){ {160.0f, 160.0f}, {0}, DEFAULT_PLR_SPEED,
-        (float)M_PI * 0.25f, false};
+    init_player(&game->plr);
     error += init_sprite_list(game->sprite_list);
     if (error || !game->window || !game->clock) {
         destroy_game(game);

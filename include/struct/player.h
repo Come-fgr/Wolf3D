@@ -22,6 +22,7 @@
 typedef struct player_s {
     sfVector2f pos;    // Player position
     sfVector2f vel;    // Player move velocity
+    float rot_vel;    // Player rotation velocity
     float speed;
     float angle;
     bool flash;
