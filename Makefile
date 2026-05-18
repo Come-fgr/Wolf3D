@@ -52,6 +52,7 @@ CFLAGS		+=	-Wall -Wextra -fno-builtin
 CPPFLAGS	+=	-iquote ./include -iquote ./include/my
 
 DEBUG_FLAGS	=	-g3
+GPROF_FLAGS =	-pg
 
 LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-window		\
@@ -95,6 +96,12 @@ re: fclean all
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
 
+prof:	CFLAGS += $(GPROF_FLAGS)
+prof:	LDFLAGS += $(GPROF_FLAGS)
+prof:	re
+	./$(NAME)
+	gprof $(NAME)
+
 memory_check: debug
 	@valgrind $(VALGR_FLAGS) ./$(NAME)
 
@@ -113,6 +120,7 @@ coverage: tests_run
 	clean		\
 	fclean		\
 	re			\
+	prof 		\
 	debug		\
 	test_run	\
 	coverage	\
