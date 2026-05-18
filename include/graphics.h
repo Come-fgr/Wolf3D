@@ -24,7 +24,7 @@
 // Update
 
 int main_loop(void);
-void update_player(game_t *game);
+void update_player(player_t *plr, float delta_time);
 
 // Display
 
@@ -57,8 +57,8 @@ static const component_t start_scene[] = {
 };
 
 static const component_t main_scene[] = {
-    {BUTTON, B_QUIT, (sfVector2f){10, 60},
-        (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
+    // {BUTTON, B_QUIT, (sfVector2f){10, 60},
+    //     (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
     {NB_ENT, NB_TEXTURE, {}, {}, NULL}
 };
 

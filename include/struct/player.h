@@ -12,10 +12,10 @@
     #include <stdbool.h>
 
     // player.pos incrementing value per second
-    #define PLR_MOVE_VALUE 2
+    #define PLR_MOVE_VALUE 150.0f
 
-    // player.pos rotate value per second
-    #define PLR_ROTATE_VALUE 5
+    // player.angle rotate value per second
+    #define PLR_ROTATE_VALUE 2.5f
 
 typedef struct player_s {
     sfVector2f pos;    // Player position

@@ -6,11 +6,13 @@
 */
 
 #include <stdio.h>
+#include <math.h>
+
 #include "struct/player.h"
 #include "struct/game.h"
 
-void update_player(game_t *game)
+void update_player(player_t *plr, float delta_time)
 {
-    game->plr.pos.x += game->plr.vel.x * PLR_MOVE_VALUE;
-    game->plr.pos.y += game->plr.vel.y * PLR_MOVE_VALUE;
+    plr->pos.x += (cosf(plr->angle) * PLR_MOVE_VALUE * delta_time) * plr->vel.x;
+    plr->pos.y += (sinf(plr->angle) * PLR_MOVE_VALUE * delta_time) * plr->vel.y;
 }

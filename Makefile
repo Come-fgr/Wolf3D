@@ -35,6 +35,7 @@ EVENTS_FILES		=	analyse_events.c 	\
 						player_move_stop.c 	\
 						player_move.c		\
 						go_to_menu_scene.c 	\
+						player_rotation.c 	\
 						handle_buttons_click.c
 
 SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
