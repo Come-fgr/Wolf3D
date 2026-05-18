@@ -12,14 +12,17 @@
     #include <stdbool.h>
 
     // player.pos incrementing value per second
-    #define PLR_MOVE_VALUE 150.0f
+    #define DEFAULT_PLR_SPEED 95.0f
+
+    #define SPRINT_FACTOR 2
 
     // player.angle rotate value per second
     #define PLR_ROTATE_VALUE 2.5f
 
 typedef struct player_s {
     sfVector2f pos;    // Player position
-    sfVector2i vel;    // Player move velocity
+    sfVector2f vel;    // Player move velocity
+    float speed;
     float angle;
     bool flash;
 } player_t;

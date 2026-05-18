@@ -47,6 +47,9 @@ void go_to_menu_scene(game_t *game);
 void player_rotate_right(game_t *game);
 void player_rotate_left(game_t *game);
 
+void player_sprint_start(game_t *game);
+void player_sprint_stop(game_t *game);
+
 ////////////////////////////////////////////
 ////   Handler of KeyPressed Event
 ////////////////////////////////////////////
@@ -78,6 +81,7 @@ static const key_event_t key_pressed_evts[] = {
     { sfKeyA, &player_rotate_left },
     { sfKeyE, &player_rotate_right },
     { sfKeyEscape, &go_to_menu_scene },
+    { sfKeyLShift, &player_sprint_start },
     { sfKeyUnknown, NULL }
 };
 
@@ -89,6 +93,7 @@ static const key_event_t key_released_evts[] = {
     { sfKeyD, &player_move_stop_x },
     { sfKeyZ, &player_move_stop_y },
     { sfKeyS, &player_move_stop_y },
+    { sfKeyLShift, &player_sprint_stop },
     { sfKeyUnknown, NULL }
 };
 
