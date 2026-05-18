@@ -66,6 +66,5 @@ void draw_walls(sfRenderWindow *win, player_t *player)
         disp->top = (WIN_HEIGHT / 2.0f) - (disp->wall_height / 2.0f);
         display_wall(win, disp, player, col);
     }
-    sfRenderWindow_display(win);
     free_struct(disp);
 }
