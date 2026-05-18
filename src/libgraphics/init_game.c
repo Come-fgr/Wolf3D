@@ -6,10 +6,12 @@
 */
 
 #include <stdlib.h>
+#include <math.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
+
 #include "macro.h"
 #include "graphics.h"
 
@@ -37,6 +39,7 @@ int init_game(game_t *game)
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->clock = sfClock_create();
+    game->plr = (player_t){ 160.0f, 160.0f, (float)M_PI * 0.25f, false};
     error += init_sprite_list(game->sprite_list);
     if (error || !game->window || !game->clock) {
         destroy_game(game);

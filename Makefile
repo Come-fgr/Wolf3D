@@ -14,8 +14,7 @@ RM			:=	rm -f
 
 NAME    	:=	wolf3d
 
-RAYCAST_FILES		=	main_game.c			\
-						castray.c			\
+RAYCAST_FILES		=	castray.c			\
 						world.c				\
 						event.c				\
 						update_player.c		\

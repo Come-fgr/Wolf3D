@@ -19,7 +19,7 @@ int main(int argc, char *argv[], char *env[])
         return EPIFAIL;
     if (argc == 1)
         return main_loop();
-    if (argc == 2 && strcmp(argv[1], "-h") == 0) {
+    if (argc == 2 && strcmp(argv[1], "-h") == SUCCESS) {
         puts("./wolf3d:\n\tIn progress...");
         return SUCCESS;
     }

@@ -20,15 +20,15 @@ static void trigger_associated_ev(sfEvent *evt, game_t *game)
             evts_types[i].fnct(evt, game);
 }
 
-sfEvent analyse_events(sfRenderWindow *window, game_t *game)
+sfEvent analyse_events(game_t *game)
 {
     sfEvent evt = {0};
 
-    if (window == NULL || game == NULL)
+    if (game == NULL)
         return evt;
-    while (sfRenderWindow_pollEvent(window, &evt)) {
+    while (sfRenderWindow_pollEvent(game->window, &evt)) {
         if (evt.type == sfEvtClosed)
-            sfRenderWindow_close(window);
+            sfRenderWindow_close(game->window);
         trigger_associated_ev(&evt, game);
     }
     return evt;

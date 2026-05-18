@@ -9,7 +9,7 @@
 #include "graphics.h"
 #include "macro.h"
 
-bool display_env_exist(char **env)
+bool display_env_exist(char *const *const env)
 {
     size_t len = strlen(DISPLAY_ENV);
 
