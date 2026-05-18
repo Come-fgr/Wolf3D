@@ -15,9 +15,8 @@ RM			:=	rm -f
 NAME    	:=	wolf3d
 
 RAYCAST_FILES		=	castray.c			\
-						world.c				\
-						event.c				\
-						update_player.c		\
+						draw_world.c		\
+						draw_walls.c		\
 						struct_manip.c
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\

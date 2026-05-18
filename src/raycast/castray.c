@@ -27,11 +27,25 @@ static void display_set(raycaster_t *disp, int cell, float x, float y)
         disp->wall_id = 0;
 }
 
-float cast_single_ray(const players_t *player, raycaster_t *disp)
+static int map_at(float x, float y)
+{
+    int tx = 0;
+    int ty = 0;
+
+    if (x < 0 || y < 0)
+        return 0;
+    tx = (int) (x / TILE_SIZE);
+    ty = (int) (y / TILE_SIZE);
+    if (tx < 0 || ty < 0 || tx >= MAP_W || ty >= MAP_H)
+        return 0;
+    return MAP[ty][tx];
+}
+
+float cast_single_ray(const player_t *player, raycaster_t *disp)
 {
     float angle = norm_angle(disp->ray_angle);
-    float x = player->x;
-    float y = player->y;
+    float x = player->pos.x;
+    float y = player->pos.y;
     float dist = 0.0f;
     float maxd = 1024.0f + (player->flash ? FLASHLIGHT_DISTANCE : 0.0f);
     int cell = 0;

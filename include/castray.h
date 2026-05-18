@@ -11,10 +11,14 @@
     #include <SFML/Graphics.h>
     #include <SFML/Window.h>
     #include <SFML/System.h>
+
     #include <math.h>
     #include <stdlib.h>
     #include <stdio.h>
     #include <stdbool.h>
+
+    #include "struct/game.h"
+    #include "struct/player.h"
 
     #define WIN_WIDTH 1920
     #define WIN_HEIGHT 1080
@@ -41,14 +45,6 @@ typedef struct raycaster_s {
     float top;
 } raycaster_t;
 
-
-typedef struct players_s {
-    float x;
-    float y;
-    float angle;
-    bool flash;
-} players_t;
-
 static const int MAP[MAP_H][MAP_W] = {
     {1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 1},
@@ -60,14 +56,11 @@ static const int MAP[MAP_H][MAP_W] = {
     {1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-int main_game(sfRenderWindow *win);
-void display_window(sfRenderWindow *win, players_t *player);
-void updating_player(players_t *player);
-void events_game(sfRenderWindow *win, players_t *player);
-void draw_world(sfRenderWindow *win);
+void draw_walls(sfRenderWindow *win, player_t *player);
+void updating_player(player_t *player);
+void draw_world(game_t *game);
 raycaster_t *init_struct(void);
 void free_struct(raycaster_t *disp_value);
-int map_at(float x, float y);
-float cast_single_ray(const players_t *player, raycaster_t *disp);
+float cast_single_ray(const player_t *player, raycaster_t *disp);
 
 #endif //BS_HEADER_H_

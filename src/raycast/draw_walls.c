@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2026
 ** private_Wolf3d
 ** File description:
-** world
+** draw_walls
 */
 
 #include "castray.h"
@@ -33,41 +33,11 @@ static sfColor shade_color(float corrected_dist, bool flash)
     }
 }
 
-int map_at(float x, float y)
-{
-    int tx = 0;
-    int ty = 0;
-
-    if (x < 0 || y < 0)
-        return 0;
-    tx = (int) (x / TILE_SIZE);
-    ty = (int) (y / TILE_SIZE);
-    if (tx < 0 || ty < 0 || tx >= MAP_W || ty >= MAP_H)
-        return 0;
-    return MAP[ty][tx];
-}
-
-void draw_world(sfRenderWindow *win)
-{
-    sfRectangleShape *rect = NULL;
-
-    sfRenderWindow_clear(win, sfBlack);
-    rect = sfRectangleShape_create();
-    sfRectangleShape_setSize(rect, (sfVector2f){WIN_WIDTH, WIN_HEIGHT / 2.0f});
-    sfRectangleShape_setPosition(rect, (sfVector2f){0, 0});
-    sfRectangleShape_setFillColor(rect, (sfColor){80, 80, 120, 255});
-    sfRenderWindow_drawRectangleShape(win, rect, NULL);
-    sfRectangleShape_setPosition(rect, (sfVector2f){0, WIN_HEIGHT / 2.0f});
-    sfRectangleShape_setFillColor(rect, (sfColor){60, 140, 60, 255});
-    sfRenderWindow_drawRectangleShape(win, rect, NULL);
-    sfRectangleShape_destroy(rect);
-}
-
 static void display_wall(sfRenderWindow *win, raycaster_t *disp,
-    players_t *player, int col)
+    player_t *player, int col)
 {
     sfRectangleShape *wall = sfRectangleShape_create();
-    sfColor shaded = {0, 0, 0, 0};
+    sfColor shaded = {0};
 
     sfRectangleShape_setSize(wall, (sfVector2f){1.0f, disp->wall_height});
     sfRectangleShape_setPosition(wall, (sfVector2f){(float)col, disp->top});
@@ -77,7 +47,7 @@ static void display_wall(sfRenderWindow *win, raycaster_t *disp,
     sfRectangleShape_destroy(wall);
 }
 
-void display_window(sfRenderWindow *win, players_t *player)
+void draw_walls(sfRenderWindow *win, player_t *player)
 {
     raycaster_t *disp = init_struct();
 
