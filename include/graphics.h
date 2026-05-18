@@ -24,7 +24,7 @@
 // Update
 
 int main_loop(void);
-void update_player(player_t *plr, float delta_time);
+void update_player(player_t *plr, float delta);
 
 // Display
 
