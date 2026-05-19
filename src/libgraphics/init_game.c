@@ -48,7 +48,6 @@ static component_t *str_to_component(char *str, component_ressource_t
         return NULL;
     for (entity_id_t id = 0; id < NB_ENT; id++)
         if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
-            if (flag_list[DEBUG])
             return ENTITY[id].init(component, array, ressource_list, flag_list)
                 == ERROR ? NULL : component;
         }
