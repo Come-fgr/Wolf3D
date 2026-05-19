@@ -22,15 +22,19 @@ list_t *file_to_list(char *filepath, size_t *nb_line)
     FILE *file = fopen(filepath, "r");
     char *line = NULL;
     list_t *list = NULL;
+    int nb_char = getline(&line, &line_size, file);
 
     if (!file)
         return NULL;
-    while (getline(&line, &line_size, file) != ERROR) {
+    while (nb_char != ERROR) {
         (*nb_line)++;
+        if (line[nb_char - 1] == '\n')
+            line[nb_char - 1] = '\0';
         if (add_node(&list, line, line_dup) == ERROR) {
             free_list(list, free);
             return NULL;
         }
+        nb_char = getline(&line, &line_size, file);
     }
     return list;
 }
