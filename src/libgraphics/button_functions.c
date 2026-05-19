@@ -49,8 +49,12 @@ int init_button(component_t *component, const char **config,
     char *endptr = NULL;
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6)
+    if (array_len(config) != 6) {
+        if (flag_list[DEBUG])
+            minidprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
+                RED, RESET);
         return ERROR;
+    }
     component->entity = BUTTON;
     component->pos.x = my_strtol(config[2], &endptr);
     error += *endptr != '\0';
@@ -63,5 +67,9 @@ int init_button(component_t *component, const char **config,
     component->rect.top = 0;
     component->texture = get_texture(config[1]);
     error += component->texture != NB_RESSOURCE;
+    if (flag_list[DEBUG])
+        minidprintf(STDOUT_FILENO, "Load button \"%s\" = %s%s%s\n",
+            config[1], error == SUCCESS ? GREEN : RED,
+            error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;
 }
