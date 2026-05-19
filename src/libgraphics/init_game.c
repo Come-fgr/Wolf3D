@@ -72,9 +72,6 @@ static int list_to_component_array(list_t **list, component_t **array,
         i++;
     }
     array[i] = NULL;
-    if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sComponent successfully initialized%s\n",
-            GREEN, RESET);
     return SUCCESS;
 }
 
@@ -94,6 +91,9 @@ static int init_scene(scene_t *scene, char *config_file,
         return ERROR;
     free_list(scene_config, free);
     scene->component_list = scene_array;
+    if (flag_list[DEBUG])
+        minidprintf(STDOUT_FILENO, "%sScene \"%s\" successfully initialized%s\n",
+            GREEN, config_file, RESET);
     return SUCCESS;
 }
 
