@@ -43,7 +43,8 @@ static ressource_id_t get_texture(const char *texture_name)
 }
 
 int init_button(component_t *component, const char **config,
-    component_ressource_t ressource_list[NB_RESSOURCE])
+    component_ressource_t ressource_list[NB_RESSOURCE],
+    bool flag_list[NB_FLAGS])
 {
     char *endptr = NULL;
     size_t error = SUCCESS;

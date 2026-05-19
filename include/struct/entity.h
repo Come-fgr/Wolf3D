@@ -8,6 +8,7 @@
 #ifndef ENTITY_H
     #define ENTITY_H
 
+    #include "my.h"
     #include "ressource.h"
 
 typedef enum entity_id_s {
@@ -29,7 +30,7 @@ typedef struct component_s {
 struct game_s;
 
 typedef int (entity_init_fn_t)(component_t *, const char **,
-    component_ressource_t ressource_list[NB_RESSOURCE]);
+    component_ressource_t [NB_RESSOURCE], bool [NB_FLAGS]);
 typedef void (entity_update_fn_t)(struct game_s *, const component_t *);
 typedef void (entity_display_fn_t)(sfRenderWindow *, sfSprite *,
     const component_t *);

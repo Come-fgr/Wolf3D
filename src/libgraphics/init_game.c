@@ -15,23 +15,23 @@
 #include "my.h"
 
 //! To delete
-static int init_component(component_t *component_list,
-    component_ressource_t ressource_list[NB_RESSOURCE])
-{
-    entity_t entity = {};
-    component_ressource_t ressource = {};
-    int exit = SUCCESS;
-
-    for (size_t i = 0; component_list[i].entity != NB_ENT; i++) {
-        entity = ENTITY[component_list[i].entity];
-        ressource = ressource_list[component_list[i].texture];
-        if (entity.init != NULL)
-            exit = entity.init(&component_list[i], NULL, &ressource);
-        if (exit == ERROR)
-            return ERROR;
-    }
-    return SUCCESS;
-}
+//static int init_component(component_t *component_list,
+//    component_ressource_t ressource_list[NB_RESSOURCE])
+//{
+//    entity_t entity = {};
+//    component_ressource_t ressource = {};
+//    int exit = SUCCESS;
+//
+//    for (size_t i = 0; component_list[i].entity != NB_ENT; i++) {
+//        entity = ENTITY[component_list[i].entity];
+//        ressource = ressource_list[component_list[i].texture];
+//        if (entity.init != NULL)
+//            exit = entity.init(&component_list[i], NULL, &ressource);
+//        if (exit == ERROR)
+//            return ERROR;
+//    }
+//    return SUCCESS;
+//}
 
 bool is_sep(char c)
 {
@@ -51,8 +51,8 @@ static component_t *str_to_component(char *str, component_ressource_t
             if (flag_list[DEBUG])
                 minidprintf(STDOUT_FILENO, "Init component \"%s\" of entity type \"%s\"\n",
                 str, ENTITY[id].name);
-            return ENTITY[id].init(component, array, ressource_list) == ERROR ?
-                NULL : component;
+            return ENTITY[id].init(component, array, ressource_list, flag_list)
+                == ERROR ? NULL : component;
         }
     return NULL;
 }
