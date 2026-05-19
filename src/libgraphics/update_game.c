@@ -14,11 +14,11 @@
 static void update_scene(game_t *game, scene_t scene_list[NB_SCENE],
     const scene_id_t scene_id)
 {
-    const component_t *component_list = scene_list[scene_id].component_list;
+    const component_t **component_list = scene_list[scene_id].component_list;
 
-    for (entity_id_t index = 0; component_list[index].entity != NB_ENT; index++)
-        ENTITY[component_list[index].entity].update(game,
-            &component_list[index]);
+    for (entity_id_t index = 0; component_list[index] != NULL; index++)
+        ENTITY[component_list[index]->entity].update(game,
+            component_list[index]);
 }
 
 static double update_frame_rate(sfClock *clock)
@@ -30,13 +30,13 @@ static double update_frame_rate(sfClock *clock)
     return 1 / seconds;
 }
 
-void update_game(game_t *game, scene_t scene_list[NB_SCENE])
+void update_game(game_t *game)
 {
     while (sfRenderWindow_pollEvent(game->window, game->event)) {
         if (game->event->type == sfEvtClosed ||
             sfKeyboard_isKeyPressed(sfKeyEscape))
             sfRenderWindow_close(game->window);
     }
-    update_scene(game, scene_list, game->cur_scene);
+    update_scene(game, game->scene_list, game->cur_scene);
     game->frame_sec = update_frame_rate(game->clock);
 }

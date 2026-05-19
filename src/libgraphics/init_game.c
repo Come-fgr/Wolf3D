@@ -101,16 +101,17 @@ static component_t *str_to_component(char *str, component_ressource_t
     return NULL;
 }
 
+//TODO: Free in case of errors
 static int init_scene(scene_t *scene, char *config_file,
     component_ressource_t ressource_list[NB_RESSOURCE])
 {
     size_t nb_comp = 0;
     list_t *scene_config = file_to_list(config_file, &nb_comp);
-    component_t *scene_array = calloc(nb_comp + 1, sizeof(component_t *));
+    component_t **scene_array = calloc(nb_comp + 1, sizeof(component_t *));
 
     if (scene_config == NULL && scene_array == NULL)
         return ERROR;
-    if (list_to_array(&scene_config, (void **)&scene_array,
+    if (list_to_array(&scene_config, (void **)scene_array,
         (void *(*)(const void *, component_ressource_t
         [NB_RESSOURCE]))str_to_component, ressource_list) == ERROR)
         return ERROR;
@@ -143,7 +144,7 @@ int init_game(game_t *game, scene_t scene_list[NB_SCENE])
         destroy_game(game);
         return ERROR;
     }
-    if (init_scene_list(game->sprite_list, scene_list) == ERROR) {
+    if (init_scene_list(game->sprite_list, game->scene_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }
