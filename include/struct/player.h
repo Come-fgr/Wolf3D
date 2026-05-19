@@ -12,7 +12,7 @@
     #include <stdbool.h>
 
     // player.pos incrementing value per second
-    #define DEFAULT_PLR_SPEED 95.0f
+    #define DEFAULT_PLR_SPEED 150.0f
 
     #define SPRINT_FACTOR 2
 
