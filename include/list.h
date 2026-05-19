@@ -22,9 +22,7 @@ int display_list(list_t *const *list, void (*display_data)(void *));
 void free_list(list_t *list, void (*free_data)(void *));
 size_t list_len(list_t *const *begin);
 list_t *file_to_list(char *filepath, size_t *nb_line);
-int list_to_array(list_t **list, void **array,
-    void *(*convert_data)(const void *, component_ressource_t
-    ressource_list[NB_RESSOURCE]), component_ressource_t
-    ressource_list[NB_RESSOURCE]);
+void **list_to_array(list_t **list, void **array,
+    void *(*convert_data)(const void *));
 
 #endif /* !LIST_H_ */

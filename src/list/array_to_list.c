@@ -22,24 +22,21 @@ int array_to_list(char *array[], list_t **list,
     return SUCCESS;
 }
 
-//TODO: Make it more modular
-int list_to_array(list_t **list, void **array,
-    void *(*convert_data)(const void *, component_ressource_t
-    ressource_list[NB_RESSOURCE]), component_ressource_t
-    ressource_list[NB_RESSOURCE])
+void **list_to_array(list_t **list, void **array,
+    void *(*convert_data)(const void *))
 {
     list_t *cur_node = *list;
     size_t i = 0;
 
     if (array == NULL)
-        return ERROR;
+        return NULL;
     while (cur_node != NULL) {
-        array[i] = convert_data(cur_node->data, ressource_list);
-        if (array[i] == NULL)
-            return ERROR;
+        array[i] = convert_data(cur_node->data);
+        if (!array[i])
+            return NULL;
         cur_node = cur_node->next;
         i++;
     }
     array[i] = NULL;
-    return SUCCESS;
+    return array;
 }
