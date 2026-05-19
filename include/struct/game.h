@@ -18,7 +18,7 @@ typedef struct game_s {
     sfRenderWindow *window;
     sfEvent *event;
     sfClock *clock;
-    component_ressource_t sprite_list[NB_RESSOURCE];
+    component_ressource_t ressource_list[NB_RESSOURCE];
     scene_t scene_list[NB_SCENE];
     scene_id_t cur_scene;
     double frame_sec;

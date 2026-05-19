@@ -38,20 +38,20 @@ static int init_font(component_ressource_t *ressource, char *font_path)
 }
 
 //TODO: Use get_dir_content + add MUSIC
-static int init_sprite_list(component_ressource_t *sprite_list)
+static int init_ressource_list(component_ressource_t *ressource_list)
 {
     int exit = SUCCESS;
 
     for (ressource_id_t id = 0; id < NB_RESSOURCE; id++) {
-        sprite_list[id].id = id;
-        sprite_list[id].name = my_strdup(RESSOURCE_LIST[id].name);
+        ressource_list[id].id = id;
+        ressource_list[id].name = my_strdup(RESSOURCE_LIST[id].name);
         switch (RESSOURCE_LIST[id].type) {
             case TEXTURE:
-                exit = init_sprite(&sprite_list[id],
+                exit = init_sprite(&ressource_list[id],
                     RESSOURCE_LIST[id].ressource_path);
                 break;
             case FONT:
-                exit = init_font(&sprite_list[id],
+                exit = init_font(&ressource_list[id],
                     RESSOURCE_LIST[id].ressource_path);
                 break;
         }
@@ -140,12 +140,12 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->event = calloc(1,sizeof(sfEvent));
     game->clock = sfClock_create();
-    error += init_sprite_list(game->sprite_list);
+    error += init_ressource_list(game->ressource_list);
     if (error || !game->window || !game->event || !game->clock) {
         destroy_game(game);
         return ERROR;
     }
-    if (init_scene_list(game->sprite_list, game->scene_list) == ERROR) {
+    if (init_scene_list(game->ressource_list, game->scene_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }
