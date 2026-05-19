@@ -6,6 +6,7 @@
 */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <SFML/Graphics/Text.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Font.h>
@@ -26,13 +27,13 @@ static sfFont *get_font(const char *texture_name, component_ressource_t
 int init_text(component_t *component, const char **config, component_ressource_t
     ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
 {
-    text_t *data = NULL;
+    text_t *data = calloc(1, sizeof(text_t));
     sfText *text = sfText_create();
     sfFont *font = get_font(config[1], ressource_list);
     char *endptr = NULL;
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6 || text == NULL || font == NULL) {
+    if (array_len(config) != 6 || text == NULL || data == NULL|| font == NULL) {
         if (flag_list[DEBUG])
             minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
                 array_len(config) != 6 ? "\tWrong array size\n" : "",
@@ -54,7 +55,7 @@ int init_text(component_t *component, const char **config, component_ressource_t
     component->data = data;
     if (flag_list[DEBUG])
         minidprintf(STDOUT_FILENO, "Load text \"%s\" = %s%s%s\n",
-            ((text_t *)component->data)->text, error == SUCCESS ? GREEN : RED,
+            config[4], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;
 }
