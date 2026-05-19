@@ -31,7 +31,8 @@ void b_quit(game_t *game, const component_t *component)
 
 void update_button(game_t *game, const component_t *component)
 {
-    ((entity_update_fn_t *)component->data)(game, component);
+    if (component->data != NULL)
+        ((entity_update_fn_t *)component->data)(game, component);
 }
 
 static ressource_id_t get_texture(const char *texture_name)
