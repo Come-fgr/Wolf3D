@@ -132,7 +132,7 @@ static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
     return SUCCESS;
 }
 
-int init_game(game_t *game, scene_t scene_list[NB_SCENE])
+int init_game(game_t *game, bool flag_list[NB_FLAGS])
 {
     int error = SUCCESS;
 
