@@ -11,6 +11,8 @@ size_t array_len(char const **array)
 {
     size_t i = 0;
 
+    if (array == NULL)
+        return 0;
     for (; array[i] != NULL; i++);
     return i;
 }
