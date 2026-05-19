@@ -24,11 +24,11 @@
 // Update
 
 int main_loop(void);
-void update_player(game_t *game);
+void update_player(player_t *plr, float delta);
 
 // Display
 
-bool display_env_exist(char **env);
+bool display_env_exist(char *const *const env);
 void display_sprite(sfRenderWindow *window, sfSprite *sprite,
     const component_t *component);
 

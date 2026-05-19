@@ -26,8 +26,8 @@ typedef void (*key_event_fnct_t)(game_t *);
  * @brief Key pressed event struct
  */
 typedef struct key_event_e {
-    sfKeyCode key;
     key_event_fnct_t fnct;
+    sfKeyCode keys[sfKeyCount];
 } key_event_t;
 
 ////////////////////////////////////////////
@@ -43,6 +43,13 @@ void player_move_stop_x(game_t *game);
 void player_move_stop_y(game_t *game);
 
 void go_to_menu_scene(game_t *game);
+
+void player_rotate_right(game_t *game);
+void player_rotate_left(game_t *game);
+void player_rotate_stop(game_t *game);
+
+void player_sprint_start(game_t *game);
+void player_sprint_stop(game_t *game);
 
 ////////////////////////////////////////////
 ////   Handler of KeyPressed Event
@@ -68,23 +75,31 @@ void key_released(sfEvent *evt, game_t *game);
  * @brief Associates keys to functions to handle KeyReleased evt
  */
 static const key_event_t key_pressed_evts[] = {
-    { sfKeyQ, &player_move_left },
-    { sfKeyD, &player_move_right },
-    { sfKeyZ, &player_move_forward },
-    { sfKeyS, &player_move_backward },
-    { sfKeyEscape, &go_to_menu_scene },
-    { sfKeyUnknown, NULL }
+    { &player_move_left, {sfKeyQ, sfKeyUnknown} },
+    { &player_move_right, {sfKeyD, sfKeyUnknown} },
+    { &player_move_forward, {sfKeyZ, sfKeyUnknown} },
+    { &player_move_backward, {sfKeyS, sfKeyUnknown} },
+    { &player_rotate_left, {sfKeyA, sfKeyUnknown} },
+    { &player_rotate_right, {sfKeyE, sfKeyUnknown} },
+    { &go_to_menu_scene, {sfKeyEscape, sfKeyUnknown} },
+    { &player_sprint_start, {sfKeyLShift, sfKeyUnknown} },
+    { NULL, {sfKeyUnknown} }
 };
 
 /***
  * @brief Associates keys to functions to handle KeyPressed evt
  */
 static const key_event_t key_released_evts[] = {
-    { sfKeyQ, &player_move_stop_x },
-    { sfKeyD, &player_move_stop_x },
-    { sfKeyZ, &player_move_stop_y },
-    { sfKeyS, &player_move_stop_y },
-    { sfKeyUnknown, NULL }
+    { &player_move_stop_x, {sfKeyQ, sfKeyD, sfKeyUnknown} },
+    { &player_move_stop_y, {sfKeyZ, sfKeyS, sfKeyUnknown} },
+    { &player_rotate_stop, {sfKeyA, sfKeyE, sfKeyUnknown} },
+    { &player_sprint_stop, {sfKeyLShift, sfKeyUnknown} },
+    { NULL, {sfKeyUnknown} }
 };
+
+typedef enum key_flag_e {
+    KEY_ADD = 1,            // Add to game.keys
+    KEY_ALL_REQUIRED = 2
+} key_flag_t;
 
 #endif /* !EVENTS_KEYS_H_ */

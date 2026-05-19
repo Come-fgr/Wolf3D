@@ -7,7 +7,7 @@
 
 #include "castray.h"
 
-void updating_player(players_t *player)
+void updating_player(player_t *player)
 {
     const float move_speed = 150.0f;
     const float rot_speed = 2.5f;

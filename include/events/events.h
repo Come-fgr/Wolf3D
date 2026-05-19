@@ -50,10 +50,8 @@ static const event_type_t evts_types[] = {
 
 /***
  * @brief Analyse user inputs
- *
- * @param window The render window
  * @param game Simulation game
  */
-sfEvent analyse_events(sfRenderWindow *window, game_t *game);
+sfEvent analyse_events(game_t *game);
 
 #endif /* !EVENTS_TYPES_H_ */

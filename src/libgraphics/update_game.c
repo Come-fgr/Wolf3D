@@ -32,8 +32,8 @@ static float get_delta_time(sfClock *clock)
 
 void update_game(game_t *game)
 {
-    analyse_events(game->window, game);
-    update_player(game);
-    update_scene(game, game->cur_scene);
     game->delta_time = get_delta_time(game->clock);
+    analyse_events(game);
+    update_player(&game->plr, game->delta_time);
+    update_scene(game, game->cur_scene);
 }

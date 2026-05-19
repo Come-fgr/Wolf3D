@@ -14,11 +14,9 @@ RM			:=	rm -f
 
 NAME    	:=	wolf3d
 
-RAYCAST_FILES		=	main_game.c			\
-						castray.c			\
-						world.c				\
-						event.c				\
-						update_player.c		\
+RAYCAST_FILES		=	castray.c			\
+						draw_world.c		\
+						draw_walls.c		\
 						struct_manip.c
 
 LIBGRAPHICS_FILES	=	destroy_game.c		\
@@ -37,6 +35,8 @@ EVENTS_FILES		=	analyse_events.c 	\
 						player_move_stop.c 	\
 						player_move.c		\
 						go_to_menu_scene.c 	\
+						player_rotation.c 	\
+						player_sprint.c 	\
 						handle_buttons_click.c
 
 SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
@@ -53,6 +53,7 @@ CFLAGS		+=	-Wall -Wextra -fno-builtin
 CPPFLAGS	+=	-iquote ./include -iquote ./include/my
 
 DEBUG_FLAGS	=	-g3
+GPROF_FLAGS =	-pg
 
 LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-window		\
@@ -96,6 +97,12 @@ re: fclean all
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
 
+prof:	CFLAGS += $(GPROF_FLAGS)
+prof:	LDFLAGS += $(GPROF_FLAGS)
+prof:	re
+	./$(NAME)
+	gprof $(NAME)
+
 memory_check: debug
 	@valgrind $(VALGR_FLAGS) ./$(NAME)
 
@@ -114,6 +121,7 @@ coverage: tests_run
 	clean		\
 	fclean		\
 	re			\
+	prof 		\
 	debug		\
 	test_run	\
 	coverage	\

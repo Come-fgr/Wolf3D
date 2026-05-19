@@ -24,7 +24,7 @@ typedef struct game_s {
     sfClock *clock;
     component_sprite_t sprite_list[NB_TEXTURE];
     scene_id_t cur_scene;
-    player_t *plr;
+    player_t plr;
     float delta_time;
     _Bool keys[sfKeyCount];
 } game_t;
