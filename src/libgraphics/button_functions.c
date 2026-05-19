@@ -63,10 +63,11 @@ int init_button(component_t *component, const char **config,
     component->rect.width = my_strtol(config[4], &endptr);
     error += *endptr != '\0';
     component->rect.height = my_strtol(config[5], &endptr);
+    error += *endptr != '\0';
     component->rect.left = 0;
     component->rect.top = 0;
     component->texture = get_texture(config[1]);
-    error += component->texture != NB_RESSOURCE;
+    error += component->texture == NB_RESSOURCE;
     if (flag_list[DEBUG])
         minidprintf(STDOUT_FILENO, "Load button \"%s\" = %s%s%s\n",
             config[1], error == SUCCESS ? GREEN : RED,
