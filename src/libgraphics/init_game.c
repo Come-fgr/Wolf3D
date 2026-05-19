@@ -49,15 +49,15 @@ static component_t *str_to_component(char *str, component_ressource_t
     for (entity_id_t id = 0; id < NB_ENT; id++)
         if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
             if (flag_list[DEBUG])
-                minidprintf(STDOUT_FILENO, "%sRessources successfully loaded%s\n",
-            GREEN, RESET);
+                minidprintf(STDOUT_FILENO, "Init component \"%s\" of entity type \"%s\"\n",
+                str, ENTITY[id].name);
             return ENTITY[id].init(component, array, ressource_list) == ERROR ?
                 NULL : component;
         }
     return NULL;
 }
 
-static int list_to_component_array(list_t **list, void **array,
+static int list_to_component_array(list_t **list, component_t **array,
     component_ressource_t ressource_list[NB_RESSOURCE],
     bool flag_list[NB_FLAGS])
 {
@@ -74,6 +74,9 @@ static int list_to_component_array(list_t **list, void **array,
         i++;
     }
     array[i] = NULL;
+    if (flag_list[DEBUG])
+        minidprintf(STDOUT_FILENO, "%sComponent successfully initialized%s\n",
+            GREEN, RESET);
     return SUCCESS;
 }
 
