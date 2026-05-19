@@ -22,7 +22,7 @@ int main(int argc, char *const *argv, char *const *env)
     if (argc == 1)
         return main_loop();
     if (flag_list[HELP]) {
-        minidprintf(STDOUT_FILENO, "./wolf3d:\n\tIn progress...\n");
+        minidprintf(STDOUT_FILENO, HELP_MESSAGE);
         return SUCCESS;
     }
     return EPIFAIL;

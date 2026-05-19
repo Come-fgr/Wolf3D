@@ -37,7 +37,7 @@ typedef enum {
     NB_FLAGS
 } flag_t;
 
-static const char FLAGS_CHAR[NB_FLAGS] = "hd";
+static const char FLAGS_CHAR[NB_FLAGS + 1] = "hd";
 
 int get_index(char c, const char *str);
 int get_flags(int argc, char *const *argv, bool flag_list[NB_FLAGS]);
