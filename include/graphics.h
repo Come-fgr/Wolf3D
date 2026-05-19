@@ -23,7 +23,7 @@
     #define SEPARATOR ';'
 
 bool display_env_exist(char *const *env);
-int main_loop(void);
+int main_loop(bool flag_list[NB_FLAGS]);
 void update_nothing(game_t *game, const component_t *component);
 void display_sprite(sfRenderWindow *window, sfSprite *sprite,
     const component_t *component);

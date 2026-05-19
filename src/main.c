@@ -11,6 +11,7 @@
 #include "map.h"
 #include "macro.h"
 
+//TODO: Check if argv contains non-flag
 int main(int argc, char *const *argv, char *const *env)
 {
     bool flag_list[NB_FLAGS] = {false};
@@ -19,11 +20,9 @@ int main(int argc, char *const *argv, char *const *env)
         return EPIFAIL;
     if (!display_env_exist(env))
         return EPIFAIL;
-    if (argc == 1)
-        return main_loop();
     if (flag_list[HELP]) {
         minidprintf(STDOUT_FILENO, HELP_MESSAGE);
         return SUCCESS;
     }
-    return EPIFAIL;
+    return main_loop(flag_list);
 }
