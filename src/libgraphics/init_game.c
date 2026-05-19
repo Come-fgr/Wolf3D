@@ -120,12 +120,13 @@ static int init_scene(scene_t *scene, char *config_file,
     return SUCCESS;
 }
 
-//TODO: Use init_scene
+//TODO: Use different config file
 static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
     scene_t scene_list[NB_SCENE])
 {
     for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
-        if (init_component(scene_list[scene_id].component_list, ressource_list)
+        //if (init_component(scene_list[scene_id].component_list, ressource_list)
+        if (init_scene(&scene_list[scene_id], "config/start_scene.config", ressource_list)
             == ERROR)
             return ERROR;
     return SUCCESS;
