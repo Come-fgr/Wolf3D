@@ -58,6 +58,8 @@ int init_button(component_t *component, const char **config,
     component->rect.width = my_strtol(config[4], &endptr);
     error += *endptr != '\0';
     component->rect.height = my_strtol(config[5], &endptr);
+    component->rect.left = 0;
+    component->rect.top = 0;
     component->texture = get_texture(config[1]);
     error += component->texture != NB_RESSOURCE;
     return error != SUCCESS ? ERROR : SUCCESS;
