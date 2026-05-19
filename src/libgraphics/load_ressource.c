@@ -5,6 +5,7 @@
 ** load_ressource
 */
 
+#include <unistd.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <SFML/Graphics/Sprite.h>
@@ -64,7 +65,8 @@ static int init_font(component_ressource_t *ressource, char *font_path)
 }
 
 //TODO: Use load_ressource + add MUSIC
-int init_ressource_list(component_ressource_t *ressource_list)
+int init_ressource_list(component_ressource_t *ressource_list,
+    bool flag_list[NB_FLAGS])
 {
     int exit = SUCCESS;
 
@@ -83,6 +85,12 @@ int init_ressource_list(component_ressource_t *ressource_list)
         }
         if (exit == ERROR)
             return ERROR;
+        if (flag_list[DEBUG])
+            minidprintf(STDOUT_FILENO, "Ressource \"%s\" loaded from \"%s\"\n",
+                ressource_list[id].name, RESSOURCE_LIST[id].ressource_path);
     }
+    if (flag_list[DEBUG])
+        minidprintf(STDOUT_FILENO, "%sRessources successfully loaded%s\n",
+            GREEN, RESET);
     return SUCCESS;
 }

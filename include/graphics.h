@@ -32,7 +32,8 @@ sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 void b_start(game_t *game, const component_t *component);
 void b_quit(game_t *game, const component_t *component);
 void update_button(game_t *game, const component_t *component);
-int init_ressource_list(component_ressource_t *ressource_list);
+int init_ressource_list(component_ressource_t *ressource_list,
+    bool flag_list[NB_FLAGS]);
 int init_button(component_t *component, const char **config,
     component_ressource_t ressource_list[NB_RESSOURCE]);
 int init_text(component_t *component, const char **config, component_ressource_t

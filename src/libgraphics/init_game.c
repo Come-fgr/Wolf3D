@@ -92,7 +92,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->event = calloc(1,sizeof(sfEvent));
     game->clock = sfClock_create();
-    error += init_ressource_list(game->ressource_list);
+    error += init_ressource_list(game->ressource_list, flag_list);
     if (error || !game->window || !game->event || !game->clock) {
         destroy_game(game);
         return ERROR;
