@@ -69,25 +69,5 @@ typedef struct text_s {
     size_t size;
 } text_t;
 
-//static component_t start_scene[] = {
-//    {BUTTON, B_QUIT, (sfVector2f){925, 550},
-//        (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
-//    {BUTTON, B_START, (sfVector2f){922, 500},
-//        (sfIntRect){0, 0, START_WIDTH, START_HEIGHT}, b_start},
-//    {TEXT, TITANFALL_FONT, (sfVector2f){50, 50}, (sfIntRect){0}, &(text_t){NULL,
-//            "Wolfenstein3D", 100}},
-//    {NB_ENT, NB_RESSOURCE, {}, {}, NULL}
-//};
-//
-//static component_t main_scene[] = {
-//    {BUTTON, B_QUIT, (sfVector2f){10, 60},
-//        (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
-//    {NB_ENT, NB_RESSOURCE, {}, {}, NULL}
-//};
-//
-//static scene_t SCENES[NB_SCENE] = {
-//    {GAME, main_scene},
-//    {MENU_START, start_scene}
-//};
 
 #endif /* !GRAPHICS_H_ */
