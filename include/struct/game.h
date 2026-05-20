@@ -14,6 +14,7 @@
     #include <SFML/System/InputStream.h>
     #include "struct/scene.h"
     #include "struct/player.h"
+    #include "list.h"
     #include "my.h"
 
     // Takes game struct pointer as argument
@@ -22,7 +23,7 @@
 typedef struct game_s {
     sfRenderWindow *window;
     sfClock *clock;
-    component_ressource_t ressource_list[NB_RESSOURCE];
+    list_t **ressource_list;
     scene_t scene_list[NB_SCENE];
     scene_id_t cur_scene;
     player_t plr;

@@ -30,6 +30,7 @@ void free_array(char **array);
 bool check_array_malloc(void **array, size_t len_array);
 char **str_to_array(char const *str, bool (*is_delimiter)(char c));
 size_t array_len(char const **array);
+char *concat_string(char *first, char *last);
 
 typedef enum {
     HELP,

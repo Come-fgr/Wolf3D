@@ -30,8 +30,7 @@ void update_player(player_t *plr, float delta);
 // Display
 
 bool display_env_exist(char *const *const env);
-void display_sprite(sfRenderWindow *window, sfSprite *sprite,
-    const component_t *component);
+void display_button(sfRenderWindow *window, const component_t *component);
 
 // Destroy
 
@@ -42,23 +41,24 @@ void destroy_component(component_t *component);
 sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 void b_start(game_t *game);
 void b_quit(game_t *game);
-int init_ressource_list(component_ressource_t *ressource_list,
+int init_ressource_list(list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
 int init_button(component_t *component, const char **config,
-    component_ressource_t ressource_list[NB_RESSOURCE],
+    list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
-int init_text(component_t *component, const char **config, component_ressource_t
-    ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS]);
-void display_text(sfRenderWindow *, sfSprite *,
-    const component_t *);
+int init_text(component_t *component, const char **config,
+    list_t **ressource_list, bool flag_list[NB_FLAGS]);
+void display_text(sfRenderWindow *, const component_t *);
 void destroy_text(component_t *);
+void *get_ressource(const char *ressource_name, list_t **ressource_list);
+
 
 static const char HELP_MESSAGE[] =
     "Usage: ./wolf3d [OPTION]\n\t-h\tDisplay this help and exit\n";
 
 //Entities list
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, "button", init_button, NULL, display_sprite,
+    {BUTTON, "button", init_button, NULL, display_button,
         destroy_component, CLICKABLE},
     {TEXT, "text", init_text, NULL, display_text, destroy_text,
         NO_PROPERTIES}

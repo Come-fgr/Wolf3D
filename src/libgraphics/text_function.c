@@ -15,15 +15,6 @@
 #include "struct/ressource.h"
 #include "graphics.h"
 
-static sfFont *get_font(const char *texture_name, component_ressource_t
-    ressource_list[NB_RESSOURCE])
-{
-    for (ressource_id_t id = 0; id < NB_RESSOURCE; id++)
-        if (my_strcmp(texture_name, ressource_list[id].name) == SUCCESS)
-            return ressource_list[id].font;
-    return NULL;
-}
-
 static size_t set_text_variables(component_t *component, const char **config,
     sfFont *font, text_t *data)
 {
@@ -50,11 +41,11 @@ static size_t set_text_variables(component_t *component, const char **config,
 }
 
 //! Free in case of error
-int init_text(component_t *component, const char **config, component_ressource_t
-    ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
+int init_text(component_t *component, const char **config,
+    list_t **ressource_list, bool flag_list[NB_FLAGS])
 {
     text_t *data = calloc(1, sizeof(text_t));
-    sfFont *font = get_font(config[1], ressource_list);
+    sfFont *font = get_ressource(config[1], ressource_list);
     size_t error = SUCCESS;
 
     if (array_len(config) != 6 || font == NULL || data == NULL) {
@@ -72,10 +63,8 @@ int init_text(component_t *component, const char **config, component_ressource_t
     return error != SUCCESS ? ERROR : SUCCESS;
 }
 
-void display_text(sfRenderWindow *window, sfSprite *sprite,
-    const component_t *component)
+void display_text(sfRenderWindow *window, const component_t *component)
 {
-    (void)sprite;
     sfRenderWindow_drawText(window, ((text_t *)component->data)->text, NULL);
 }
 

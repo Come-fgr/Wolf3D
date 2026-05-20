@@ -28,7 +28,8 @@ LIBMY_FILES			=	minidprintf.c		\
 						free_array.c		\
 						str_to_array.c		\
 						check_array_malloc.c\
-						arraylen.c
+						arraylen.c			\
+						concat_string.c
 
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\
@@ -46,7 +47,8 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_env_exist.c	\
 						load_ressource.c	\
 						text_function.c		\
-						update_player.c
+						update_player.c		\
+						get_ressource.c
 
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\
@@ -133,7 +135,7 @@ prof:	re
 	gprof $(NAME)
 
 memory_check: debug
-	@valgrind $(VALGR_FLAGS) ./$(NAME)
+	@valgrind ./$(NAME)
 
 tests_run: clean
 	@clang -o $(UT_NAME) $(UT_SRC) $(UT_FLAGS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)

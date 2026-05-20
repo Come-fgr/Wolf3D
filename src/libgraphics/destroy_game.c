@@ -13,14 +13,14 @@
 #include "struct/game.h"
 
 //! sfSprite_destroy crash if texture loading fail
-static void destroy_entitys(component_ressource_t *ressource_list)
+static void destroy_ressource(ressource_t *ressource_list)
 {
-    for (entity_id_t id = 0; id < NB_ENT; id++) {
-        if (ressource_list[id].texture != NULL)
-            sfTexture_destroy(ressource_list[id].texture);
-        if (ressource_list[id].sprite != NULL)
-            sfSprite_destroy(ressource_list[id].sprite);
-    }
+    //for (entity_id_t id = 0; id < NB_ENT; id++) {
+    //    if (ressource_list[id].texture != NULL)
+    //        sfTexture_destroy(ressource_list[id].texture);
+    //    if (ressource_list[id].sprite != NULL)
+    //        sfSprite_destroy(ressource_list[id].sprite);
+    //}
 }
 
 //TODO: destroy scene
@@ -30,5 +30,5 @@ void destroy_game(game_t *game)
         sfRenderWindow_destroy(game->window);
     if (game->clock != NULL)
         sfClock_destroy(game->clock);
-    destroy_entitys(game->ressource_list);
+    //destroy_entitys(game->ressource_list);
 }

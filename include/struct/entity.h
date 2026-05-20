@@ -10,6 +10,7 @@
 
     #include "my.h"
     #include "ressource.h"
+    #include "list.h"
 
 typedef enum properties_e {
     CLICKABLE,
@@ -30,7 +31,7 @@ typedef void (component_fn_t)(struct game_s *);
 
 typedef struct component_s {
     entity_id_t entity;
-    ressource_id_t texture;
+    ressource_t *ressource;
     sfVector2f pos;
     sfIntRect rect;
     void *data;
@@ -43,10 +44,9 @@ typedef void (entity_click_fn_t)(struct game_s *);
 // Basic entities functions
 
 typedef int (entity_init_fn_t)(component_t *, const char **,
-    component_ressource_t [NB_RESSOURCE], bool [NB_FLAGS]);
+    list_t **ressource_list, bool [NB_FLAGS]);
 typedef void (entity_update_fn_t)(struct game_s *, const component_t *);
-typedef void (entity_display_fn_t)(sfRenderWindow *, sfSprite *,
-    const component_t *);
+typedef void (entity_display_fn_t)(sfRenderWindow *, const component_t *);
 typedef void (entity_destroy_fn_t)(component_t *);
 
 // Entities struct

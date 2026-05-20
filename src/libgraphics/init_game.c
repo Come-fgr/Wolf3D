@@ -22,8 +22,8 @@ bool is_sep(char c)
     return c == SEPARATOR;
 }
 
-static component_t *str_to_component(char *str, component_ressource_t
-    ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
+static component_t *str_to_component(char *str, list_t
+    **ressource_list, bool flag_list[NB_FLAGS])
 {
     component_t *component = calloc(1, sizeof(component_t));
     const char **array = (const char **)str_to_array(str, is_sep);
@@ -39,7 +39,7 @@ static component_t *str_to_component(char *str, component_ressource_t
 }
 
 static int list_to_component_array(list_t **list, component_t **array,
-    component_ressource_t ressource_list[NB_RESSOURCE],
+    list_t **ressource_list,
     bool flag_list[NB_FLAGS])
 {
     list_t *cur_node = *list;
@@ -60,7 +60,7 @@ static int list_to_component_array(list_t **list, component_t **array,
 
 //TODO: Free in case of errors
 static int init_scene(scene_t *scene, char *config_file,
-    component_ressource_t ressource_list[NB_RESSOURCE],
+    list_t **ressource_list,
     bool flag_list[NB_FLAGS])
 {
     size_t nb_comp = 0;
@@ -81,7 +81,7 @@ static int init_scene(scene_t *scene, char *config_file,
 }
 
 //TODO: Use get_dir_content
-static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
+static int init_scene_list(list_t **ressource_list,
     scene_t scene_list[NB_SCENE], bool flag_list[NB_FLAGS])
 {
     //for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
@@ -108,10 +108,15 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->clock = sfClock_create();
-    error += init_ressource_list(game->ressource_list, flag_list);
+    game->ressource_list = calloc(1, sizeof(list_t *));
     game->plr = (player_t){0};
     init_player(&game->plr);
-    if (error || !game->window || !game->clock) {
+    if (!game->window || !game->clock || !game->ressource_list) {
+        destroy_game(game);
+        return ERROR;
+    }
+    *game->ressource_list = NULL;
+    if (init_ressource_list(game->ressource_list, flag_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }
