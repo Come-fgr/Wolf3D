@@ -103,8 +103,6 @@ static void init_player(player_t *plr)
 
 int init_game(game_t *game, bool flag_list[NB_FLAGS])
 {
-    int error = SUCCESS;
-
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->clock = sfClock_create();

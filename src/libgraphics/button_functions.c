@@ -91,6 +91,7 @@ int init_button(component_t *component, const char **config,
 void display_button(sfRenderWindow *window, const component_t *component)
 {
     sfSprite *sprite = sfSprite_create();
+
     if (sprite == NULL)
         return;
     sfSprite_setTexture(sprite, (sfTexture *)component->ressource, sfTrue);

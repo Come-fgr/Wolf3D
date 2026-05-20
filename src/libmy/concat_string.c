@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *concat_string(char *first, char *last)
+char *concat_string(const char *first, const char *last)
 {
     char *res = calloc((strlen(first) + strlen(last) + 1), sizeof(char));
 

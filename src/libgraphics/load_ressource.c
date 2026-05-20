@@ -45,7 +45,6 @@ static char *get_ressource_name(const char *filepath, const char *exetension)
     if (name_len < 1)
         return NULL;
     return strndup(filepath, name_len);
-
 }
 
 static int add_ressource_to_list(list_t **ressource_list,
