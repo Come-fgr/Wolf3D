@@ -58,7 +58,6 @@ static int add_ressource_to_list(list_t **ressource_list,
     if (new_node == NULL || ressource == NULL || full_path == NULL)
         return ERROR;
     ressource->name = get_ressource_name(filepath, ressource_dir->extension);
-    ressource->type = ressource_dir->type;
     ressource->data = ressource_dir->create_from_file(full_path);
     if (ressource->data == NULL || ressource->name == NULL)
         return ERROR; //! Free error
