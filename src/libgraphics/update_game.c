@@ -9,7 +9,6 @@
 #include <SFML/System/Clock.h>
 #include <SFML/System/Types.h>
 #include <SFML/Window/Keyboard.h>
-
 #include "events/events.h"
 #include "graphics.h"
 
@@ -19,8 +18,9 @@ static void update_scene(game_t *game, scene_t scene_list[NB_SCENE],
     const component_t **component_list = scene_list[scene_id].component_list;
 
     for (entity_id_t index = 0; component_list[index] != NULL; index++)
-        ENTITY[component_list[index]->entity].update(game,
-            component_list[index]);
+        if (ENTITY[component_list[index]->entity].update != NULL)
+            ENTITY[component_list[index]->entity].update(game,
+                component_list[index]);
 }
 
 static float get_delta_time(sfClock *clock)

@@ -42,7 +42,6 @@ void destroy_component(component_t *component);
 sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 void b_start(game_t *game);
 void b_quit(game_t *game);
-void update_button(game_t *game, const component_t *component);
 int init_ressource_list(component_ressource_t *ressource_list,
     bool flag_list[NB_FLAGS]);
 int init_button(component_t *component, const char **config,
@@ -59,7 +58,7 @@ static const char HELP_MESSAGE[] =
 
 //Entities list
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, "button", init_button, update_button, display_sprite,
+    {BUTTON, "button", init_button, NULL, display_sprite,
         destroy_component, CLICKABLE},
     {TEXT, "text", init_text, NULL, display_text, destroy_text,
         NO_PROPERTIES}

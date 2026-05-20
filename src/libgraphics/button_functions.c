@@ -30,12 +30,6 @@ void b_quit(game_t *game)
     sfRenderWindow_close(game->window);
 }
 
-void update_button(game_t *game, const component_t *component)
-{
-    if (component->data != NULL)
-        ((entity_update_fn_t *)component->data)(game, component);
-}
-
 static ressource_id_t get_texture(const char *texture_name)
 {
     for (ressource_id_t id = 0; id < NB_RESSOURCE; id++)
