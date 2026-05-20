@@ -12,11 +12,13 @@
     #include <SFML/Graphics/Types.h>
     #include <SFML/System/Vector2.h>
     #include <SFML/Graphics/Rect.h>
+    #include <SFML/Audio/Music.h>
 
 typedef enum {
     B_QUIT,
     B_START,
     TITANFALL_FONT,
+    BT_MUSIC,
     NB_RESSOURCE
 } ressource_id_t;
 
@@ -39,6 +41,7 @@ static const ressource_t RESSOURCE_LIST[NB_RESSOURCE] = {
     {B_QUIT, "quit", TEXTURE, QUIT_TEXTURE},
     {B_START, "start", TEXTURE, START_TEXTURE},
     {TITANFALL_FONT, "titanfall", FONT, "assets/font/titanfall.ttf"},
+    {BT_MUSIC, "BT-7274", MUSIC, "assets/music/BT-7274.mp3"}
 };
 
 typedef struct component_ressource_s {
@@ -47,6 +50,7 @@ typedef struct component_ressource_s {
     sfTexture *texture;
     sfSprite *sprite;
     sfFont *font;
+    sfMusic *music;
 } component_ressource_t;
 
 static const char ASSETS_DIR[] = "assets";

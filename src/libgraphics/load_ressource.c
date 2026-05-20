@@ -11,6 +11,7 @@
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
 #include <SFML/Graphics/Font.h>
+#include <SFML/Audio/Music.h>
 #include "macro.h"
 #include "my.h"
 #include "struct/ressource.h"
@@ -64,6 +65,14 @@ static int init_font(component_ressource_t *ressource, char *font_path)
     return SUCCESS;
 }
 
+static int init_music(component_ressource_t *ressource, char *music_path)
+{
+    ressource->music = sfMusic_createFromFile(music_path);
+    if (ressource->music == NULL)
+        return ERROR;
+    return SUCCESS;
+}
+
 //TODO: Use load_ressource + add MUSIC
 //! Function too long
 int init_ressource_list(component_ressource_t *ressource_list,
@@ -81,6 +90,10 @@ int init_ressource_list(component_ressource_t *ressource_list,
                 break;
             case FONT:
                 exit = init_font(&ressource_list[id],
+                    RESSOURCE_LIST[id].ressource_path);
+                break;
+            case MUSIC:
+                exit = init_music(&ressource_list[id],
                     RESSOURCE_LIST[id].ressource_path);
                 break;
         }
