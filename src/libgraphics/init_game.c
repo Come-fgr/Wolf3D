@@ -96,16 +96,17 @@ static int init_scene(scene_t *scene, char *config_file,
     return SUCCESS;
 }
 
-//TODO: Use different config file
+//TODO: Use get_dir_content
 static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
     scene_t scene_list[NB_SCENE], bool flag_list[NB_FLAGS])
 {
-    for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
-        //if (init_component(scene_list[scene_id].component_list, ressource_list)
-        if (init_scene(&scene_list[scene_id], "config/start_scene.config",
-            ressource_list, flag_list)
-            == ERROR)
-            return ERROR;
+    //for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
+    if (init_scene(&scene_list[MENU_START], "config/start_scene.config",
+            ressource_list, flag_list) == ERROR)
+        return ERROR;
+    if (init_scene(&scene_list[GAME], "config/game_scene.config",
+            ressource_list, flag_list) == ERROR)
+        return ERROR;
     return SUCCESS;
 }
 
