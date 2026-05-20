@@ -10,7 +10,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "SFML/Graphics/RenderWindow.h"
+#include <SFML/Graphics/RenderWindow.h>
+
+#include "my_string.h"
 #include "my.h"
 #include "macro.h"
 #include "graphics.h"
@@ -46,21 +48,25 @@ static void *get_button_funct(const char *function_name)
     return NULL;
 }
 
+static long set_one_btn_variable(size_t *error, const char *str)
+{
+    char *endptr = NULL;
+    long result = strtol(str, &endptr, STRLEN(DECA_BASE));
+
+    *error += *endptr != '\0';
+    return result;
+}
+
 static size_t set_button_variables(component_t *component, const char **config,
     component_ressource_t ressource_list[NB_RESSOURCE])
 {
-    char *endptr = NULL;
     size_t error = SUCCESS;
 
     component->entity = BUTTON;
-    component->pos.x = my_strtol(config[2], &endptr);
-    error += *endptr != '\0';
-    component->pos.y = my_strtol(config[3], &endptr);
-    error += *endptr != '\0';
-    component->rect.width = my_strtol(config[4], &endptr);
-    error += *endptr != '\0';
-    component->rect.height = my_strtol(config[5], &endptr);
-    error += *endptr != '\0';
+    component->pos.x = set_one_btn_variable(&error, config[2]);
+    component->pos.y = set_one_btn_variable(&error, config[3]);
+    component->rect.width = set_one_btn_variable(&error, config[4]);
+    component->rect.height = set_one_btn_variable(&error, config[5]);
     component->rect.left = 0;
     component->rect.top = 0;
     component->texture = get_texture(config[1]);

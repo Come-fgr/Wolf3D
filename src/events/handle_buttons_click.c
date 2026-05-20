@@ -10,7 +10,7 @@
 
 void handle_buttons_click(sfEvent *evt, game_t *game)
 {
-    const component_t **component_list = game ?
+    component_t **component_list = game ?
         game->scene_list[game->cur_scene].component_list : NULL;
 
     if (component_list == NULL || evt == NULL)

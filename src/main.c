@@ -24,7 +24,6 @@ int main(int argc, char *const *argv, char *const *env)
         return EPIFAIL;
     if (flag_list[HELP]) {
         minidprintf(STDOUT_FILENO, HELP_MESSAGE);
-
         return SUCCESS;
     }
     return main_loop(flag_list);

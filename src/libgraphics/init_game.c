@@ -26,7 +26,7 @@ static component_t *str_to_component(char *str, component_ressource_t
     ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
 {
     component_t *component = calloc(1, sizeof(component_t));
-    char **array = str_to_array(str, is_sep);
+    const char **array = (const char **)str_to_array(str, is_sep);
 
     if (component == NULL || array == NULL)
         return NULL;
@@ -69,7 +69,7 @@ static int init_scene(scene_t *scene, char *config_file,
 
     if (scene_config == NULL && scene_array == NULL)
         return ERROR;
-    if (list_to_component_array(&scene_config, (void **)scene_array,
+    if (list_to_component_array(&scene_config, scene_array,
             ressource_list, flag_list) == ERROR)
         return ERROR;
     free_list(scene_config, free);
