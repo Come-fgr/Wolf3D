@@ -43,6 +43,14 @@ static ressource_id_t get_texture(const char *texture_name)
     return NB_RESSOURCE;
 }
 
+static entity_update_fn_t *get_button_funct(const char *function_name)
+{
+    for (size_t id = 0; id < NB_BUTTON; id++)
+        if (my_strcmp(function_name, BUTTON_FUNCT[id].name) == SUCCESS)
+            return BUTTON_FUNCT[id].funct;
+    return NULL;
+}
+
 int init_button(component_t *component, const char **config,
     component_ressource_t ressource_list[NB_RESSOURCE],
     bool flag_list[NB_FLAGS])
@@ -69,6 +77,8 @@ int init_button(component_t *component, const char **config,
     component->rect.top = 0;
     component->texture = get_texture(config[1]);
     error += component->texture == NB_RESSOURCE;
+    component->data = get_button_funct(config[1]);
+    error += component->data == NULL;
     if (flag_list[DEBUG])
         minidprintf(STDOUT_FILENO, "Load button \"%s\" = %s%s%s\n",
             config[1], error == SUCCESS ? GREEN : RED,

@@ -51,6 +51,18 @@ static const entity_t ENTITY[NB_ENT] = {
     {TEXT, "text", init_text, update_nothing, display_text, destroy_text}
 };
 
+typedef struct button_funct_s {
+    char *name;
+    entity_update_fn_t *funct;
+} button_funct_t;
+
+    #define NB_BUTTON 2
+
+static const button_funct_t BUTTON_FUNCT[NB_BUTTON] = {
+    {"start", b_start},
+    {"quit", b_quit}
+};
+
 typedef struct text_s {
     sfText *text;
     char *string;
