@@ -24,24 +24,15 @@ static sfFont *get_font(const char *texture_name, component_ressource_t
     return NULL;
 }
 
-//! Function too long
-int init_text(component_t *component, const char **config, component_ressource_t
-    ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
+static size_t set_text_variables(component_t *component, const char **config,
+    sfFont *font, text_t *data)
 {
-    text_t *data = calloc(1, sizeof(text_t));
     sfText *text = sfText_create();
-    sfFont *font = get_font(config[1], ressource_list);
     char *endptr = NULL;
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6 || text == NULL || data == NULL ||
-        font == NULL) {
-        if (flag_list[DEBUG])
-            minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
-                array_len(config) != 6 ? "\tWrong array size\n" : "",
-                font == NULL ? "\tFont is NULL\n" : "", RESET);
+    if (text == NULL)
         return ERROR;
-    }
     component->entity = TEXT;
     sfText_setString(text, config[4]);
     sfText_setFont(text, font);
@@ -55,6 +46,25 @@ int init_text(component_t *component, const char **config, component_ressource_t
     sfText_setPosition(text, component->pos);
     data->text = text;
     component->data = data;
+    return error;
+}
+
+//! Free in case of error
+int init_text(component_t *component, const char **config, component_ressource_t
+    ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
+{
+    text_t *data = calloc(1, sizeof(text_t));
+    sfFont *font = get_font(config[1], ressource_list);
+    size_t error = SUCCESS;
+
+    if (array_len(config) != 6 || font == NULL || data == NULL) {
+        if (flag_list[DEBUG])
+            minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
+                array_len(config) != 6 ? "\tWrong array size\n" : "",
+                font == NULL ? "\tFont is NULL\n" : "", RESET);
+        return ERROR;
+    }
+    error = set_text_variables(component, config, font, data);
     if (flag_list[DEBUG])
         minidprintf(STDOUT_FILENO, "Load text \"%s\" = %s%s%s\n",
             config[4], error == SUCCESS ? GREEN : RED,

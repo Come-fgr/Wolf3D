@@ -51,20 +51,12 @@ static entity_update_fn_t *get_button_funct(const char *function_name)
     return NULL;
 }
 
-//! Function too long
-int init_button(component_t *component, const char **config,
-    component_ressource_t ressource_list[NB_RESSOURCE],
-    bool flag_list[NB_FLAGS])
+static size_t set_button_variables(component_t *component, const char **config,
+    component_ressource_t ressource_list[NB_RESSOURCE])
 {
     char *endptr = NULL;
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6) {
-        if (flag_list[DEBUG])
-            minidprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
-                RED, RESET);
-        return ERROR;
-    }
     component->entity = BUTTON;
     component->pos.x = my_strtol(config[2], &endptr);
     error += *endptr != '\0';
@@ -80,6 +72,22 @@ int init_button(component_t *component, const char **config,
     error += component->texture == NB_RESSOURCE;
     component->data = get_button_funct(config[1]);
     error += component->data == NULL;
+    return error;
+}
+
+int init_button(component_t *component, const char **config,
+    component_ressource_t ressource_list[NB_RESSOURCE],
+    bool flag_list[NB_FLAGS])
+{
+    size_t error = SUCCESS;
+
+    if (array_len(config) != 6) {
+        if (flag_list[DEBUG])
+            minidprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
+                RED, RESET);
+        return ERROR;
+    }
+    error = set_button_variables(component, config, ressource_list);
     if (flag_list[DEBUG])
         minidprintf(STDOUT_FILENO, "Load button \"%s\" = %s%s%s\n",
             config[1], error == SUCCESS ? GREEN : RED,
