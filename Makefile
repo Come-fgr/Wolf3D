@@ -119,6 +119,7 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(UT_NAME)
+	@$(RM) -r $(OBJ_DIR)
 
 re: fclean all
 
