@@ -53,8 +53,10 @@ void destroy_text(component_t *);
 void *get_ressource(const char *ressource_name, list_t **ressource_list);
 
 
-static const char HELP_MESSAGE[] =
-    "Usage: ./wolf3d [OPTION]\n\t-h\tDisplay this help and exit\n";
+static const char HELP_MESSAGE_USAGE[] = "Usage: ./wolf3d [OPTION]\n";
+static const char HELP_MESSAGE_FLAG_H[] = "\t-h\tDisplay this help and exit\n";
+static const char HELP_MESSAGE_FLAG_D[] =
+    "\t-d\tDisplay log messages during initialization\n";
 
 //Entities list
 static const entity_t ENTITY[NB_ENT] = {

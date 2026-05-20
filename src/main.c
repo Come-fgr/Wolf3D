@@ -13,17 +13,20 @@
 #include "map.h"
 #include "macro.h"
 
-//TODO: Check if argv contains non-flag
 int main(int argc, char *const *argv, char *const *env)
 {
     bool flag_list[NB_FLAGS] = {false};
 
-    if (get_flags(argc, argv, flag_list) == ERROR)
+    if (get_flags(argc, argv, flag_list) == ERROR) {
+        minidprintf(STDOUT_FILENO, "%s%s%s", HELP_MESSAGE_USAGE,
+            HELP_MESSAGE_FLAG_D, HELP_MESSAGE_FLAG_H);
         return EPIFAIL;
+    }
     if (!display_env_exist(env))
         return EPIFAIL;
     if (flag_list[HELP]) {
-        minidprintf(STDOUT_FILENO, HELP_MESSAGE);
+        minidprintf(STDOUT_FILENO, "%s%s%s", HELP_MESSAGE_USAGE,
+            HELP_MESSAGE_FLAG_D, HELP_MESSAGE_FLAG_H);
         return SUCCESS;
     }
     return main_loop(flag_list);

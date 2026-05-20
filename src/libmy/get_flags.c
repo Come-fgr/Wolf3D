@@ -15,6 +15,9 @@ int get_flags(int argc, char *const *argv, bool flag_list[NB_FLAGS])
     int opt = ERROR;
     int index = ERROR;
 
+    for (int i = 1; i < argc; i++)
+        if (argv[i][0] != '-')
+            return ERROR;
     opt = getopt(argc, argv, FLAGS_CHAR);
     while (opt != ERROR) {
         index = get_index(opt, FLAGS_CHAR);
