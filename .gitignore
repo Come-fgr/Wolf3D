@@ -4,6 +4,7 @@
 temp/*
 
 # Binaries
+*.out
 *.o
 *.a
 wolf3d

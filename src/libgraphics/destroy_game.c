@@ -30,7 +30,5 @@ void destroy_game(game_t *game)
         sfRenderWindow_destroy(game->window);
     if (game->clock != NULL)
         sfClock_destroy(game->clock);
-    if (game->event != NULL)
-        free(game->event);
     destroy_entitys(game->ressource_list);
 }

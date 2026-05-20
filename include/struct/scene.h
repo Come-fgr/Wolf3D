@@ -10,7 +10,7 @@
 
     #include "struct/entity.h"
 
-typedef enum {
+typedef enum scene_id_e {
     GAME,
     MENU_START,
 //    MENU_PAUSE,

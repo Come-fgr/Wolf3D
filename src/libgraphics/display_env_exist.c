@@ -5,17 +5,18 @@
 ** display_env_exist
 */
 
+#include <string.h>
 #include "graphics.h"
-#include "my.h"
+#include "macro.h"
 
-bool display_env_exist(char *const *env)
+bool display_env_exist(char *const *const env)
 {
-    size_t len = my_strlen(DISPLAY_ENV);
+    size_t len = strlen(DISPLAY_ENV);
 
     if (env == NULL)
         return false;
     for (size_t i = 0; env[i] != NULL; i++)
-        if (my_strncmp(env[i], DISPLAY_ENV, len) == 0)
+        if (strncmp(env[i], DISPLAY_ENV, len) == SUCCESS)
             return true;
     return false;
 }

@@ -7,9 +7,12 @@
 
 CC			:=	epiclang
 
-RM			=	rm -f
+SRC_DIR		:=	src
+OBJ_DIR		:=	build
 
-NAME    	=	wolf3d
+RM			:=	rm -f
+
+NAME    	:=	wolf3d
 
 LIBMY_FILES			=	minidprintf.c		\
 						my_pow.c			\
@@ -27,6 +30,11 @@ LIBMY_FILES			=	minidprintf.c		\
 						check_array_malloc.c\
 						arraylen.c
 
+RAYCAST_FILES		=	castray.c			\
+						draw_world.c		\
+						draw_walls.c		\
+						struct_manip.c
+
 LIBGRAPHICS_FILES	=	destroy_game.c		\
 						display_game.c		\
 						init_game.c			\
@@ -37,7 +45,17 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						is_clicked.c		\
 						display_env_exist.c	\
 						load_ressource.c	\
-						text_function.c
+						text_function.c		\
+						update_player.c
+
+EVENTS_FILES		=	analyse_events.c 	\
+						key_event.c			\
+						player_move_stop.c 	\
+						player_move.c		\
+						go_to_menu_scene.c 	\
+						player_rotation.c 	\
+						player_sprint.c 	\
+						handle_buttons_click.c
 
 LIBLIST_FILES		=	add_node.c			\
 						array_to_list.c		\
@@ -49,18 +67,21 @@ LIBLIST_FILES		=	add_node.c			\
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
 				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
-				$(addprefix list/, $(LIBLIST_FILES))		\
-				main.c
+				$(addprefix list/, $(LIBLIST_FILES))			\
+				$(addprefix events/, $(EVENTS_FILES))			\
+				$(addprefix raycast/, $(RAYCAST_FILES))
 
-SRC			=	$(addprefix src/, $(SRC_FILES))	\
+SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))	\
+				$(SRC_DIR)/main.c
 
-OBJ			=	$(SRC:.c=.o)
+OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CFLAGS		+=	-Wall -Wextra -fno-builtin
 
-CPPFLAGS	+=	-iquote ./include
+CPPFLAGS	+=	-iquote ./include -iquote ./include/my
 
 DEBUG_FLAGS	=	-g3
+GPROF_FLAGS =	-pg
 
 LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-window		\
@@ -68,7 +89,7 @@ LDFLAGS		+=	-lcsfml-graphics	\
 				-lcsfml-audio		\
 				-lm
 
-UT_SRC		=	$(addprefix src/, $(SRC_FILES)) \
+UT_SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES)) \
 
 UT_NAME		=	unit_tests
 
@@ -81,13 +102,19 @@ VALGR_FLAGS	=	-s --leak-check=full
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ_DIR) $(OBJ)
 	$(CC) -o $(NAME) $(OBJ)	$(LDFLAGS)
 
+$(OBJ_DIR):
+	rsync -a --include='*/' --exclude='*' $(SRC_DIR)/ $(OBJ_DIR)/
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) -o $@ -c $^ $(CFLAGS) $(CPPFLAGS)
+
 clean:
-	@$(RM) $(OBJ)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	$(RM) $(OBJ)
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 
 fclean: clean
 	@$(RM) $(NAME)
@@ -98,6 +125,12 @@ re: fclean all
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
 
+prof:	CFLAGS += $(GPROF_FLAGS)
+prof:	LDFLAGS += $(GPROF_FLAGS)
+prof:	re
+	./$(NAME)
+	gprof $(NAME)
+
 memory_check: debug
 	@valgrind $(VALGR_FLAGS) ./$(NAME)
 
@@ -107,8 +140,8 @@ tests_run: clean
 
 coverage: tests_run
 	gcovr $(COVR_FLAGS)
-	@$(RM) "*.gcda"
-	@$(RM) "*.gcno"
+	@$(RM) *.gcda
+	@$(RM) *.gcno
 	@$(RM) $(UT_NAME)
 
 .PHONY:
@@ -116,6 +149,7 @@ coverage: tests_run
 	clean		\
 	fclean		\
 	re			\
+	prof 		\
 	debug		\
 	test_run	\
 	coverage	\

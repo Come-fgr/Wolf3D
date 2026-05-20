@@ -6,6 +6,8 @@
 */
 
 #include <SFML/Graphics/RenderWindow.h>
+
+#include "events/events.h"
 #include "macro.h"
 #include "graphics.h"
 #include "my.h"

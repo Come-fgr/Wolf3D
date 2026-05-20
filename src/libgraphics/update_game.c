@@ -9,6 +9,8 @@
 #include <SFML/System/Clock.h>
 #include <SFML/System/Types.h>
 #include <SFML/Window/Keyboard.h>
+
+#include "events/events.h"
 #include "graphics.h"
 
 static void update_scene(game_t *game, scene_t scene_list[NB_SCENE],
@@ -21,22 +23,17 @@ static void update_scene(game_t *game, scene_t scene_list[NB_SCENE],
             component_list[index]);
 }
 
-static double update_frame_rate(sfClock *clock)
+static float get_delta_time(sfClock *clock)
 {
-    sfTime time = sfClock_getElapsedTime(clock);
-    double seconds = sfTime_asSeconds(time);
+    sfTime time = sfClock_restart(clock);
 
-    sfClock_restart(clock);
-    return 1 / seconds;
+    return sfTime_asSeconds(time);
 }
 
 void update_game(game_t *game)
 {
-    while (sfRenderWindow_pollEvent(game->window, game->event)) {
-        if (game->event->type == sfEvtClosed ||
-            sfKeyboard_isKeyPressed(sfKeyEscape))
-            sfRenderWindow_close(game->window);
-    }
+    game->delta_time = get_delta_time(game->clock);
+    analyse_events(game);
+    update_player(&game->plr, game->delta_time);
     update_scene(game, game->scene_list, game->cur_scene);
-    game->frame_sec = update_frame_rate(game->clock);
 }

@@ -7,8 +7,11 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/Sprite.h>
+#include <SFML/Graphics/Texture.h>
 #include "macro.h"
 #include "graphics.h"
 #include "list.h"
@@ -91,16 +94,24 @@ static int init_scene_list(component_ressource_t ressource_list[NB_RESSOURCE],
     return SUCCESS;
 }
 
+static void init_player(player_t *plr)
+{
+    plr->pos = (sfVector2f){ 160.0f, 160.0f };
+    plr->angle = (float)M_PI * 0.25f;
+    plr->speed = DEFAULT_PLR_SPEED;
+}
+
 int init_game(game_t *game, bool flag_list[NB_FLAGS])
 {
     int error = SUCCESS;
 
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
-    game->event = calloc(1, sizeof(sfEvent));
     game->clock = sfClock_create();
     error += init_ressource_list(game->ressource_list, flag_list);
-    if (error || !game->window || !game->event || !game->clock) {
+    game->plr = (player_t){0};
+    init_player(&game->plr);
+    if (error || !game->window || !game->clock) {
         destroy_game(game);
         return ERROR;
     }

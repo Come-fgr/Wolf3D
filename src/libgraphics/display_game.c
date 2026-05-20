@@ -8,6 +8,7 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/VertexArray.h>
 #include "graphics.h"
+#include "castray.h"
 
 static void display_scene(sfRenderWindow *window,
     component_ressource_t ressource_list[NB_ENT],
@@ -24,6 +25,8 @@ static void display_scene(sfRenderWindow *window,
 void display_game(game_t *game)
 {
     sfRenderWindow_clear(game->window, sfBlack);
+    if (game->cur_scene == GAME)
+        draw_world(game);
     display_scene(game->window, game->ressource_list, game->scene_list,
         game->cur_scene);
     sfRenderWindow_display(game->window);

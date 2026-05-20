@@ -16,21 +16,32 @@
 
     #define WINDOW_HEIGHT 1080
     #define WINDOW_WIDTH 1920
-    #define WINDOW_NAME "my_world"
+    #define WINDOW_NAME "Wolf3d"
     #define FRAMERATE_LIMIT 60
     #define MAIN_SCENE MENU_START
     #define DISPLAY_ENV "DISPLAY"
     #define SEPARATOR ';'
 
-bool display_env_exist(char *const *env);
+// Update
+
 int main_loop(bool flag_list[NB_FLAGS]);
-void update_nothing(game_t *game, const component_t *component);
+void update_player(player_t *plr, float delta);
+
+// Display
+
+bool display_env_exist(char *const *const env);
 void display_sprite(sfRenderWindow *window, sfSprite *sprite,
     const component_t *component);
+
+// Destroy
+
 void destroy_component(component_t *component);
+
+// Events
+
 sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
-void b_start(game_t *game, const component_t *component);
-void b_quit(game_t *game, const component_t *component);
+void b_start(game_t *game);
+void b_quit(game_t *game);
 void update_button(game_t *game, const component_t *component);
 int init_ressource_list(component_ressource_t *ressource_list,
     bool flag_list[NB_FLAGS]);
@@ -46,15 +57,17 @@ void destroy_text(component_t *);
 static const char HELP_MESSAGE[] =
     "Usage: ./wolf3d [OPTION]\n\t-h\tDisplay this help and exit\n";
 
+//Entities list
 static const entity_t ENTITY[NB_ENT] = {
     {BUTTON, "button", init_button, update_button, display_sprite,
-        destroy_component},
-    {TEXT, "text", init_text, update_nothing, display_text, destroy_text}
+        destroy_component, CLICKABLE},
+    {TEXT, "text", init_text, NULL, display_text, destroy_text,
+        NO_PROPERTIES}
 };
 
 typedef struct button_funct_s {
     char *name;
-    entity_update_fn_t *funct;
+    void (*funct)(game_t *);
 } button_funct_t;
 
     #define NB_BUTTON 2

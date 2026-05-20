@@ -14,19 +14,20 @@
 #include "my.h"
 #include "macro.h"
 #include "graphics.h"
+#include "castray.h"
 
-void b_start(game_t *game, const component_t *component)
+void b_start(game_t *game)
 {
-    if (game->event->type == sfEvtMouseButtonPressed &&
-        is_clicked(&game->event->mouseButton, component))
-        game->cur_scene = GAME;
+    if (game == NULL)
+        return;
+    game->cur_scene = GAME;
 }
 
-void b_quit(game_t *game, const component_t *component)
+void b_quit(game_t *game)
 {
-    if (game->event->type == sfEvtMouseButtonPressed &&
-        is_clicked(&game->event->mouseButton, component))
-        sfRenderWindow_close(game->window);
+    if (game == NULL)
+        return;
+    sfRenderWindow_close(game->window);
 }
 
 void update_button(game_t *game, const component_t *component)
@@ -43,7 +44,7 @@ static ressource_id_t get_texture(const char *texture_name)
     return NB_RESSOURCE;
 }
 
-static entity_update_fn_t *get_button_funct(const char *function_name)
+static void *get_button_funct(const char *function_name)
 {
     for (size_t id = 0; id < NB_BUTTON; id++)
         if (my_strcmp(function_name, BUTTON_FUNCT[id].name) == SUCCESS)
