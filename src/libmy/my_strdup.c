@@ -17,7 +17,7 @@ char *my_strdup(char const *src)
 
     if (src == NULL)
         return NULL;
-    dest = calloc(my_strlen(src) + 1,  sizeof(char));
+    dest = calloc(my_strlen(src) + 1, sizeof(char));
     if (dest == NULL)
         return NULL;
     for (i = 0; src[i] != '\0'; i++)

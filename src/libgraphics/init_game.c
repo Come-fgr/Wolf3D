@@ -67,13 +67,13 @@ static int init_scene(scene_t *scene, char *config_file,
     if (scene_config == NULL && scene_array == NULL)
         return ERROR;
     if (list_to_component_array(&scene_config, (void **)scene_array,
-        ressource_list, flag_list) == ERROR)
+            ressource_list, flag_list) == ERROR)
         return ERROR;
     free_list(scene_config, free);
     scene->component_list = scene_array;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sScene \"%s\" successfully initialized%s\n",
-            GREEN, config_file, RESET);
+        minidprintf(STDOUT_FILENO, "%sScene \"%s\" successfully initialized%s\n"
+            , GREEN, config_file, RESET);
     return SUCCESS;
 }
 
@@ -97,7 +97,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
 
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
-    game->event = calloc(1,sizeof(sfEvent));
+    game->event = calloc(1, sizeof(sfEvent));
     game->clock = sfClock_create();
     error += init_ressource_list(game->ressource_list, flag_list);
     if (error || !game->window || !game->event || !game->clock) {
@@ -105,7 +105,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
         return ERROR;
     }
     if (init_scene_list(game->ressource_list, game->scene_list,
-        flag_list) == ERROR) {
+            flag_list) == ERROR) {
         destroy_game(game);
         return ERROR;
     }

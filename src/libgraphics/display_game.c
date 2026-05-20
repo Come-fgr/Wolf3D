@@ -24,6 +24,7 @@ static void display_scene(sfRenderWindow *window,
 void display_game(game_t *game)
 {
     sfRenderWindow_clear(game->window, sfBlack);
-    display_scene(game->window, game->ressource_list, game->scene_list, game->cur_scene);
+    display_scene(game->window, game->ressource_list, game->scene_list,
+        game->cur_scene);
     sfRenderWindow_display(game->window);
 }

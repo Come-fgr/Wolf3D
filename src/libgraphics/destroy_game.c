@@ -23,6 +23,7 @@ static void destroy_entitys(component_ressource_t *ressource_list)
     }
 }
 
+//TODO: destroy scene
 void destroy_game(game_t *game)
 {
     if (game->window != NULL)

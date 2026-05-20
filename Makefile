@@ -5,7 +5,7 @@
 ## Compile the project
 ##
 
-CC			:=	clang
+CC			:=	epiclang
 
 RM			=	rm -f
 

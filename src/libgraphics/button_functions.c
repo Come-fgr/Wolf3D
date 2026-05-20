@@ -51,6 +51,7 @@ static entity_update_fn_t *get_button_funct(const char *function_name)
     return NULL;
 }
 
+//! Function too long
 int init_button(component_t *component, const char **config,
     component_ressource_t ressource_list[NB_RESSOURCE],
     bool flag_list[NB_FLAGS])

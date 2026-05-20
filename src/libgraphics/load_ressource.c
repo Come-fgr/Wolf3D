@@ -65,6 +65,7 @@ static int init_font(component_ressource_t *ressource, char *font_path)
 }
 
 //TODO: Use load_ressource + add MUSIC
+//! Function too long
 int init_ressource_list(component_ressource_t *ressource_list,
     bool flag_list[NB_FLAGS])
 {

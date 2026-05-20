@@ -43,7 +43,8 @@ void display_text(sfRenderWindow *, sfSprite *,
     const component_t *);
 void destroy_text(component_t *);
 
-static const char HELP_MESSAGE[] = "Usage: ./wolf3d [OPTION]\n\t-h\tDisplay this help and exit\n";
+static const char HELP_MESSAGE[] =
+    "Usage: ./wolf3d [OPTION]\n\t-h\tDisplay this help and exit\n";
 
 static const entity_t ENTITY[NB_ENT] = {
     {BUTTON, "button", init_button, update_button, display_sprite,

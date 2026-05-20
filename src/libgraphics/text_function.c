@@ -24,6 +24,7 @@ static sfFont *get_font(const char *texture_name, component_ressource_t
     return NULL;
 }
 
+//! Function too long
 int init_text(component_t *component, const char **config, component_ressource_t
     ressource_list[NB_RESSOURCE], bool flag_list[NB_FLAGS])
 {
@@ -33,7 +34,8 @@ int init_text(component_t *component, const char **config, component_ressource_t
     char *endptr = NULL;
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6 || text == NULL || data == NULL|| font == NULL) {
+    if (array_len(config) != 6 || text == NULL || data == NULL ||
+        font == NULL) {
         if (flag_list[DEBUG])
             minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
                 array_len(config) != 6 ? "\tWrong array size\n" : "",
