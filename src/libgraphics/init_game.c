@@ -81,6 +81,7 @@ static int init_scene(scene_t *scene, char *config_file,
 }
 
 //TODO: Use get_dir_content
+//! Free error
 static int init_scene_list(list_t **ressource_list,
     scene_t scene_list[NB_SCENE], bool flag_list[NB_FLAGS])
 {
@@ -88,9 +89,15 @@ static int init_scene_list(list_t **ressource_list,
     if (init_scene(&scene_list[MENU_START], "config/start_scene.config",
             ressource_list, flag_list) == ERROR)
         return ERROR;
+    scene_list[GAME].music = (sfMusic *)get_ressource("BT-7274",
+        ressource_list);
+    if (scene_list[MENU_START].music == NULL)
+        return ERROR;
+    sfMusic_setLoop(scene_list[GAME].music, sfTrue);
     if (init_scene(&scene_list[GAME], "config/game_scene.config",
             ressource_list, flag_list) == ERROR)
         return ERROR;
+    scene_list[MENU_START].music = NULL;
     return SUCCESS;
 }
 
@@ -109,6 +116,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     game->ressource_list = calloc(1, sizeof(list_t *));
     game->plr = (player_t){0};
     init_player(&game->plr);
+    game->cur_music = NULL;
     if (!game->window || !game->clock || !game->ressource_list) {
         destroy_game(game);
         return ERROR;

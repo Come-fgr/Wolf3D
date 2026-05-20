@@ -22,6 +22,7 @@ typedef enum scene_id_e {
 typedef struct scene_s {
     scene_id_t id;
     component_t **component_list;
+    sfMusic *music;
 } scene_t;
 
 #endif /* !SCENE_H */
