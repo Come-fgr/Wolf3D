@@ -41,7 +41,6 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						init_game.c			\
 						main_loop.c			\
 						update_game.c		\
-						entity_functions.c	\
 						button_functions.c	\
 						is_clicked.c		\
 						display_env_exist.c	\
