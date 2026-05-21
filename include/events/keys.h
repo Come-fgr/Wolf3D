@@ -77,10 +77,10 @@ void key_released(sfEvent *evt, game_t *game);
  * @brief Associates keys to functions to handle KeyReleased evt
  */
 static const key_event_t key_pressed_evts[] = {
-    { &player_move_left, {sfKeyQ, sfKeyUnknown} },
-    { &player_move_right, {sfKeyD, sfKeyUnknown} },
-    { &player_move_forward, {sfKeyZ, sfKeyUnknown} },
-    { &player_move_backward, {sfKeyS, sfKeyUnknown} },
+    { &player_move_left, {sfKeyQ, sfKeyLeft, sfKeyUnknown} },
+    { &player_move_right, {sfKeyD, sfKeyRight, sfKeyUnknown} },
+    { &player_move_forward, {sfKeyZ, sfKeyUp, sfKeyUnknown} },
+    { &player_move_backward, {sfKeyS, sfKeyDown, sfKeyUnknown} },
     { &player_rotate_left, {sfKeyA, sfKeyUnknown} },
     { &player_rotate_right, {sfKeyE, sfKeyUnknown} },
     { &go_to_menu_scene, {sfKeyEscape, sfKeyUnknown} },
@@ -93,8 +93,9 @@ static const key_event_t key_pressed_evts[] = {
  * @brief Associates keys to functions to handle KeyPressed evt
  */
 static const key_event_t key_released_evts[] = {
-    { &player_move_stop_x, {sfKeyQ, sfKeyD, sfKeyUnknown} },
-    { &player_move_stop_y, {sfKeyZ, sfKeyS, sfKeyUnknown} },
+    { &player_move_stop_x, {sfKeyQ, sfKeyD, sfKeyUp, sfKeyDown, sfKeyUnknown} },
+    { &player_move_stop_y,
+        {sfKeyZ, sfKeyS, sfKeyLeft, sfKeyRight, sfKeyUnknown} },
     { &player_rotate_stop, {sfKeyA, sfKeyE, sfKeyUnknown} },
     { &player_sprint_stop, {sfKeyLShift, sfKeyUnknown} },
     { NULL, {sfKeyUnknown} }

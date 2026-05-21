@@ -21,15 +21,21 @@
     #define PLR_ROTATE_VALUE 2.5f
 
     #define PLR_MAX_LIFE 100
+    #define PLR_MAX_STAMINA 100.0f
+
+    #define STAMINA_RUN_COST 10.0f
+    #define STAMINA_REGEN 5.0f
 
 typedef struct player_s {
     sfVector2f pos;    // Player position
     sfVector2f vel;    // Player move velocity
-    float rot_vel;    // Player rotation velocity
+    float rot_vel;     // Player rotation velocity
     float speed;
     float angle;
     size_t life;
+    float stamina;
     bool flash;
+    bool running;
 } player_t;
 
 #endif /* !PLAYER_H_ */

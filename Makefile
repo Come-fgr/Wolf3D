@@ -29,7 +29,8 @@ RAYCAST_FILES		=	castray.c			\
 						draw_walls.c		\
 						struct_manip.c
 
-LIBGRAPHICS_FILES	=	counters/update_life.c	\
+LIBGRAPHICS_FILES	=	counters/update_life.c		\
+						counters/update_stamina.c	\
 						texts/update_text.c 	\
 						get_config_function.c	\
 						destroy_game.c			\
