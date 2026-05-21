@@ -14,22 +14,15 @@ RM			:=	rm -f
 
 NAME    	:=	wolf3d
 
-LIBMY_FILES			=	minidprintf.c		\
-						my_pow.c			\
-						my_round.c			\
-						my_strcmp.c			\
-						my_strlen.c			\
-						my_strncmp.c		\
-						my_strtol.c			\
-						my_strdup.c			\
-						get_flags.c			\
+LIBMY_FILES			=	get_flags.c			\
 						get_index.c			\
 						print_array.c		\
 						free_array.c		\
 						str_to_array.c		\
 						check_array_malloc.c\
 						arraylen.c			\
-						concat_string.c
+						concat_string.c		\
+						get_field_value.c
 
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\

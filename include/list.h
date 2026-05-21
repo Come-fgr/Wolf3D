@@ -24,5 +24,7 @@ size_t list_len(list_t *const *begin);
 list_t *file_to_list(char *filepath, size_t *nb_line);
 void **list_to_array(list_t **list, void **array,
     void *(*convert_data)(const void *));
+int array_to_list(char *array[], list_t **list,
+    void *(*str_to_data)(const void *));
 
 #endif /* !LIST_H_ */

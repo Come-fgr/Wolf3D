@@ -34,13 +34,12 @@ void exit_game(game_t *game, [[maybe_unused]] void *data)
     sfRenderWindow_close(game->window);
 }
 
-static long set_one_btn_variable(size_t *error, const char *str)
+static void *get_button_funct(const char *function_name)
 {
-    char *endptr = NULL;
-    long result = strtol(str, &endptr, STRLEN(DECA_BASE));
-
-    *error += *endptr != '\0';
-    return result;
+    for (size_t id = 0; id < NB_BUTTON; id++)
+        if (strcmp(function_name, BUTTON_FUNCT_LIST[id].name) == SUCCESS)
+            return BUTTON_FUNCT_LIST[id].funct;
+    return NULL;
 }
 
 static size_t set_button_variables(component_t *component, const char **config,
@@ -49,11 +48,11 @@ static size_t set_button_variables(component_t *component, const char **config,
     size_t error = SUCCESS;
 
     component->entity = BUTTON;
-    component->pos.x = set_one_btn_variable(&error, config[BUTTON_POS_X]);
-    component->pos.y = set_one_btn_variable(&error, config[BUTTON_POS_Y]);
-    component->rect.width = set_one_btn_variable(&error,
+    component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
+    component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
+    component->rect.width = get_field_value(&error,
         config[BUTTON_RECT_WIDTH]);
-    component->rect.height = set_one_btn_variable(&error,
+    component->rect.height = get_field_value(&error,
         config[BUTTON_RECT_HEIGHT]);
     component->rect.left = 0;
     component->rect.top = 0;
@@ -72,14 +71,14 @@ int init_button(component_t *component, const char **config,
 
     if (array_len(config) != BUTTON_NB_FIELDS) {
         if (flag_list[DEBUG])
-            minidprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
+            dprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
                 RED, RESET);
         return ERROR;
     }
     error = set_button_variables(component, config, ressource_list);
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "Load button \"%s\" = %s%s%s\n",
-            config[1], error == SUCCESS ? GREEN : RED,
+        printf("Load button \"%s\" = %s%s%s\n",
+            config[BUTTON_FUNCT], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;
 }

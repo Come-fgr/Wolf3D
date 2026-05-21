@@ -5,7 +5,7 @@
 ** load_ressource
 */
 
-#include <unistd.h>
+#include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
@@ -57,9 +57,20 @@ static int add_ressource_to_list(list_t **ressource_list,
     new_node->next = *ressource_list;
     *ressource_list = new_node;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "Ressource \"%s\" loaded from \"%s\"\n",
+        printf("Ressource \"%s\" loaded from \"%s\"\n",
             ressource->name, filepath);
     free(full_path);
+    return SUCCESS;
+}
+
+static int add_entry_to_list(list_t **ressource_list,
+    const char *filepath, const ressource_dir_t *ressource_dir,
+    bool flag_list[NB_FLAGS])
+{
+    if (filepath[0] != '.')
+        if (add_ressource_to_list(ressource_list, filepath, ressource_dir,
+                flag_list) == ERROR)
+            return ERROR;
     return SUCCESS;
 }
 
@@ -73,14 +84,13 @@ static int load_ressource(list_t **ressource_list,
         return ERROR;
     entry = readdir(dir);
     while (entry != NULL) {
-        if (entry->d_name[0] != '.')
-            if (add_ressource_to_list(ressource_list, entry->d_name,
-                    ressource_dir, flag_list) == ERROR)
-                return ERROR;
+        if (add_entry_to_list(ressource_list, entry->d_name, ressource_dir,
+                flag_list) == ERROR)
+            return ERROR;
         entry = readdir(dir);
     }
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sAll %s successfully loaded%s\n",
+        printf("%sAll %s successfully loaded%s\n",
             GREEN, ressource_dir->name, RESET);
     closedir(dir);
     return SUCCESS;
@@ -94,7 +104,7 @@ int init_ressource_list(list_t **ressource_list,
             == ERROR)
             return ERROR;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sRessources successfully loaded%s\n",
+        printf("%sRessources successfully loaded%s\n",
             GREEN, RESET);
     return SUCCESS;
 }

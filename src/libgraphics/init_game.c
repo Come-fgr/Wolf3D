@@ -5,19 +5,21 @@
 ** Initialize main struct
 */
 
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
+
 #include "macro.h"
 #include "graphics.h"
 #include "list.h"
 #include "my.h"
 
-bool is_sep(char c)
+static bool is_sep(char c)
 {
     return c == SEPARATOR;
 }
@@ -31,13 +33,15 @@ static component_t *str_to_component(char *str, list_t
 
     if (component == NULL || array == NULL)
         return NULL;
-    for (entity_id_t id = 0; id < NB_ENT; id++)
-        if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
+    for (entity_id_t id = 0; id < NB_ENT; id++) {
+        if (strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
             exit_value = ENTITY[id].init(component, (const char **)array,
                 ressource_list, flag_list) == ERROR ? NULL : component;
             free_array(array);
             return exit_value;
         }
+    }
+    free_array(array);
     return NULL;
 }
 
@@ -77,7 +81,7 @@ static int init_scene(scene_t *scene, char *config_file,
     free_list(scene_config, free);
     scene->component_list = scene_array;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sScene \"%s\" successfully initialized%s\n"
+        printf("%sScene \"%s\" successfully initialized%s\n"
             , GREEN, config_file, RESET);
     return SUCCESS;
 }

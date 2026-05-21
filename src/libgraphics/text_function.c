@@ -6,6 +6,7 @@
 */
 
 #include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <SFML/Graphics/Text.h>
 #include <SFML/Graphics/RenderWindow.h>
@@ -29,11 +30,9 @@ static size_t set_text_variables(component_t *component, const char **config,
     component->entity = TEXT;
     sfText_setString(text, config[TEXT_STRING]);
     sfText_setFont(text, font);
-    component->pos.x = my_strtol(config[TEXT_POS_X], &endptr);
-    error += *endptr != '\0';
-    component->pos.y = my_strtol(config[TEXT_POS_Y], &endptr);
-    error += *endptr != '\0';
-    sfText_setCharacterSize(text, my_strtol(config[TEXT_CHAR_SIZE], &endptr));
+    component->pos.x = get_field_value(&error, config[TEXT_POS_X]);
+    component->pos.y = get_field_value(&error, config[TEXT_POS_Y]);
+    sfText_setCharacterSize(text, strtol(config[TEXT_CHAR_SIZE], &endptr, 10));
     error += *endptr != '\0';
     sfText_setColor(text, sfWhite);
     sfText_setPosition(text, component->pos);
@@ -52,15 +51,15 @@ int init_text(component_t *component, const char **config,
 
     if (array_len(config) != TEXT_NB_FIELDS || font == NULL || data == NULL) {
         if (flag_list[DEBUG])
-            minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
-                array_len(config) != TEXT_NB_FIELDS ? "\tWrong array size\n" : "",
+            dprintf(STDERR_FILENO, "%sError:\n%s%s%s\n", RED,
+                array_len(config) != TEXT_CONFIG ? "\tWrong array size\n" : "",
                 font == NULL ? "\tFont is NULL\n" : "", RESET);
         return ERROR;
     }
     error = set_text_variables(component, config, font, data);
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "Load text \"%s\" = %s%s%s\n",
-            config[4], error == SUCCESS ? GREEN : RED,
+        printf("Load text \"%s\" = %s%s%s\n",
+            config[TEXT_STRING], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;
 }
@@ -73,4 +72,7 @@ void display_text(sfRenderWindow *window, const component_t *component)
 void destroy_text(component_t *component)
 {
     sfText_destroy(((text_t *)component->data)->text);
+    free(((text_t *)component->data)->string);
+    free(component->data);
+    free(component);
 }

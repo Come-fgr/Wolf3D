@@ -14,9 +14,8 @@
 int delete_node(list_t **list, list_t *prev_node, list_t *current_node,
     void (*free_data)(void *))
 {
-    list_t *temp;
+    list_t *temp = current_node;
 
-    temp = current_node;
     current_node = current_node->next;
     if (prev_node == NULL)
         *list = current_node;

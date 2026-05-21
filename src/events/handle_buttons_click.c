@@ -15,7 +15,7 @@ void handle_buttons_click(sfEvent *evt, game_t *game)
 
     if (component_list == NULL || evt == NULL)
         return;
-    for (size_t i = 0; component_list[i]->entity != NB_ENT; i++)
+    for (size_t i = 0; component_list[i] != NULL; i++)
         if (is_clicked(&evt->mouseButton, component_list[i])
             && component_list[i]->data != NULL) {
             ((component_fn_t *)component_list[i]->data)(game);

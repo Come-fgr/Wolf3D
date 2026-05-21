@@ -7,19 +7,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "macro.h"
 #include "list.h"
-#include "my.h"
-
-void *line_dup(const void *line)
-{
-    return my_strdup((char *)line);
-}
 
 list_t *file_to_list(char *filepath, size_t *nb_line)
 {
     size_t line_size = 0;
-    FILE *file = fopen(filepath, "r");
+    FILE *file = filepath ? fopen(filepath, "r") : NULL;
     char *line = NULL;
     list_t *list = NULL;
     int nb_char = getline(&line, &line_size, file);
@@ -30,11 +25,12 @@ list_t *file_to_list(char *filepath, size_t *nb_line)
         (*nb_line)++;
         if (line[nb_char - 1] == '\n')
             line[nb_char - 1] = '\0';
-        if (add_node(&list, line, line_dup) == ERROR) {
+        if (add_node(&list, line, (void *(*)(const void *))strdup) == ERROR) {
             free_list(list, free);
             return NULL;
         }
         nb_char = getline(&line, &line_size, file);
     }
+    free(line);
     return list;
 }

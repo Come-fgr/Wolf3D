@@ -13,7 +13,7 @@
 
 static int display_node(list_t *node, void (*display_data)(void *))
 {
-    if (node == NULL)
+    if (node == NULL || display_data == NULL)
         return SUCCESS;
     display_node(node->next, display_data);
     display_data(node->data);

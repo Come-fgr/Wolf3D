@@ -12,7 +12,7 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include "graphics.h"
 
-void free_ressource(ressource_t *ressource)
+static void free_ressource(ressource_t *ressource)
 {
     if (ressource != NULL) {
         if (ressource->data)
@@ -36,7 +36,7 @@ static void destroy_scene(scene_t *scene)
     free(component_list);
 }
 
-void destroy_scene_list(scene_t *scene_list)
+static void destroy_scene_list(scene_t *scene_list)
 {
     for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
         destroy_scene(&scene_list[scene_id]);
