@@ -40,6 +40,7 @@ static size_t set_button_variables(component_t *component, const char **config,
     size_t error = SUCCESS;
     button_t *data = calloc(1, sizeof(button_t));
     sfTexture *texture = get_ressource(config[BUTTON_TEXTURE], ressource_list);
+    sfFont *font = get_ressource(config[BUTTON_FONT], ressource_list);
 
     if (data == NULL)
         return 1;
@@ -52,6 +53,10 @@ static size_t set_button_variables(component_t *component, const char **config,
     data->rect.top = 0;
     data->sprite = create_sprite(texture, &data->rect, &component->pos);
     error += data->sprite == NULL;
+    data->text = create_text(font, config[BUTTON_STRING],
+        config[BUTTON_CHAR_SIZE], &component->pos);
+    error += data->text == NULL;
+    center_text_on_sprite(data->text, data->sprite);
     data->button_funct = get_config_function(config[BUTTON_FUNCT]);
     error += data->button_funct == NULL;
     component->data = data;
@@ -82,6 +87,7 @@ void display_button(sfRenderWindow *window, const component_t *component)
     button_t *button = component->data;
 
     sfRenderWindow_drawSprite(window, button->sprite, NULL);
+    sfRenderWindow_drawText(window, button->text, NULL);
 }
 
 void destroy_button(component_t *component)

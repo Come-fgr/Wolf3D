@@ -36,6 +36,7 @@ int init_ressource_list(list_t **ressource_list,
 sfText *create_text(sfFont *font, const char *string, const char *char_size,
     sfVector2f *pos);
 sfSprite *create_sprite(sfTexture *texture, sfIntRect *rect, sfVector2f *pos);
+void center_text_on_sprite(sfText *text, const sfSprite *sprite);
 int init_button(component_t *component, const char **config,
     list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
