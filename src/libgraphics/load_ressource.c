@@ -63,6 +63,17 @@ static int add_ressource_to_list(list_t **ressource_list,
     return SUCCESS;
 }
 
+static int add_entry_to_list(list_t **ressource_list,
+    const char *filepath, const ressource_dir_t *ressource_dir,
+    bool flag_list[NB_FLAGS])
+{
+    if (filepath[0] != '.')
+        if (add_ressource_to_list(ressource_list, filepath, ressource_dir,
+                flag_list) == ERROR)
+            return ERROR;
+    return SUCCESS;
+}
+
 static int load_ressource(list_t **ressource_list,
     const ressource_dir_t *ressource_dir, bool flag_list[NB_FLAGS])
 {
@@ -73,10 +84,9 @@ static int load_ressource(list_t **ressource_list,
         return ERROR;
     entry = readdir(dir);
     while (entry != NULL) {
-        if (entry->d_name[0] != '.')
-            if (add_ressource_to_list(ressource_list, entry->d_name,
-                    ressource_dir, flag_list) == ERROR)
-                return ERROR;
+        if (add_entry_to_list(ressource_list, entry->d_name, ressource_dir,
+                flag_list) == ERROR)
+            return ERROR;
         entry = readdir(dir);
     }
     if (flag_list[DEBUG])
