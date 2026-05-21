@@ -10,17 +10,36 @@
 #include <SFML/Graphics/Texture.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
-#include "struct/game.h"
+#include "graphics.h"
 
-//! sfSprite_destroy crash if texture loading fail
-static void destroy_entitys(component_sprite_t *sprite_list)
+void free_ressource(ressource_t *ressource)
 {
-    for (entity_id_t id = 0; id < NB_ENT; id++) {
-        if (sprite_list[id].texture != NULL)
-            sfTexture_destroy(sprite_list[id].texture);
-        if (sprite_list[id].sprite != NULL)
-            sfSprite_destroy(sprite_list[id].sprite);
+    if (ressource != NULL) {
+        if (ressource->data)
+            RESSOURCE_DIR[ressource->type].destroy(ressource->data);
+        if (ressource->name)
+            free(ressource->name);
+        free(ressource);
     }
+}
+
+static void destroy_scene(scene_t *scene)
+{
+    component_t **component_list = scene->component_list;
+
+    if (component_list == NULL)
+        return;
+    for (entity_id_t index = 0; component_list[index] != NULL; index++)
+        if (ENTITY[component_list[index]->entity].destroy != NULL)
+            ENTITY[component_list[index]->entity].destroy(
+                component_list[index]);
+    free(component_list);
+}
+
+void destroy_scene_list(scene_t *scene_list)
+{
+    for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
+        destroy_scene(&scene_list[scene_id]);
 }
 
 void destroy_game(game_t *game)
@@ -29,5 +48,9 @@ void destroy_game(game_t *game)
         sfRenderWindow_destroy(game->window);
     if (game->clock != NULL)
         sfClock_destroy(game->clock);
-    destroy_entitys(game->sprite_list);
+    if (game->ressource_list != NULL) {
+        free_list(*game->ressource_list, (void (*)(void *))free_ressource);
+        free(game->ressource_list);
+    }
+    destroy_scene_list(game->scene_list);
 }

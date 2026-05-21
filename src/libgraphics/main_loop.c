@@ -6,16 +6,15 @@
 */
 
 #include <SFML/Graphics/RenderWindow.h>
-
 #include "events/events.h"
 #include "macro.h"
-#include "graphics.h"
+#include "my.h"
 
-int main_loop(void)
+int main_loop(bool flag_list[NB_FLAGS])
 {
     game_t game;
 
-    if (init_game(&game) == ERROR)
+    if (init_game(&game, flag_list) == ERROR)
         return EPIFAIL;
     while (sfRenderWindow_isOpen(game.window)) {
         display_game(&game);

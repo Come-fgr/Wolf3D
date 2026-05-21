@@ -13,15 +13,21 @@
 #include "map.h"
 #include "macro.h"
 
-int main(int argc, char *argv[], char *env[])
+int main(int argc, char *const *argv, char *const *env)
 {
+    bool flag_list[NB_FLAGS] = {false};
+
+    if (get_flags(argc, argv, flag_list) == ERROR) {
+        printf("%s%s%s", HELP_MESSAGE_USAGE,
+            HELP_MESSAGE_FLAG_D, HELP_MESSAGE_FLAG_H);
+        return EPIFAIL;
+    }
     if (!display_env_exist(env))
         return EPIFAIL;
-    if (argc == 1)
-        return main_loop();
-    if (argc == 2 && strcmp(argv[1], "-h") == SUCCESS) {
-        puts("./wolf3d:\n\tIn progress...");
+    if (flag_list[HELP]) {
+        printf("%s%s%s", HELP_MESSAGE_USAGE,
+            HELP_MESSAGE_FLAG_D, HELP_MESSAGE_FLAG_H);
         return SUCCESS;
     }
-    return EPIFAIL;
+    return main_loop(flag_list);
 }

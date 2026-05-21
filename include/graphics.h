@@ -12,7 +12,6 @@
     #include <SFML/Graphics/Rect.h>
     #include <SFML/System/Types.h>
     #include "struct/game.h"
-    #include "button.h"
 
     #define WINDOW_HEIGHT 1080
     #define WINDOW_WIDTH 1920
@@ -20,51 +19,55 @@
     #define FRAMERATE_LIMIT 60
     #define MAIN_SCENE MENU_START
     #define DISPLAY_ENV "DISPLAY"
+    #define SEPARATOR ';'
+
+// Help message
+static const char HELP_MESSAGE_USAGE[] = "Usage: ./wolf3d [OPTION]\n";
+static const char HELP_MESSAGE_FLAG_H[] = "\t-h\tDisplay this help and exit\n";
+static const char HELP_MESSAGE_FLAG_D[] =
+    "\t-d\tDisplay log messages during initialization\n";
+
+// Error handling
+bool display_env_exist(char *const *const env);
+
+// Initialization
+int init_ressource_list(list_t **ressource_list,
+    bool flag_list[NB_FLAGS]);
+int init_button(component_t *component, const char **config,
+    list_t **ressource_list,
+    bool flag_list[NB_FLAGS]);
+int init_text(component_t *component, const char **config,
+    list_t **ressource_list, bool flag_list[NB_FLAGS]);
+void *get_ressource(const char *ressource_name, list_t **ressource_list);
 
 // Update
-
-int main_loop(void);
+int main_loop(bool flag_list[NB_FLAGS]);
 void update_player(player_t *plr, float delta);
 
 // Display
-
-bool display_env_exist(char *const *const env);
-void display_sprite(sfRenderWindow *window, sfSprite *sprite,
-    const component_t *component);
+void display_button(sfRenderWindow *window, const component_t *component);
+void display_text(sfRenderWindow *, const component_t *);
 
 // Destroy
-
-void destroy_component(component_t *component);
+void destroy_button(component_t *component);
+void destroy_text(component_t *);
 
 // Events
-
 sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
-void b_start(game_t *game);
-void b_quit(game_t *game);
 
-// Scenes, entities & components lists
-
+//Entities list
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, NULL, &display_sprite, &destroy_component, CLICKABLE},
+    {BUTTON, "button", init_button, NULL, display_button,
+        destroy_button, CLICKABLE},
+    {TEXT, "text", init_text, NULL, display_text, destroy_text,
+        NO_PROPERTIES}
 };
 
-static const component_t start_scene[] = {
-    {BUTTON, B_QUIT, (sfVector2f){925, 550},
-        (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, &b_quit},
-    {BUTTON, B_START, (sfVector2f){922, 500},
-        (sfIntRect){0, 0, START_WIDTH, START_HEIGHT}, &b_start},
-    {NB_ENT, NB_TEXTURE, {}, {}, NULL}
-};
-
-static const component_t main_scene[] = {
-    {BUTTON, B_QUIT, (sfVector2f){10, 60},
-        (sfIntRect){0, 0, QUIT_WIDTH, QUIT_HEIGHT}, b_quit},
-    {NB_ENT, NB_TEXTURE, {}, {}, NULL}
-};
-
-static const scene_t SCENES[NB_SCENE] = {
-    {GAME, main_scene},
-    {MENU_START, start_scene}
-};
+// Component structs
+typedef struct text_s {
+    sfText *text;
+    char *string;
+    size_t size;
+} text_t;
 
 #endif /* !GRAPHICS_H_ */

@@ -12,9 +12,11 @@
     #include <SFML/System/Clock.h>
     #include <SFML/Window/Event.h>
     #include <SFML/System/InputStream.h>
-
+    #include <SFML/Audio/Music.h>
     #include "struct/scene.h"
     #include "struct/player.h"
+    #include "list.h"
+    #include "my.h"
 
     // Takes game struct pointer as argument
     #define GET_FPS(x) (1 / ((game_t *)(x))->delta_time)
@@ -22,14 +24,16 @@
 typedef struct game_s {
     sfRenderWindow *window;
     sfClock *clock;
-    component_sprite_t sprite_list[NB_TEXTURE];
+    list_t **ressource_list;
+    scene_t scene_list[NB_SCENE];
     scene_id_t cur_scene;
     player_t plr;
     float delta_time;
     _Bool keys[sfKeyCount];
+    sfMusic *cur_music;
 } game_t;
 
-int init_game(game_t *game);
+int init_game(game_t *game, bool flag_list[NB_FLAGS]);
 void update_game(game_t *game);
 void display_game(game_t *game);
 void destroy_game(game_t *game);

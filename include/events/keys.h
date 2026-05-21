@@ -51,6 +51,8 @@ void player_rotate_stop(game_t *game);
 void player_sprint_start(game_t *game);
 void player_sprint_stop(game_t *game);
 
+void player_flashlight_toggle(game_t *game);
+
 ////////////////////////////////////////////
 ////   Handler of KeyPressed Event
 ////////////////////////////////////////////
@@ -83,6 +85,7 @@ static const key_event_t key_pressed_evts[] = {
     { &player_rotate_right, {sfKeyE, sfKeyUnknown} },
     { &go_to_menu_scene, {sfKeyEscape, sfKeyUnknown} },
     { &player_sprint_start, {sfKeyLShift, sfKeyUnknown} },
+    { &player_flashlight_toggle, {sfKeyF, sfKeyUnknown} },
     { NULL, {sfKeyUnknown} }
 };
 

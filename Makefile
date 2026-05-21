@@ -14,6 +14,16 @@ RM			:=	rm -f
 
 NAME    	:=	wolf3d
 
+LIBMY_FILES			=	get_flags.c			\
+						get_index.c			\
+						print_array.c		\
+						free_array.c		\
+						str_to_array.c		\
+						check_array_malloc.c\
+						arraylen.c			\
+						concat_string.c		\
+						get_field_value.c
+
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\
 						draw_walls.c		\
@@ -24,11 +34,13 @@ LIBGRAPHICS_FILES	=	destroy_game.c		\
 						init_game.c			\
 						main_loop.c			\
 						update_game.c		\
-						entity_functions.c	\
 						button_functions.c	\
 						is_clicked.c		\
 						display_env_exist.c	\
-						update_player.c
+						load_ressource.c	\
+						text_function.c		\
+						update_player.c		\
+						get_ressource.c
 
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\
@@ -37,10 +49,21 @@ EVENTS_FILES		=	analyse_events.c 	\
 						go_to_menu_scene.c 	\
 						player_rotation.c 	\
 						player_sprint.c 	\
+						player_flashlight.c \
 						handle_buttons_click.c
 
-SRC_FILES	=	$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
-				$(addprefix events/, $(EVENTS_FILES))\
+LIBLIST_FILES		=	add_node.c			\
+						array_to_list.c		\
+						delete_node.c		\
+						display_list.c		\
+						free_list.c			\
+						list_len.c			\
+						file_to_list.c
+
+SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
+				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				$(addprefix list/, $(LIBLIST_FILES))			\
+				$(addprefix events/, $(EVENTS_FILES))			\
 				$(addprefix raycast/, $(RAYCAST_FILES))
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))	\
@@ -91,6 +114,7 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(UT_NAME)
+	@$(RM) -r $(OBJ_DIR)
 
 re: fclean all
 
