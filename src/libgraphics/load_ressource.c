@@ -47,6 +47,7 @@ static char *get_ressource_name(const char *filepath, const char *exetension)
     return strndup(filepath, name_len);
 }
 
+//! Free error
 static int add_ressource_to_list(list_t **ressource_list,
     const char *filepath, const ressource_dir_t *ressource_dir,
     bool flag_list[NB_FLAGS])
@@ -61,16 +62,18 @@ static int add_ressource_to_list(list_t **ressource_list,
     ressource->type = ressource_dir->type;
     ressource->data = ressource_dir->create_from_file(full_path);
     if (ressource->data == NULL || ressource->name == NULL)
-        return ERROR; //! Free error
+        return ERROR;
     new_node->data = ressource;
     new_node->next = *ressource_list;
     *ressource_list = new_node;
     if (flag_list[DEBUG])
         minidprintf(STDOUT_FILENO, "Ressource \"%s\" loaded from \"%s\"\n",
             ressource->name, filepath);
+    free(full_path);
     return SUCCESS;
 }
 
+//! Free error
 static int load_ressource(list_t **ressource_list,
     const ressource_dir_t *ressource_dir, bool flag_list[NB_FLAGS])
 {
@@ -84,7 +87,7 @@ static int load_ressource(list_t **ressource_list,
         if (entry->d_name[0] != '.')
             if (add_ressource_to_list(ressource_list, entry->d_name,
                     ressource_dir, flag_list) == ERROR)
-                return ERROR; //! Free error
+                return ERROR;
         entry = readdir(dir);
     }
     if (flag_list[DEBUG])

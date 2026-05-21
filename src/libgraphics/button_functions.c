@@ -102,6 +102,7 @@ void display_button(sfRenderWindow *window, const component_t *component)
     sfSprite_setTextureRect(sprite, component->rect);
     sfSprite_setPosition(sprite, component->pos);
     sfRenderWindow_drawSprite(window, sprite, NULL);
+    sfSprite_destroy(sprite);
 }
 
 void destroy_button(component_t *component)

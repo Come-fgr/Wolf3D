@@ -134,7 +134,7 @@ prof:	re
 	gprof $(NAME)
 
 memory_check: debug
-	@valgrind ./$(NAME)
+	@valgrind $(VALGR_FLAGS) ./$(NAME)
 
 tests_run: clean
 	@clang -o $(UT_NAME) $(UT_SRC) $(UT_FLAGS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)

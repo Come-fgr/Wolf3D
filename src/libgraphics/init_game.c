@@ -26,14 +26,17 @@ static component_t *str_to_component(char *str, list_t
     **ressource_list, bool flag_list[NB_FLAGS])
 {
     component_t *component = calloc(1, sizeof(component_t));
-    const char **array = (const char **)str_to_array(str, is_sep);
+    char **array = str_to_array(str, is_sep);
+    component_t *exit_value = NULL;
 
     if (component == NULL || array == NULL)
         return NULL;
     for (entity_id_t id = 0; id < NB_ENT; id++)
         if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
-            return ENTITY[id].init(component, array, ressource_list, flag_list)
-                == ERROR ? NULL : component;
+            exit_value = ENTITY[id].init(component, (const char **)array,
+                ressource_list, flag_list) == ERROR ? NULL : component;
+            free_array(array);
+            return exit_value;
         }
     return NULL;
 }
