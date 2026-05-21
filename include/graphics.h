@@ -48,6 +48,7 @@ void *get_ressource(const char *ressource_name, list_t **ressource_list);
 int main_loop(bool flag_list[NB_FLAGS]);
 void update_player(player_t *plr, float delta);
 void update_text(game_t *game, const component_t *component);
+void update_button(game_t *game, const component_t *component);
 
 // Display
 void display_button(sfRenderWindow *window, const component_t *component);
@@ -59,10 +60,11 @@ void destroy_text(component_t *);
 
 // Events
 sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
+sfBool is_hovered(const sfRenderWindow *window, const component_t *component);
 
 //Entities list
 static const entity_t ENTITY[NB_ENT] = {
-    {BUTTON, "button", init_button, NULL, display_button,
+    {BUTTON, "button", init_button, update_button, display_button,
         destroy_button, CLICKABLE},
     {TEXT, "text", init_text, update_text, display_text, destroy_text,
         NO_PROPERTIES},

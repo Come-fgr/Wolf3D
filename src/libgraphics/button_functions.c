@@ -82,6 +82,29 @@ int init_button(component_t *component, const char **config,
     return error != SUCCESS ? ERROR : SUCCESS;
 }
 
+void update_button(game_t *game, const component_t *component)
+{
+    button_t *button = component->data;
+
+    switch (button->status) {
+        case BASE:
+            button->status = is_hovered(game->window, component) ? HOVER : BASE;
+            button->rect.left = 0;
+            sfSprite_setTextureRect(button->sprite, button->rect);
+            break;
+        case HOVER:
+            button->status = is_hovered(game->window, component) ? HOVER : BASE;
+            button->rect.left = button->rect.width;
+            sfSprite_setTextureRect(button->sprite, button->rect);
+            break;
+        case CLICK:
+            button->status = is_hovered(game->window, component) ? CLICK : BASE;
+            button->rect.left = button->rect.width * 2;
+            sfSprite_setTextureRect(button->sprite, button->rect);
+            break;
+    }
+}
+
 void display_button(sfRenderWindow *window, const component_t *component)
 {
     button_t *button = component->data;
