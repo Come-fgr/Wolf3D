@@ -19,7 +19,7 @@
 #include "list.h"
 #include "my.h"
 
-bool is_sep(char c)
+static bool is_sep(char c)
 {
     return c == SEPARATOR;
 }
