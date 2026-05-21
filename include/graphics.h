@@ -21,25 +21,16 @@
     #define DISPLAY_ENV "DISPLAY"
     #define SEPARATOR ';'
 
-// Update
+// Help message
+static const char HELP_MESSAGE_USAGE[] = "Usage: ./wolf3d [OPTION]\n";
+static const char HELP_MESSAGE_FLAG_H[] = "\t-h\tDisplay this help and exit\n";
+static const char HELP_MESSAGE_FLAG_D[] =
+    "\t-d\tDisplay log messages during initialization\n";
 
-int main_loop(bool flag_list[NB_FLAGS]);
-void update_player(player_t *plr, float delta);
-
-// Display
-
+// Error handling
 bool display_env_exist(char *const *const env);
-void display_button(sfRenderWindow *window, const component_t *component);
 
-// Destroy
-
-void destroy_component(component_t *component);
-
-// Events
-
-sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
-void b_start(game_t *game);
-void b_quit(game_t *game);
+// Initialization
 int init_ressource_list(list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
 int init_button(component_t *component, const char **config,
@@ -47,15 +38,22 @@ int init_button(component_t *component, const char **config,
     bool flag_list[NB_FLAGS]);
 int init_text(component_t *component, const char **config,
     list_t **ressource_list, bool flag_list[NB_FLAGS]);
-void display_text(sfRenderWindow *, const component_t *);
-void destroy_text(component_t *);
 void *get_ressource(const char *ressource_name, list_t **ressource_list);
 
+// Update
+int main_loop(bool flag_list[NB_FLAGS]);
+void update_player(player_t *plr, float delta);
 
-static const char HELP_MESSAGE_USAGE[] = "Usage: ./wolf3d [OPTION]\n";
-static const char HELP_MESSAGE_FLAG_H[] = "\t-h\tDisplay this help and exit\n";
-static const char HELP_MESSAGE_FLAG_D[] =
-    "\t-d\tDisplay log messages during initialization\n";
+// Display
+void display_button(sfRenderWindow *window, const component_t *component);
+void display_text(sfRenderWindow *, const component_t *);
+
+// Destroy
+void destroy_component(component_t *component);
+void destroy_text(component_t *);
+
+// Events
+sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 
 //Entities list
 static const entity_t ENTITY[NB_ENT] = {
@@ -65,18 +63,7 @@ static const entity_t ENTITY[NB_ENT] = {
         NO_PROPERTIES}
 };
 
-typedef struct button_funct_s {
-    char *name;
-    void (*funct)(game_t *);
-} button_funct_t;
-
-    #define NB_BUTTON 2
-
-static const button_funct_t BUTTON_FUNCT[NB_BUTTON] = {
-    {"start", b_start},
-    {"quit", b_quit}
-};
-
+// Component structs
 typedef struct text_s {
     sfText *text;
     char *string;
