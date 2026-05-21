@@ -18,15 +18,6 @@
 #include "list.h"
 #include "struct/ressource.h"
 
-static int clean(char *name, sfTexture *texture)
-{
-    if (name != NULL)
-        free(name);
-    if (texture != NULL)
-        sfTexture_destroy(texture);
-    return ERROR;
-}
-
 void *create_texture_from_file(const char *texture_path)
 {
     sfTexture *texture = sfTexture_createFromFile(texture_path, NULL);
@@ -47,7 +38,6 @@ static char *get_ressource_name(const char *filepath, const char *exetension)
     return strndup(filepath, name_len);
 }
 
-//! Free error
 static int add_ressource_to_list(list_t **ressource_list,
     const char *filepath, const ressource_dir_t *ressource_dir,
     bool flag_list[NB_FLAGS])
@@ -73,7 +63,6 @@ static int add_ressource_to_list(list_t **ressource_list,
     return SUCCESS;
 }
 
-//! Free error
 static int load_ressource(list_t **ressource_list,
     const ressource_dir_t *ressource_dir, bool flag_list[NB_FLAGS])
 {

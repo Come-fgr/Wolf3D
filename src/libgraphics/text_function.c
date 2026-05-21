@@ -41,7 +41,6 @@ static size_t set_text_variables(component_t *component, const char **config,
     return error;
 }
 
-//! Free in case of error
 int init_text(component_t *component, const char **config,
     list_t **ressource_list, bool flag_list[NB_FLAGS])
 {

@@ -61,7 +61,6 @@ static int list_to_component_array(list_t **list, component_t **array,
     return SUCCESS;
 }
 
-//TODO: Free in case of errors
 static int init_scene(scene_t *scene, char *config_file,
     list_t **ressource_list,
     bool flag_list[NB_FLAGS])
@@ -83,7 +82,6 @@ static int init_scene(scene_t *scene, char *config_file,
     return SUCCESS;
 }
 
-//! Free error
 static int init_scene_list(list_t **ressource_list,
     scene_t scene_list[NB_SCENE], bool flag_list[NB_FLAGS])
 {
@@ -116,20 +114,14 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     game->plr = (player_t){0};
     init_player(&game->plr);
     game->cur_music = NULL;
-    if (!game->window || !game->clock || !game->ressource_list) {
-        destroy_game(game);
+    if (!game->window || !game->clock || !game->ressource_list)
         return ERROR;
-    }
     *game->ressource_list = NULL;
-    if (init_ressource_list(game->ressource_list, flag_list) == ERROR) {
-        destroy_game(game);
+    if (init_ressource_list(game->ressource_list, flag_list) == ERROR)
         return ERROR;
-    }
     if (init_scene_list(game->ressource_list, game->scene_list,
-            flag_list) == ERROR) {
-        destroy_game(game);
+            flag_list) == ERROR)
         return ERROR;
-    }
     sfRenderWindow_setFramerateLimit(game->window, FRAMERATE_LIMIT);
     game->cur_scene = MENU_START;
     return SUCCESS;
