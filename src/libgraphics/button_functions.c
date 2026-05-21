@@ -77,7 +77,7 @@ int init_button(component_t *component, const char **config,
     error = set_button_variables(component, config, ressource_list);
     if (flag_list[DEBUG])
         printf("Load button \"%s\" = %s%s%s\n",
-            config[1], error == SUCCESS ? GREEN : RED,
+            config[BUTTON_FUNCT], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;
 }

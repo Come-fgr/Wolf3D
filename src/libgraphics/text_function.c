@@ -50,14 +50,14 @@ int init_text(component_t *component, const char **config,
     if (array_len(config) != TEXT_CONFIG || font == NULL || data == NULL) {
         if (flag_list[DEBUG])
             dprintf(STDERR_FILENO, "%sError:\n%s%s%s\n", RED,
-                array_len(config) != 6 ? "\tWrong array size\n" : "",
+                array_len(config) != TEXT_CONFIG ? "\tWrong array size\n" : "",
                 font == NULL ? "\tFont is NULL\n" : "", RESET);
         return ERROR;
     }
     error = set_text_variables(component, config, font, data);
     if (flag_list[DEBUG])
         printf("Load text \"%s\" = %s%s%s\n",
-            config[4], error == SUCCESS ? GREEN : RED,
+            config[TEXT_STRING], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;
 }
