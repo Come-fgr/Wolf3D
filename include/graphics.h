@@ -12,7 +12,6 @@
     #include <SFML/Graphics/Rect.h>
     #include <SFML/System/Types.h>
     #include "struct/game.h"
-    #include "button.h"
 
     #define WINDOW_HEIGHT 1080
     #define WINDOW_WIDTH 1920
