@@ -33,13 +33,15 @@ static component_t *str_to_component(char *str, list_t
 
     if (component == NULL || array == NULL)
         return NULL;
-    for (entity_id_t id = 0; id < NB_ENT; id++)
+    for (entity_id_t id = 0; id < NB_ENT; id++) {
         if (strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
             exit_value = ENTITY[id].init(component, (const char **)array,
                 ressource_list, flag_list) == ERROR ? NULL : component;
             free_array(array);
             return exit_value;
         }
+    }
+    free_array(array);
     return NULL;
 }
 
