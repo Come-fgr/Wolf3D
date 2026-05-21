@@ -31,6 +31,7 @@ bool check_array_malloc(void **array, size_t len_array);
 char **str_to_array(char const *str, bool (*is_delimiter)(char c));
 size_t array_len(char const **array);
 char *concat_string(const char *first, const char *last);
+long get_field_value(size_t *error, const char *str);
 
 typedef enum {
     HELP,

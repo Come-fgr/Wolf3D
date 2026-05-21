@@ -41,26 +41,17 @@ static void *get_button_funct(const char *function_name)
     return NULL;
 }
 
-static long set_one_btn_variable(size_t *error, const char *str)
-{
-    char *endptr = NULL;
-    long result = strtol(str, &endptr, STRLEN(DECA_BASE));
-
-    *error += *endptr != '\0';
-    return result;
-}
-
 static size_t set_button_variables(component_t *component, const char **config,
     list_t **ressource_list)
 {
     size_t error = SUCCESS;
 
     component->entity = BUTTON;
-    component->pos.x = set_one_btn_variable(&error, config[BUTTON_POS_X]);
-    component->pos.y = set_one_btn_variable(&error, config[BUTTON_POS_Y]);
-    component->rect.width = set_one_btn_variable(&error,
+    component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
+    component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
+    component->rect.width = get_field_value(&error,
         config[BUTTON_RECT_WIDTH]);
-    component->rect.height = set_one_btn_variable(&error,
+    component->rect.height = get_field_value(&error,
         config[BUTTON_RECT_HEIGHT]);
     component->rect.left = 0;
     component->rect.top = 0;

@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <SFML/Graphics/Text.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Font.h>
@@ -30,10 +29,8 @@ static size_t set_text_variables(component_t *component, const char **config,
     component->entity = TEXT;
     sfText_setString(text, config[TEXT_STRING]);
     sfText_setFont(text, font);
-    component->pos.x = strtol(config[TEXT_POS_X], &endptr, 10);
-    error += *endptr != '\0';
-    component->pos.y = strtol(config[TEXT_POS_Y], &endptr, 10);
-    error += *endptr != '\0';
+    component->pos.x = get_field_value(&error, config[TEXT_POS_X]);
+    component->pos.y = get_field_value(&error, config[TEXT_POS_Y]);
     sfText_setCharacterSize(text, strtol(config[TEXT_CHAR_SIZE], &endptr, 10));
     error += *endptr != '\0';
     sfText_setColor(text, sfWhite);

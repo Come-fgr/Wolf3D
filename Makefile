@@ -21,7 +21,8 @@ LIBMY_FILES			=	get_flags.c			\
 						str_to_array.c		\
 						check_array_malloc.c\
 						arraylen.c			\
-						concat_string.c
+						concat_string.c		\
+						get_field_value.c
 
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\
