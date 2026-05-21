@@ -56,6 +56,7 @@ EVENTS_FILES		=	analyse_events.c 	\
 						go_to_menu_scene.c 	\
 						player_rotation.c 	\
 						player_sprint.c 	\
+						player_flashlight.c \
 						handle_buttons_click.c
 
 LIBLIST_FILES		=	add_node.c			\
