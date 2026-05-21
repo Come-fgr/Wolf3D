@@ -31,9 +31,7 @@ typedef void (component_fn_t)(struct game_s *);
 
 typedef struct component_s {
     entity_id_t entity;
-    ressource_t *ressource;
     sfVector2f pos;
-    sfIntRect rect;
     void *data;
 } component_t;
 

@@ -10,12 +10,14 @@
 #include <SFML/Window/Event.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/System/Vector2.h>
-#include "struct/entity.h"
+#include "graphics.h"
 
 sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component)
 {
+    button_t *button = (button_t *)component->data;
+
     return (evt->x > component->pos.x &&
-        evt->x < component->pos.x + component->rect.width) &&
+        evt->x < component->pos.x + button->rect.width) &&
         (evt->y > component->pos.y &&
-        evt->y < component->pos.y + component->rect.height);
+        evt->y < component->pos.y + button->rect.height);
 }

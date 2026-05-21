@@ -67,8 +67,21 @@ static const entity_t ENTITY[NB_ENT] = {
 // Component structs
 typedef struct text_s {
     sfText *text;
-    size_t size;
     void (*update_text)(game_t *, sfText *);
 } text_t;
+
+typedef enum {
+    BASE,
+    HOVER,
+    CLICK
+} button_status_t;
+
+typedef struct button_s {
+    sfTexture *sprite;  //TODO: Change to sprite
+    sfIntRect rect;
+    sfText *text;
+    button_status_t status;
+    void (*button_funct)(game_t *);
+} button_t;
 
 #endif /* !GRAPHICS_H_ */

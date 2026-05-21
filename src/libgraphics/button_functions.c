@@ -38,21 +38,25 @@ static size_t set_button_variables(component_t *component, const char **config,
     list_t **ressource_list)
 {
     size_t error = SUCCESS;
+    button_t *data = calloc(1, sizeof(button_t));
+    sfTexture *texture = get_ressource(config[BUTTON_TEXTURE], ressource_list);
 
+    if (data == NULL)
+        return 1;
+    error += texture == NULL;
+    data->sprite = texture;
     component->entity = BUTTON;
     component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
     component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
-    component->rect.width = get_field_value(&error,
+    data->rect.width = get_field_value(&error,
         config[BUTTON_RECT_WIDTH]);
-    component->rect.height = get_field_value(&error,
+    data->rect.height = get_field_value(&error,
         config[BUTTON_RECT_HEIGHT]);
-    component->rect.left = 0;
-    component->rect.top = 0;
-    component->ressource = get_ressource(config[BUTTON_TEXTURE],
-        ressource_list);
-    error += component->ressource == NULL;
-    component->data = get_config_function(config[BUTTON_FUNCT]);
-    error += component->data == NULL;
+    data->rect.left = 0;
+    data->rect.top = 0;
+    data->button_funct = get_config_function(config[BUTTON_FUNCT]);
+    error += data->button_funct == NULL;
+    component->data = data;
     return error;
 }
 
@@ -79,11 +83,12 @@ int init_button(component_t *component, const char **config,
 void display_button(sfRenderWindow *window, const component_t *component)
 {
     sfSprite *sprite = sfSprite_create();
+    button_t *data = (button_t *)component->data;
 
     if (sprite == NULL)
         return;
-    sfSprite_setTexture(sprite, (sfTexture *)component->ressource, sfTrue);
-    sfSprite_setTextureRect(sprite, component->rect);
+    sfSprite_setTexture(sprite, data->sprite, sfTrue);
+    sfSprite_setTextureRect(sprite, data->rect);
     sfSprite_setPosition(sprite, component->pos);
     sfRenderWindow_drawSprite(window, sprite, NULL);
     sfSprite_destroy(sprite);
