@@ -18,12 +18,12 @@ typedef struct button_funct_s {
     void (*funct)(game_t *);
 } button_funct_t;
 
-    #define NB_BUTTON 2
-
-static const button_funct_t BUTTON_FUNCT_LIST[NB_BUTTON] = {
+static const button_funct_t BUTTON_FUNCT_LIST[] = {
     {"start", b_start},
     {"quit", b_quit}
 };
+
+    #define NB_BUTTON LEN(BUTTON_FUNCT_LIST)
 
 enum {
     BUTTON_ENT,

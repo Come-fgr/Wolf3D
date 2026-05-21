@@ -15,6 +15,8 @@
     #define ERROR -1
     #define EPIFAIL 84
 
+    #define LEN(x) (sizeof(x) / sizeof(x[0]))
+
     // Bases
 
 static const char DECA_BASE[] = "0123456789";
