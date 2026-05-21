@@ -14,7 +14,7 @@
 list_t *file_to_list(char *filepath, size_t *nb_line)
 {
     size_t line_size = 0;
-    FILE *file = fopen(filepath, "r");
+    FILE *file = filepath ? fopen(filepath, "r") : NULL;
     char *line = NULL;
     list_t *list = NULL;
     int nb_char = getline(&line, &line_size, file);

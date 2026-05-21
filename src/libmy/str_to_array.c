@@ -61,6 +61,8 @@ char **str_to_array(char const *str, bool (*is_delimiter)(char c))
     bool is_word = false;
     size_t j = 0;
 
+    if (array == NULL)
+        return NULL;
     for (size_t i = 0; array[i] != NULL;) {
         for (j = 0; !is_delimiter(str[len_str]) && str[len_str] != '\0'; j++) {
             is_word = 1;
