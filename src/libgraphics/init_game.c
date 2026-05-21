@@ -103,6 +103,7 @@ static void init_player(player_t *plr)
     plr->pos = (sfVector2f){ 160.0f, 160.0f };
     plr->angle = (float)M_PI * 0.25f;
     plr->speed = DEFAULT_PLR_SPEED;
+    plr->life = PLR_MAX_LIFE;
 }
 
 int init_game(game_t *game, bool flag_list[NB_FLAGS])
