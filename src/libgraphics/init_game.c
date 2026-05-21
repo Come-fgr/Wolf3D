@@ -86,11 +86,11 @@ static int init_scene_list(list_t **ressource_list,
 {
     for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++) {
         if (init_scene(&scene_list[scene_id], SCENES_CONFIG[scene_id].file,
-            ressource_list, flag_list) == ERROR)
-                return ERROR;
-            scene_list[scene_id].music = SCENES_CONFIG[scene_id].music != NULL ?
-                (sfMusic *)get_ressource(SCENES_CONFIG[scene_id].music,
-                    ressource_list) : NULL;
+                ressource_list, flag_list) == ERROR)
+            return ERROR;
+        scene_list[scene_id].music = SCENES_CONFIG[scene_id].music != NULL ?
+            (sfMusic *)get_ressource(SCENES_CONFIG[scene_id].music,
+            ressource_list) : NULL;
         if (scene_list[scene_id].music != NULL)
             sfMusic_setLoop(scene_list[scene_id].music, sfTrue);
     }
