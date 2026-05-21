@@ -117,7 +117,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
     game->clock = sfClock_create();
     game->ressource_list = calloc(1, sizeof(list_t *));
-    game->plr = (player_t){0};
+    game->debug_mode = flag_list[DEBUG];
     init_player(&game->plr);
     game->cur_music = NULL;
     if (!game->window || !game->clock || !game->ressource_list)

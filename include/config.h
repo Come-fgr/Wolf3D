@@ -16,7 +16,8 @@ void start_game(game_t *game, [[maybe_unused]] void *data);
 void exit_game(game_t *game, [[maybe_unused]] void *data);
 
 void update_life(game_t *game, void *data);
-void update_stamina(game_t *game, [[maybe_unused]] void *data);
+void update_stamina(game_t *game, void *data);
+void update_fps(game_t *game, void *data);
 
 typedef struct config_funct_s {
     char *name;
@@ -28,7 +29,8 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"start", start_game},
     {"quit", exit_game},
     {"update_life", update_life},
-    {"update_stamina", update_stamina}
+    {"update_stamina", update_stamina},
+    {"update_fps", update_fps}
 };
 
     #define NB_BUTTON LEN(CONFIG_FUNCTS)

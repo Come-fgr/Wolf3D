@@ -19,7 +19,7 @@
     #include "my.h"
 
     // Takes game struct pointer as argument
-    #define GET_FPS(x) (1 / ((game_t *)(x))->delta_time)
+    #define GET_FPS(x) ((size_t)(1 / ((game_t *)(x))->delta_time))
 
 typedef struct game_s {
     sfRenderWindow *window;
@@ -29,7 +29,8 @@ typedef struct game_s {
     scene_id_t cur_scene;
     player_t plr;
     float delta_time;
-    _Bool keys[sfKeyCount];
+    bool keys[sfKeyCount];
+    bool debug_mode;
     sfMusic *cur_music;
 } game_t;
 
