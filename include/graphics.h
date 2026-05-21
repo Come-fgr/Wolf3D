@@ -43,6 +43,7 @@ void *get_ressource(const char *ressource_name, list_t **ressource_list);
 // Update
 int main_loop(bool flag_list[NB_FLAGS]);
 void update_player(player_t *plr, float delta);
+void update_text(game_t *game, const component_t *component);
 
 // Display
 void display_button(sfRenderWindow *window, const component_t *component);
@@ -59,15 +60,15 @@ sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 static const entity_t ENTITY[NB_ENT] = {
     {BUTTON, "button", init_button, NULL, display_button,
         destroy_button, CLICKABLE},
-    {TEXT, "text", init_text, NULL, display_text, destroy_text,
-        NO_PROPERTIES}
+    {TEXT, "text", init_text, update_text, display_text, destroy_text,
+        NO_PROPERTIES},
 };
 
 // Component structs
 typedef struct text_s {
     sfText *text;
-    char *string;
     size_t size;
+    void (*update_text)(game_t *, sfText *);
 } text_t;
 
 #endif /* !GRAPHICS_H_ */

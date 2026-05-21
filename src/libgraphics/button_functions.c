@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <SFML/Graphics/RenderWindow.h>
+
 #include "list.h"
 #include "my_string.h"
 #include "my.h"
@@ -19,26 +20,18 @@
 #include "config.h"
 #include "castray.h"
 
-void b_start(game_t *game)
+void start_game(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
     game->cur_scene = GAME;
 }
 
-void b_quit(game_t *game)
+void exit_game(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
     sfRenderWindow_close(game->window);
-}
-
-static void *get_button_funct(const char *function_name)
-{
-    for (size_t id = 0; id < NB_BUTTON; id++)
-        if (strcmp(function_name, BUTTON_FUNCT_LIST[id].name) == SUCCESS)
-            return BUTTON_FUNCT_LIST[id].funct;
-    return NULL;
 }
 
 static size_t set_button_variables(component_t *component, const char **config,
@@ -58,7 +51,7 @@ static size_t set_button_variables(component_t *component, const char **config,
     component->ressource = get_ressource(config[BUTTON_TEXTURE],
         ressource_list);
     error += component->ressource == NULL;
-    component->data = get_button_funct(config[BUTTON_FUNCT]);
+    component->data = get_config_function(config[BUTTON_FUNCT]);
     error += component->data == NULL;
     return error;
 }
@@ -68,7 +61,7 @@ int init_button(component_t *component, const char **config,
 {
     size_t error = SUCCESS;
 
-    if (array_len(config) != BUTTON_CONFIG) {
+    if (array_len(config) != BUTTON_NB_FIELDS) {
         if (flag_list[DEBUG])
             dprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
                 RED, RESET);

@@ -9,6 +9,7 @@
     #define PLAYER_H_
 
     #include <SFML/System/Vector2.h>
+    #include <stddef.h>
     #include <stdbool.h>
 
     // player.pos incrementing value per second
@@ -19,12 +20,15 @@
     // player.angle rotate value per second
     #define PLR_ROTATE_VALUE 2.5f
 
+    #define PLR_MAX_LIFE 100
+
 typedef struct player_s {
     sfVector2f pos;    // Player position
     sfVector2f vel;    // Player move velocity
     float rot_vel;    // Player rotation velocity
     float speed;
     float angle;
+    size_t life;
     bool flash;
 } player_t;
 
