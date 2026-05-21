@@ -36,8 +36,8 @@ void b_quit(game_t *game)
 static void *get_button_funct(const char *function_name)
 {
     for (size_t id = 0; id < NB_BUTTON; id++)
-        if (my_strcmp(function_name, BUTTON_FUNCT[id].name) == SUCCESS)
-            return BUTTON_FUNCT[id].funct;
+        if (my_strcmp(function_name, BUTTON_FUNCT_LIST[id].name) == SUCCESS)
+            return BUTTON_FUNCT_LIST[id].funct;
     return NULL;
 }
 
@@ -56,15 +56,18 @@ static size_t set_button_variables(component_t *component, const char **config,
     size_t error = SUCCESS;
 
     component->entity = BUTTON;
-    component->pos.x = set_one_btn_variable(&error, config[2]);
-    component->pos.y = set_one_btn_variable(&error, config[3]);
-    component->rect.width = set_one_btn_variable(&error, config[4]);
-    component->rect.height = set_one_btn_variable(&error, config[5]);
+    component->pos.x = set_one_btn_variable(&error, config[BUTTON_POS_X]);
+    component->pos.y = set_one_btn_variable(&error, config[BUTTON_POS_Y]);
+    component->rect.width = set_one_btn_variable(&error,
+        config[BUTTON_RECT_WIDTH]);
+    component->rect.height = set_one_btn_variable(&error,
+        config[BUTTON_RECT_HEIGHT]);
     component->rect.left = 0;
     component->rect.top = 0;
-    component->ressource = get_ressource(config[1], ressource_list);
+    component->ressource = get_ressource(config[BUTTON_TEXTURE],
+        ressource_list);
     error += component->ressource == NULL;
-    component->data = get_button_funct(config[1]);
+    component->data = get_button_funct(config[BUTTON_FUNCT]);
     error += component->data == NULL;
     return error;
 }
@@ -74,7 +77,7 @@ int init_button(component_t *component, const char **config,
 {
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6) {
+    if (array_len(config) != BUTTON_CONFIG) {
         if (flag_list[DEBUG])
             minidprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
                 RED, RESET);

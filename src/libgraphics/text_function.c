@@ -14,6 +14,7 @@
 #include "my.h"
 #include "struct/ressource.h"
 #include "graphics.h"
+#include "config.h"
 
 static size_t set_text_variables(component_t *component, const char **config,
     sfFont *font, text_t *data)
@@ -25,13 +26,13 @@ static size_t set_text_variables(component_t *component, const char **config,
     if (text == NULL)
         return ERROR;
     component->entity = TEXT;
-    sfText_setString(text, config[4]);
+    sfText_setString(text, config[TEXT_STRING]);
     sfText_setFont(text, font);
-    component->pos.x = my_strtol(config[2], &endptr);
+    component->pos.x = my_strtol(config[TEXT_POS_X], &endptr);
     error += *endptr != '\0';
-    component->pos.y = my_strtol(config[3], &endptr);
+    component->pos.y = my_strtol(config[TEXT_POS_Y], &endptr);
     error += *endptr != '\0';
-    sfText_setCharacterSize(text, my_strtol(config[5], &endptr));
+    sfText_setCharacterSize(text, my_strtol(config[TEXT_CHAR_SIZE], &endptr));
     error += *endptr != '\0';
     sfText_setColor(text, sfWhite);
     sfText_setPosition(text, component->pos);
@@ -45,10 +46,10 @@ int init_text(component_t *component, const char **config,
     list_t **ressource_list, bool flag_list[NB_FLAGS])
 {
     text_t *data = calloc(1, sizeof(text_t));
-    sfFont *font = get_ressource(config[1], ressource_list);
+    sfFont *font = get_ressource(config[TEXT_FONT], ressource_list);
     size_t error = SUCCESS;
 
-    if (array_len(config) != 6 || font == NULL || data == NULL) {
+    if (array_len(config) != TEXT_CONFIG || font == NULL || data == NULL) {
         if (flag_list[DEBUG])
             minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
                 array_len(config) != 6 ? "\tWrong array size\n" : "",

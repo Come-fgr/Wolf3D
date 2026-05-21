@@ -20,9 +20,30 @@ typedef struct button_funct_s {
 
     #define NB_BUTTON 2
 
-static const button_funct_t BUTTON_FUNCT[NB_BUTTON] = {
+static const button_funct_t BUTTON_FUNCT_LIST[NB_BUTTON] = {
     {"start", b_start},
     {"quit", b_quit}
+};
+
+enum {
+    BUTTON_ENT,
+    BUTTON_TEXTURE,
+    BUTTON_POS_X,
+    BUTTON_POS_Y,
+    BUTTON_RECT_WIDTH,
+    BUTTON_RECT_HEIGHT,
+    BUTTON_FUNCT,
+    BUTTON_CONFIG,
+};
+
+enum {
+    TEXT_ENT,
+    TEXT_FONT,
+    TEXT_POS_X,
+    TEXT_POS_Y,
+    TEXT_STRING,
+    TEXT_CHAR_SIZE,
+    TEXT_CONFIG,
 };
 
 #endif /* !CONFIG_H_ */
