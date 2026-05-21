@@ -6,10 +6,10 @@
 */
 
 #include "macro.h"
-#include "graphics.h"
+#include "list.h"
 #include "my.h"
+#include "struct/ressource.h"
 
-#include <stdio.h>
 
 void *get_ressource(const char *ressource_name, list_t **ressource_list)
 {

@@ -8,7 +8,7 @@
 #ifndef LIST_H_
     #define LIST_H_
 
-    #include "struct/ressource.h"
+    #include <stddef.h>
 
 typedef struct linked_list_s {
     void *data;

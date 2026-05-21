@@ -11,8 +11,6 @@
 #include "list.h"
 #include "castray.h"
 
-#include <stdio.h>
-
 static void update_music(sfMusic *cur_music, sfMusic *scene_music)
 {
     if (cur_music != scene_music) {

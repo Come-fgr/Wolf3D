@@ -9,7 +9,6 @@
 
 #include "events/events.h"
 #include "macro.h"
-#include "graphics.h"
 #include "my.h"
 
 int main_loop(bool flag_list[NB_FLAGS])

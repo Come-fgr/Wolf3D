@@ -16,6 +16,7 @@
 #include "my.h"
 #include "macro.h"
 #include "graphics.h"
+#include "config.h"
 #include "castray.h"
 
 void b_start(game_t *game)
