@@ -16,7 +16,6 @@
     #include <SFML/Graphics/Rect.h>
     #include <SFML/Audio/Music.h>
 
-//! Unused
 typedef enum {
     TEXTURE,
     MUSIC,
@@ -25,26 +24,33 @@ typedef enum {
 } ressource_type_t;
 
 typedef void *(create_from_file_t)(const char *);
+typedef void (destroy_funct_t)(void *);
 
 typedef struct ressource_dir_s {
     char *name;
     char *extension;
+    ressource_type_t type;
     create_from_file_t *create_from_file;
+    destroy_funct_t *destroy;
 } ressource_dir_t;
 
 void *create_texture_from_file(const char *texture_path);
 
 static const ressource_dir_t RESSOURCE_DIR[NB_RESSOURCE_TYPE] = {
-    {"assets/sprite/", ".png",
-        (create_from_file_t *)create_texture_from_file},
-    {"assets/music/", ".mp3",
-        (create_from_file_t *)sfMusic_createFromFile},
-    {"assets/font/", ".ttf",
-        (create_from_file_t *)sfFont_createFromFile}
+    {"assets/sprite/", ".png", TEXTURE,
+        (create_from_file_t *)create_texture_from_file,
+        (void (*)(void *))sfTexture_destroy},
+    {"assets/music/", ".mp3", MUSIC,
+        (create_from_file_t *)sfMusic_createFromFile,
+        (void (*)(void *))sfMusic_destroy},
+    {"assets/font/", ".ttf", FONT,
+        (create_from_file_t *)sfFont_createFromFile,
+        (void (*)(void *))sfFont_destroy}
 };
 
 typedef struct ressource_s {
     char *name;
+    ressource_type_t type;
     void *data;
 } ressource_t;
 
