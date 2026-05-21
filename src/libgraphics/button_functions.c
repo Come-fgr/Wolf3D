@@ -20,20 +20,6 @@
 #include "config.h"
 #include "castray.h"
 
-void start_game(game_t *game, [[maybe_unused]] void *data)
-{
-    if (game == NULL)
-        return;
-    game->cur_scene = GAME;
-}
-
-void exit_game(game_t *game, [[maybe_unused]] void *data)
-{
-    if (game == NULL)
-        return;
-    sfRenderWindow_close(game->window);
-}
-
 static size_t set_button_variables(component_t *component, const char **config,
     list_t **ressource_list)
 {
