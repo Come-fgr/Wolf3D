@@ -28,7 +28,7 @@
 
     #define FOV (M_PI / 3.0f)
     #define NUM_RAYS WIN_WIDTH
-    #define RAY_STEP 0.5f
+    #define RAY_STEP 0.1f
     #define COLOR_MAX 225
     #define FLASHLIGHT_DISTANCE 500.0f
 
