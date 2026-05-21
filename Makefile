@@ -44,7 +44,8 @@ LIBGRAPHICS_FILES	=	counters/update_life.c	\
 						text_function.c			\
 						update_player.c			\
 						get_ressource.c			\
-						create_text.c
+						create_text.c			\
+						create_sprite.c
 
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\

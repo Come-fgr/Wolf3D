@@ -35,6 +35,7 @@ int init_ressource_list(list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
 sfText *create_text(sfFont *font, const char *string, const char *char_size,
     sfVector2f *pos);
+sfSprite *create_sprite(sfTexture *texture, sfIntRect *rect, sfVector2f *pos);
 int init_button(component_t *component, const char **config,
     list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
@@ -79,7 +80,7 @@ typedef enum {
 } button_status_t;
 
 typedef struct button_s {
-    sfTexture *sprite;  //TODO: Change to sprite
+    sfSprite *sprite;
     sfIntRect rect;
     sfText *text;
     button_status_t status;

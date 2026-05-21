@@ -43,17 +43,15 @@ static size_t set_button_variables(component_t *component, const char **config,
 
     if (data == NULL)
         return 1;
-    error += texture == NULL;
-    data->sprite = texture;
     component->entity = BUTTON;
     component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
     component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
-    data->rect.width = get_field_value(&error,
-        config[BUTTON_RECT_WIDTH]);
-    data->rect.height = get_field_value(&error,
-        config[BUTTON_RECT_HEIGHT]);
+    data->rect.width = get_field_value(&error, config[BUTTON_RECT_WIDTH]);
+    data->rect.height = get_field_value(&error, config[BUTTON_RECT_HEIGHT]);
     data->rect.left = 0;
     data->rect.top = 0;
+    data->sprite = create_sprite(texture, &data->rect, &component->pos);
+    error += data->sprite == NULL;
     data->button_funct = get_config_function(config[BUTTON_FUNCT]);
     error += data->button_funct == NULL;
     component->data = data;
@@ -67,7 +65,7 @@ int init_button(component_t *component, const char **config,
 
     if (array_len(config) != BUTTON_NB_FIELDS) {
         if (flag_list[DEBUG])
-            dprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
+            dprintf(STDERR_FILENO, "%sError: Wrong array size\n%s\n",
                 RED, RESET);
         return ERROR;
     }
@@ -79,22 +77,19 @@ int init_button(component_t *component, const char **config,
     return error != SUCCESS ? ERROR : SUCCESS;
 }
 
-//TODO: Set sprite in component->data
 void display_button(sfRenderWindow *window, const component_t *component)
 {
-    sfSprite *sprite = sfSprite_create();
-    button_t *data = (button_t *)component->data;
+    button_t *button = component->data;
 
-    if (sprite == NULL)
-        return;
-    sfSprite_setTexture(sprite, data->sprite, sfTrue);
-    sfSprite_setTextureRect(sprite, data->rect);
-    sfSprite_setPosition(sprite, component->pos);
-    sfRenderWindow_drawSprite(window, sprite, NULL);
-    sfSprite_destroy(sprite);
+    sfRenderWindow_drawSprite(window, button->sprite, NULL);
 }
 
 void destroy_button(component_t *component)
 {
+    button_t *button = component->data;
+
+    sfSprite_destroy(button->sprite);
+    sfText_destroy(button->text);
+    free(button);
     free(component);
 }
