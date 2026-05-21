@@ -10,20 +10,26 @@
 
     #include "struct/game.h"
 
-void b_start(game_t *game);
-void b_quit(game_t *game);
+void *get_config_function(const char *function_name);
 
-typedef struct button_funct_s {
+void start_game(game_t *game, [[maybe_unused]] void *data);
+void exit_game(game_t *game, [[maybe_unused]] void *data);
+
+void update_life(game_t *game, void *data);
+
+typedef struct config_funct_s {
     char *name;
-    void (*funct)(game_t *);
-} button_funct_t;
+    void (*funct)(game_t *, [[maybe_unused]] void *data);
+} config_funct_t;
 
-static const button_funct_t BUTTON_FUNCT_LIST[] = {
-    {"start", b_start},
-    {"quit", b_quit}
+static const config_funct_t CONFIG_FUNCTS[] = {
+    {"_", NULL},
+    {"start", start_game},
+    {"quit", exit_game},
+    {"update_life", update_life}
 };
 
-    #define NB_BUTTON LEN(BUTTON_FUNCT_LIST)
+    #define NB_BUTTON LEN(CONFIG_FUNCTS)
 
 enum {
     BUTTON_ENT,
@@ -33,7 +39,7 @@ enum {
     BUTTON_RECT_WIDTH,
     BUTTON_RECT_HEIGHT,
     BUTTON_FUNCT,
-    BUTTON_CONFIG,
+    BUTTON_NB_FIELDS
 };
 
 enum {
@@ -43,7 +49,8 @@ enum {
     TEXT_POS_Y,
     TEXT_STRING,
     TEXT_CHAR_SIZE,
-    TEXT_CONFIG,
+    TEXT_UPDATE_FN,
+    TEXT_NB_FIELDS
 };
 
 #endif /* !CONFIG_H_ */

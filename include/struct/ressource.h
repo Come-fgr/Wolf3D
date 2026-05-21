@@ -39,13 +39,13 @@ void *create_texture_from_file(const char *texture_path);
 static const ressource_dir_t RESSOURCE_DIR[NB_RESSOURCE_TYPE] = {
     {"assets/sprite/", ".png", TEXTURE,
         (create_from_file_t *)create_texture_from_file,
-        (void (*)(void *))sfTexture_destroy},
+        (destroy_funct_t *)sfTexture_destroy},
     {"assets/music/", ".mp3", MUSIC,
         (create_from_file_t *)sfMusic_createFromFile,
-        (void (*)(void *))sfMusic_destroy},
+        (destroy_funct_t *)sfMusic_destroy},
     {"assets/font/", ".ttf", FONT,
         (create_from_file_t *)sfFont_createFromFile,
-        (void (*)(void *))sfFont_destroy}
+        (destroy_funct_t *)sfFont_destroy}
 };
 
 typedef struct ressource_s {

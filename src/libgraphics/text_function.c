@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Text.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Font.h>
+
 #include "macro.h"
 #include "my.h"
 #include "struct/ressource.h"
@@ -37,6 +38,7 @@ static size_t set_text_variables(component_t *component, const char **config,
     sfText_setColor(text, sfWhite);
     sfText_setPosition(text, component->pos);
     data->text = text;
+    data->update_text = get_config_function(config[TEXT_UPDATE_FN]);
     component->data = data;
     return error;
 }
@@ -48,10 +50,10 @@ int init_text(component_t *component, const char **config,
     sfFont *font = get_ressource(config[TEXT_FONT], ressource_list);
     size_t error = SUCCESS;
 
-    if (array_len(config) != TEXT_CONFIG || font == NULL || data == NULL) {
+    if (array_len(config) != TEXT_NB_FIELDS || font == NULL || data == NULL) {
         if (flag_list[DEBUG])
             minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
-                array_len(config) != 6 ? "\tWrong array size\n" : "",
+                array_len(config) != TEXT_NB_FIELDS ? "\tWrong array size\n" : "",
                 font == NULL ? "\tFont is NULL\n" : "", RESET);
         return ERROR;
     }
