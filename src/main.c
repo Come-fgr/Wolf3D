@@ -18,14 +18,14 @@ int main(int argc, char *const *argv, char *const *env)
     bool flag_list[NB_FLAGS] = {false};
 
     if (get_flags(argc, argv, flag_list) == ERROR) {
-        minidprintf(STDOUT_FILENO, "%s%s%s", HELP_MESSAGE_USAGE,
+        printf("%s%s%s", HELP_MESSAGE_USAGE,
             HELP_MESSAGE_FLAG_D, HELP_MESSAGE_FLAG_H);
         return EPIFAIL;
     }
     if (!display_env_exist(env))
         return EPIFAIL;
     if (flag_list[HELP]) {
-        minidprintf(STDOUT_FILENO, "%s%s%s", HELP_MESSAGE_USAGE,
+        printf("%s%s%s", HELP_MESSAGE_USAGE,
             HELP_MESSAGE_FLAG_D, HELP_MESSAGE_FLAG_H);
         return SUCCESS;
     }

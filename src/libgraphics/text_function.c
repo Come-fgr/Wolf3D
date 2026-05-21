@@ -6,7 +6,9 @@
 */
 
 #include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <SFML/Graphics/Text.h>
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Font.h>
@@ -28,11 +30,11 @@ static size_t set_text_variables(component_t *component, const char **config,
     component->entity = TEXT;
     sfText_setString(text, config[TEXT_STRING]);
     sfText_setFont(text, font);
-    component->pos.x = my_strtol(config[TEXT_POS_X], &endptr);
+    component->pos.x = strtol(config[TEXT_POS_X], &endptr, 10);
     error += *endptr != '\0';
-    component->pos.y = my_strtol(config[TEXT_POS_Y], &endptr);
+    component->pos.y = strtol(config[TEXT_POS_Y], &endptr, 10);
     error += *endptr != '\0';
-    sfText_setCharacterSize(text, my_strtol(config[TEXT_CHAR_SIZE], &endptr));
+    sfText_setCharacterSize(text, strtol(config[TEXT_CHAR_SIZE], &endptr, 10));
     error += *endptr != '\0';
     sfText_setColor(text, sfWhite);
     sfText_setPosition(text, component->pos);
@@ -50,14 +52,14 @@ int init_text(component_t *component, const char **config,
 
     if (array_len(config) != TEXT_CONFIG || font == NULL || data == NULL) {
         if (flag_list[DEBUG])
-            minidprintf(STDERR_FILENO, "%sError:\n%s%s%s%s\n", RED,
+            dprintf(STDERR_FILENO, "%sError:\n%s%s%s\n", RED,
                 array_len(config) != 6 ? "\tWrong array size\n" : "",
                 font == NULL ? "\tFont is NULL\n" : "", RESET);
         return ERROR;
     }
     error = set_text_variables(component, config, font, data);
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "Load text \"%s\" = %s%s%s\n",
+        printf("Load text \"%s\" = %s%s%s\n",
             config[4], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;

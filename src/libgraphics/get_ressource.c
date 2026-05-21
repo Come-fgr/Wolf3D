@@ -5,9 +5,9 @@
 ** get_ressource
 */
 
+#include <string.h>
 #include "macro.h"
 #include "list.h"
-#include "my.h"
 #include "struct/ressource.h"
 
 
@@ -18,7 +18,7 @@ void *get_ressource(const char *ressource_name, list_t **ressource_list)
 
     while (current != NULL) {
         ressource = (ressource_t *)current->data;
-        if (my_strcmp(ressource_name, ressource->name) == SUCCESS)
+        if (strcmp(ressource_name, ressource->name) == SUCCESS)
             return ressource->data;
         current = current->next;
     }

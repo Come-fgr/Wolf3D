@@ -12,6 +12,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "my.h"
 
 static char **alloc_string(char **array, char const *str,
@@ -20,7 +21,7 @@ static char **alloc_string(char **array, char const *str,
     size_t len_array = 0;
     size_t len_str = 0;
     bool error = false;
-    size_t string_len = my_strlen(str);
+    size_t string_len = strlen(str);
 
     for (size_t i = 0; i <= string_len; i++) {
         if (!is_delimiter(str[i]))

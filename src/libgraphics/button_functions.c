@@ -36,7 +36,7 @@ void b_quit(game_t *game)
 static void *get_button_funct(const char *function_name)
 {
     for (size_t id = 0; id < NB_BUTTON; id++)
-        if (my_strcmp(function_name, BUTTON_FUNCT_LIST[id].name) == SUCCESS)
+        if (strcmp(function_name, BUTTON_FUNCT_LIST[id].name) == SUCCESS)
             return BUTTON_FUNCT_LIST[id].funct;
     return NULL;
 }
@@ -79,13 +79,13 @@ int init_button(component_t *component, const char **config,
 
     if (array_len(config) != BUTTON_CONFIG) {
         if (flag_list[DEBUG])
-            minidprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
+            dprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
                 RED, RESET);
         return ERROR;
     }
     error = set_button_variables(component, config, ressource_list);
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "Load button \"%s\" = %s%s%s\n",
+        printf("Load button \"%s\" = %s%s%s\n",
             config[1], error == SUCCESS ? GREEN : RED,
             error == SUCCESS ? "success" : "error", RESET);
     return error != SUCCESS ? ERROR : SUCCESS;

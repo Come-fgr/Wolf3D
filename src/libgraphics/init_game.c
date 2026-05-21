@@ -5,8 +5,9 @@
 ** Initialize main struct
 */
 
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
@@ -32,7 +33,7 @@ static component_t *str_to_component(char *str, list_t
     if (component == NULL || array == NULL)
         return NULL;
     for (entity_id_t id = 0; id < NB_ENT; id++)
-        if (my_strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
+        if (strcmp(ENTITY[id].name, array[0]) == SUCCESS) {
             exit_value = ENTITY[id].init(component, (const char **)array,
                 ressource_list, flag_list) == ERROR ? NULL : component;
             free_array(array);
@@ -77,7 +78,7 @@ static int init_scene(scene_t *scene, char *config_file,
     free_list(scene_config, free);
     scene->component_list = scene_array;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sScene \"%s\" successfully initialized%s\n"
+        printf("%sScene \"%s\" successfully initialized%s\n"
             , GREEN, config_file, RESET);
     return SUCCESS;
 }

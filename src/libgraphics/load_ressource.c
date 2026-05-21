@@ -5,7 +5,7 @@
 ** load_ressource
 */
 
-#include <unistd.h>
+#include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
@@ -57,7 +57,7 @@ static int add_ressource_to_list(list_t **ressource_list,
     new_node->next = *ressource_list;
     *ressource_list = new_node;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "Ressource \"%s\" loaded from \"%s\"\n",
+        printf("Ressource \"%s\" loaded from \"%s\"\n",
             ressource->name, filepath);
     free(full_path);
     return SUCCESS;
@@ -80,7 +80,7 @@ static int load_ressource(list_t **ressource_list,
         entry = readdir(dir);
     }
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sAll %s successfully loaded%s\n",
+        printf("%sAll %s successfully loaded%s\n",
             GREEN, ressource_dir->name, RESET);
     closedir(dir);
     return SUCCESS;
@@ -94,7 +94,7 @@ int init_ressource_list(list_t **ressource_list,
             == ERROR)
             return ERROR;
     if (flag_list[DEBUG])
-        minidprintf(STDOUT_FILENO, "%sRessources successfully loaded%s\n",
+        printf("%sRessources successfully loaded%s\n",
             GREEN, RESET);
     return SUCCESS;
 }
