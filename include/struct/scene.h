@@ -25,4 +25,15 @@ typedef struct scene_s {
     sfMusic *music;
 } scene_t;
 
+typedef struct scene_config_s {
+    scene_id_t id;
+    char *file;
+    char *music;
+} scene_config_t;
+
+static const scene_config_t SCENES_CONFIG[NB_SCENE] = {
+    {GAME, "config/game_scene.config", "BT-7274"},
+    {MENU_START, "config/start_scene.config", NULL}
+};
+
 #endif /* !SCENE_H */

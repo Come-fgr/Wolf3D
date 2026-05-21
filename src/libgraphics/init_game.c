@@ -80,24 +80,20 @@ static int init_scene(scene_t *scene, char *config_file,
     return SUCCESS;
 }
 
-//TODO: Use get_dir_content
 //! Free error
 static int init_scene_list(list_t **ressource_list,
     scene_t scene_list[NB_SCENE], bool flag_list[NB_FLAGS])
 {
-    //for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++)
-    if (init_scene(&scene_list[MENU_START], "config/start_scene.config",
+    for (scene_id_t scene_id = 0; scene_id < NB_SCENE; scene_id++) {
+        if (init_scene(&scene_list[scene_id], SCENES_CONFIG[scene_id].file,
             ressource_list, flag_list) == ERROR)
-        return ERROR;
-    scene_list[GAME].music = (sfMusic *)get_ressource("BT-7274",
-        ressource_list);
-    if (scene_list[MENU_START].music == NULL)
-        return ERROR;
-    sfMusic_setLoop(scene_list[GAME].music, sfTrue);
-    if (init_scene(&scene_list[GAME], "config/game_scene.config",
-            ressource_list, flag_list) == ERROR)
-        return ERROR;
-    scene_list[MENU_START].music = NULL;
+                return ERROR;
+            scene_list[scene_id].music = SCENES_CONFIG[scene_id].music != NULL ?
+                (sfMusic *)get_ressource(SCENES_CONFIG[scene_id].music,
+                    ressource_list) : NULL;
+        if (scene_list[scene_id].music != NULL)
+            sfMusic_setLoop(scene_list[scene_id].music, sfTrue);
+    }
     return SUCCESS;
 }
 
