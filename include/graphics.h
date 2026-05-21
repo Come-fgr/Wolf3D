@@ -49,7 +49,7 @@ void display_button(sfRenderWindow *window, const component_t *component);
 void display_text(sfRenderWindow *, const component_t *);
 
 // Destroy
-void destroy_component(component_t *component);
+void destroy_button(component_t *component);
 void destroy_text(component_t *);
 
 // Events
@@ -58,7 +58,7 @@ sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 //Entities list
 static const entity_t ENTITY[NB_ENT] = {
     {BUTTON, "button", init_button, NULL, display_button,
-        destroy_component, CLICKABLE},
+        destroy_button, CLICKABLE},
     {TEXT, "text", init_text, NULL, display_text, destroy_text,
         NO_PROPERTIES}
 };

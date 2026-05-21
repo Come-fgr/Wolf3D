@@ -100,3 +100,8 @@ void display_button(sfRenderWindow *window, const component_t *component)
     sfSprite_setPosition(sprite, component->pos);
     sfRenderWindow_drawSprite(window, sprite, NULL);
 }
+
+void destroy_button(component_t *component)
+{
+    free(component);
+}
