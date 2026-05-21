@@ -70,4 +70,7 @@ void display_text(sfRenderWindow *window, const component_t *component)
 void destroy_text(component_t *component)
 {
     sfText_destroy(((text_t *)component->data)->text);
+    free(((text_t *)component->data)->string);
+    free(component->data);
+    free(component);
 }

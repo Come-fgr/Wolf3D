@@ -31,5 +31,6 @@ list_t *file_to_list(char *filepath, size_t *nb_line)
         }
         nb_char = getline(&line, &line_size, file);
     }
+    free(line);
     return list;
 }
