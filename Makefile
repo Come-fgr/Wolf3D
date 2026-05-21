@@ -43,7 +43,8 @@ LIBGRAPHICS_FILES	=	counters/update_life.c	\
 						load_ressource.c		\
 						text_function.c			\
 						update_player.c			\
-						get_ressource.c
+						get_ressource.c			\
+						create_text.c
 
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\

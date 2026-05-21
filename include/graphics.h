@@ -33,6 +33,8 @@ bool display_env_exist(char *const *const env);
 // Initialization
 int init_ressource_list(list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
+sfText *create_text(sfFont *font, const char *string, const char *char_size,
+    sfVector2f *pos);
 int init_button(component_t *component, const char **config,
     list_t **ressource_list,
     bool flag_list[NB_FLAGS]);
