@@ -14,7 +14,6 @@
 
 static void update_stamina(player_t *plr, float delta)
 {
-    printf("%f\n", plr->stamina);
     plr->stamina += plr->running
         ? -STAMINA_RUN_COST * delta : STAMINA_REGEN * delta;
     if (plr->stamina <= 0) {
