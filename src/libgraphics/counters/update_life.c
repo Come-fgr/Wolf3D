@@ -14,7 +14,7 @@
 void update_life(game_t *game, [[maybe_unused]] void *data)
 {
     sfText *text = data;
-    char *result[MAX_LIFE_LABEL_LEN];
+    char result[MAX_LIFE_LABEL_LEN];
 
     sprintf(result, LIFE_LABEL_FORMAT, game->plr.life);
     sfText_setString(text, result);

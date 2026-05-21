@@ -34,14 +34,6 @@ void exit_game(game_t *game, [[maybe_unused]] void *data)
     sfRenderWindow_close(game->window);
 }
 
-static void *get_button_funct(const char *function_name)
-{
-    for (size_t id = 0; id < NB_BUTTON; id++)
-        if (strcmp(function_name, BUTTON_FUNCT_LIST[id].name) == SUCCESS)
-            return BUTTON_FUNCT_LIST[id].funct;
-    return NULL;
-}
-
 static size_t set_button_variables(component_t *component, const char **config,
     list_t **ressource_list)
 {
