@@ -10,6 +10,16 @@
 #include "graphics.h"
 #include "castray.h"
 
+static float norm_angle(float a)
+{
+    const float TWO_PI = 2.0f * (float)M_PI;
+
+    a = fmodf(a, TWO_PI);
+    if (a < 0)
+        a += TWO_PI;
+    return a;
+}
+
 static void compute_col(raycaster_t *disp, const player_t *player, int col)
 {
     disp->ray_angle = player->angle - disp->half_fov
@@ -17,7 +27,7 @@ static void compute_col(raycaster_t *disp, const player_t *player, int col)
     disp->hitx = 0;
     disp->hity = 0;
     disp->wall_id = 0;
-    disp->raw_dist = cast_single_ray(player, disp);
+    disp->raw_dist = cast_single_ray(player, disp, norm_angle(disp->ray_angle));
     disp->corrected = disp->raw_dist
         * cosf(disp->ray_angle - player->angle);
     if (disp->corrected <= 0)

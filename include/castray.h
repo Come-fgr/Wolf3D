@@ -43,7 +43,7 @@ typedef struct raycaster_s {
 void draw_walls(game_t *game);
 void draw_world(game_t *game);
 raycaster_t *init_struct(game_t *game);
-float cast_single_ray(const player_t *player, raycaster_t *disp);
+float cast_single_ray(const player_t *player, raycaster_t *disp, float angle);
 sfColor shade_color(float corrected_dist, bool flash);
 
 #endif //BS_HEADER_H_
