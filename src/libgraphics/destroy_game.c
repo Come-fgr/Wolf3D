@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Texture.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/View.h>
 #include "graphics.h"
 
 static void free_ressource(ressource_t *ressource)
@@ -48,6 +49,8 @@ void destroy_game(game_t *game)
         sfRenderWindow_destroy(game->window);
     if (game->clock != NULL)
         sfClock_destroy(game->clock);
+    if (game->view != NULL)
+        sfView_destroy(game->view);
     if (game->ressource_list != NULL) {
         free_list(*game->ressource_list, (void (*)(void *))free_ressource);
         free(game->ressource_list);

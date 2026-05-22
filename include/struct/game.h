@@ -25,6 +25,7 @@
 typedef struct game_s {
     bool run;
     sfRenderWindow *window;
+    sfView *view;
     sfClock *clock;
     list_t **ressource_list;
     scene_t scene_list[NB_SCENE];

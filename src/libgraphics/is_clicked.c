@@ -25,10 +25,14 @@ sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component)
 sfBool is_hovered(const sfRenderWindow *window, const component_t *component)
 {
     sfVector2i mouse = sfMouse_getPosition((sfWindow *)window);
+    sfVector2f mouse_pos = sfRenderWindow_mapPixelToCoords(window, mouse,
+        sfRenderWindow_getView(window));
     button_t *button = (button_t *)component->data;
 
-    return (mouse.x > component->pos.x &&
-        mouse.x < component->pos.x + button->rect.width) &&
-        (mouse.y > component->pos.y &&
-        mouse.y < component->pos.y + button->rect.height);
+    if (button == NULL)
+        return false;
+    return (mouse_pos.x > component->pos.x &&
+        mouse_pos.x < component->pos.x + button->rect.width) &&
+        (mouse_pos.y > component->pos.y &&
+        mouse_pos.y < component->pos.y + button->rect.height);
 }

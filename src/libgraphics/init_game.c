@@ -13,7 +13,7 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
-
+#include <SFML/Graphics/View.h>
 #include "macro.h"
 #include "graphics.h"
 #include "list.h"
@@ -114,13 +114,14 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
 {
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
             WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
+    game->view = sfView_create();
     game->clock = sfClock_create();
     game->ressource_list = calloc(1, sizeof(list_t *));
     game->plr = (player_t){0};
     game->settings = (settings_t){DEFAULT_VOLUME, false, false, DEFAULT_FOV};
     init_player(&game->plr);
     game->cur_music = NULL;
-    if (!game->window || !game->clock || !game->ressource_list)
+    if (!game->window || !game->clock || !game->ressource_list || !game->view)
         return ERROR;
     *game->ressource_list = NULL;
     if (init_ressource_list(game->ressource_list, flag_list) == ERROR)
@@ -128,6 +129,10 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     if (init_scene_list(game->ressource_list, game->scene_list,
             flag_list) == ERROR)
         return ERROR;
+    sfView_setSize(game->view, (sfVector2f){WINDOW_WIDTH, WINDOW_HEIGHT});
+    sfView_setCenter(game->view, (sfVector2f){WINDOW_WIDTH / 2,
+        WINDOW_HEIGHT / 2});
+    sfRenderWindow_setView(game->window, game->view);
     sfRenderWindow_setFramerateLimit(game->window, FRAMERATE_LIMIT);
     game->cur_scene = MENU_START;
     game->run = true;
