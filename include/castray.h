@@ -24,6 +24,7 @@
     #define RAY_STEP 0.1f
     #define COLOR_MAX 225
     #define FLASHLIGHT_DISTANCE 500.0f
+    #define NBR_WALL_TYPE 2
 
 typedef struct raycaster_s {
     size_t wall_id;
