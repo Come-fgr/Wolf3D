@@ -39,7 +39,7 @@ static size_t set_animation_variables(component_t *component,
     data->rect.left = 0;
     data->rect.top = 0;
     data->seconds = strtof(config[ANIMATION_SPEED], &endptr);
-    error += endptr == '\0';
+    error += *endptr != '\0';
     data->count = 0;
     data->nb_frame = get_field_value(&error, config[ANIMATION_NB_FRAME]);
     data->sprite = create_sprite(texture, &data->rect, &component->pos);
