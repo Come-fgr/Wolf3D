@@ -37,5 +37,4 @@ void draw_world(game_t *game)
     draw_sky(game->window);
     draw_ground(game->window);
     draw_walls(game);
-
 }
