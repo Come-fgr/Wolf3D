@@ -35,7 +35,7 @@ static void key_manage_key_row(
         || (flags & KEY_ALL_REQUIRED && is_a_key_pressed(arr->keys)))
         return;
     if (arr->fnct)
-        arr->fnct(game);
+        arr->fnct(game, NULL);
 }
 
 static void key_manage(

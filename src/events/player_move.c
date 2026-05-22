@@ -7,28 +7,28 @@
 
 #include "struct/game.h"
 
-void player_move_left(game_t *game)
+void player_move_left(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
     game->plr.vel.x = 1.0f;
 }
 
-void player_move_right(game_t *game)
+void player_move_right(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
     game->plr.vel.x = -1.0f;
 }
 
-void player_move_forward(game_t *game)
+void player_move_forward(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
     game->plr.vel.y = 1.0f;
 }
 
-void player_move_backward(game_t *game)
+void player_move_backward(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;

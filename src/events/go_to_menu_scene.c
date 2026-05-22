@@ -8,7 +8,7 @@
 #include "config.h"
 #include "struct/game.h"
 
-void got_to_prev_scene(game_t *game)
+void got_to_prev_scene(game_t *game, [[maybe_unused]] void *data)
 {
     scene_id_t temp = game->prev_scene;
 
@@ -28,4 +28,12 @@ void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data)
         return;
     game->prev_scene = game->cur_scene;
     game->cur_scene = SETTINGS;
+}
+
+void go_to_start_scene(game_t *game, [[maybe_unused]] void *data)
+{
+    if (game == NULL)
+        return;
+    game->prev_scene = NB_SCENE;
+    game->cur_scene = MENU_START;
 }
