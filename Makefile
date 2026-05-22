@@ -27,7 +27,8 @@ LIBMY_FILES			=	get_flags.c			\
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\
 						draw_walls.c		\
-						struct_manip.c
+						struct_manip.c		\
+						shading.c
 
 LIBGRAPHICS_FILES	=	counters/update_life.c		\
 						counters/update_stamina.c	\
