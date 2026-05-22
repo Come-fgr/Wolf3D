@@ -19,7 +19,6 @@
     #define FRAMERATE_LIMIT 60
     #define MAIN_SCENE MENU_START
     #define DISPLAY_ENV "DISPLAY"
-    #define SEPARATOR ';'
 
 // Help message
 static const char HELP_MESSAGE_USAGE[] = "Usage: ./wolf3d [OPTION]\n";
@@ -46,6 +45,7 @@ int init_text(component_t *component, const char **config,
 void *get_ressource(const char *ressource_name, list_t **ressource_list);
 int init_animation(component_t *component, const char **config,
     list_t **ressource_list, bool flag_list[NB_FLAGS]);
+void init_player(player_t *plr);
 
 // Update
 int main_loop(bool flag_list[NB_FLAGS]);

@@ -19,11 +19,6 @@
 #include "list.h"
 #include "my.h"
 
-static bool is_sep(char c)
-{
-    return c == SEPARATOR;
-}
-
 static component_t *str_to_component(char *str, list_t
     **ressource_list, bool flag_list[NB_FLAGS])
 {
@@ -102,7 +97,7 @@ static int init_scene_list(list_t **ressource_list,
     return SUCCESS;
 }
 
-static void init_player(player_t *plr)
+void init_player(player_t *plr)
 {
     plr->pos = (sfVector2f){ DEFAULT_PLAYER_POS_X, DEFAULT_PLAYER_POS_Y};
     plr->angle = (float)DEFAULT_PLAYER_ANGLE;

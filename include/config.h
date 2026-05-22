@@ -32,6 +32,7 @@ void update_fullscreen_text(game_t *game, [[maybe_unused]] void *data);
 void apply_settings(game_t *game, [[maybe_unused]] void *data);
 void save_settings(game_t *game, [[maybe_unused]] void *data);
 void save_player(game_t *game, [[maybe_unused]] void *data);
+void load_player(game_t *game, [[maybe_unused]] void *data);
 
 typedef struct config_funct_s {
     char *name;
@@ -57,7 +58,8 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"prev_scene", got_to_prev_scene},
     {"menu_start", go_to_start_scene},
     {"save_settings", save_settings},
-    {"save_player", save_player}
+    {"save_player", save_player},
+    {"load_player", load_player}
 };
 
     #define NB_BUTTON LEN(CONFIG_FUNCTS)
@@ -97,6 +99,15 @@ enum {
     ANIMATION_SPEED,
     ANIMATION_NB_FRAME,
     ANIMATION_NB_FIELDS
+};
+
+enum {
+    PLAYER_POS_X,
+    PLAYER_POS_Y,
+    PLAYER_ANGLE,
+    PLAYER_LIFE,
+    PLAYER_FLASH,
+    PLAYER_NB_FIELDS
 };
 
 #endif /* !CONFIG_H_ */
