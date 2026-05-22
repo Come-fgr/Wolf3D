@@ -57,17 +57,19 @@ LIBGRAPHICS_FILES	=	counters/update_counters.c	\
 						apply_settings.c			\
 						animations_functions.c		\
 						save_system.c				\
-						create_window.c
+						create_window.c				\
+						map.c
 
-EVENTS_FILES		=	analyse_events.c 	\
-						key_event.c			\
-						player_move_stop.c 	\
-						player_move.c		\
-						go_to_menu_scene.c 	\
-						player_rotation.c 	\
-						player_sprint.c 	\
-						player_flashlight.c \
-						handle_buttons_click.c
+EVENTS_FILES		=	analyse_events.c 		\
+						key_event.c				\
+						player_move_stop.c 		\
+						player_move.c			\
+						go_to_menu_scene.c 		\
+						player_rotation.c 		\
+						player_sprint.c 		\
+						player_flashlight.c 	\
+						handle_buttons_click.c	\
+						player_interact.c
 
 LIBLIST_FILES		=	add_node.c			\
 						array_to_list.c		\
