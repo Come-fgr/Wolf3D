@@ -14,6 +14,7 @@ void *get_config_function(const char *function_name);
 
 void start_game(game_t *game, [[maybe_unused]] void *data);
 void exit_game(game_t *game, [[maybe_unused]] void *data);
+void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data);
 
 void update_life(game_t *game, void *data);
 
@@ -26,6 +27,7 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"_", NULL},
     {"start", start_game},
     {"quit", exit_game},
+    {"settings", go_to_settings_scene},
     {"update_life", update_life}
 };
 

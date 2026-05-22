@@ -13,3 +13,10 @@ void go_to_pause_scene(game_t *game)
         return;
     game->cur_scene = MENU_PAUSE;
 }
+
+void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data)
+{
+    if (game == NULL)
+        return;
+    game->cur_scene = SETTINGS;
+}
