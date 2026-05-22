@@ -29,25 +29,25 @@ RAYCAST_FILES		=	castray.c			\
 						draw_walls.c		\
 						struct_manip.c
 
-LIBGRAPHICS_FILES	=	counters/update_life.c	\
-						texts/update_text.c 	\
-						get_config_function.c	\
-						destroy_game.c			\
-						display_game.c			\
-						init_game.c				\
-						main_loop.c				\
-						update_game.c			\
-						button_functions.c		\
-						is_clicked.c			\
-						display_env_exist.c		\
-						load_ressource.c		\
-						text_function.c			\
-						update_player.c			\
-						get_ressource.c			\
-						create_text.c			\
-						create_sprite.c			\
-						center_text_on_sprite.c	\
-						on_click_functions.c	\
+LIBGRAPHICS_FILES	=	counters/update_counters.c	\
+						texts/update_text.c 		\
+						get_config_function.c		\
+						destroy_game.c				\
+						display_game.c				\
+						init_game.c					\
+						main_loop.c					\
+						update_game.c				\
+						button_functions.c			\
+						is_clicked.c				\
+						display_env_exist.c			\
+						load_ressource.c			\
+						text_function.c				\
+						update_player.c				\
+						get_ressource.c				\
+						create_text.c				\
+						create_sprite.c				\
+						center_text_on_sprite.c		\
+						on_click_functions.c		\
 						settings_buttons.c
 
 EVENTS_FILES		=	analyse_events.c 	\

@@ -19,7 +19,8 @@ void handle_buttons_click(sfEvent *evt, game_t *game)
     for (size_t i = 0; component_list[i] != NULL; i++) {
         if (ENTITY[component_list[i]->entity].props == CLICKABLE)
             button = (button_t *)component_list[i]->data;
-        if (button != NULL && button->status == HOVER) {
+        if (button != NULL &&
+            (button->status == HOVER || button->status == CLICK)) {
             button->status = CLICK;
             button->button_funct(game);
             break;

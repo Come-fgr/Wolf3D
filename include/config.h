@@ -23,6 +23,8 @@ void decrease_fov(game_t *game, [[maybe_unused]] void *data);
 void change_window_mode(game_t *game, [[maybe_unused]] void *data);
 
 void update_life(game_t *game, void *data);
+void update_volume_text(game_t *game, [[maybe_unused]] void *data);
+void update_fov_text(game_t *game, [[maybe_unused]] void *data);
 
 typedef struct config_funct_s {
     char *name;
@@ -39,7 +41,9 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"+fov", increase_fov},
     {"-fov", decrease_fov},
     {"fullscreen", change_window_mode},
-    {"update_life", update_life}
+    {"update_life", update_life},
+    {"update_volume", update_volume_text},
+    {"update_fov", update_fov_text}
 };
 
     #define NB_BUTTON LEN(CONFIG_FUNCTS)
