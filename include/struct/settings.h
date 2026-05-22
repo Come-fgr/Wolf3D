@@ -21,6 +21,7 @@
 typedef struct settings_s {
     float music_volume;
     bool fullscreen;
+    bool is_fullscreen;
     float fov;
 } settings_t;
 

@@ -6,11 +6,20 @@
 */
 
 #include <SFML/Audio/Music.h>
-#include "struct/game.h"
+#include "graphics.h"
 
 void apply_settings(game_t *game, [[maybe_unused]] void *data)
 {
     if (game->cur_music != NULL)
         sfMusic_setVolume(game->cur_music, game->settings.music_volume);
-    return;
+    if (!game->settings.is_fullscreen && game->settings.fullscreen) {
+        sfRenderWindow_destroy(game->window);
+        game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
+                WINDOW_HEIGHT, 32}, WINDOW_NAME, sfFullscreen, NULL);
+    }
+    if (game->settings.is_fullscreen && !game->settings.fullscreen) {
+        sfRenderWindow_destroy(game->window);
+        game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
+                WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
+    }
 }
