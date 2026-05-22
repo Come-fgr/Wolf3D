@@ -130,5 +130,6 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
         return ERROR;
     sfRenderWindow_setFramerateLimit(game->window, FRAMERATE_LIMIT);
     game->cur_scene = MENU_START;
+    game->run = true;
     return SUCCESS;
 }

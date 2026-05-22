@@ -20,4 +20,5 @@ void exit_game(game_t *game, [[maybe_unused]] void *data)
     if (game == NULL)
         return;
     sfRenderWindow_close(game->window);
+    game->run = false;
 }

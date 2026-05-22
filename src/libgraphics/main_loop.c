@@ -16,7 +16,7 @@ int main_loop(bool flag_list[NB_FLAGS])
 
     if (init_game(&game, flag_list) == ERROR)
         return EPIFAIL;
-    while (sfRenderWindow_isOpen(game.window)) {
+    while (game.run) {
         display_game(&game);
         update_game(&game);
     }

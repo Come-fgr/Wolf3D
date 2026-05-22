@@ -23,6 +23,7 @@
     #define GET_FPS(x) (1 / ((game_t *)(x))->delta_time)
 
 typedef struct game_s {
+    bool run;
     sfRenderWindow *window;
     sfClock *clock;
     list_t **ressource_list;
