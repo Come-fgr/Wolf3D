@@ -5,6 +5,7 @@
 ** draw_walls
 */
 
+#include <stdio.h>
 #include "map.h"
 #include "graphics.h"
 #include "castray.h"
@@ -47,11 +48,14 @@ static int compute_tex_x(raycaster_t *disp, int tex_width)
 static void display_wall(game_t *game, raycaster_t *disp, int col,
     sfRectangleShape *wall)
 {
-    sfTexture *tex = disp->wall_types[disp->wall_id - 1];
-    sfVector2u tex_size = sfTexture_getSize(tex);
+    sfTexture *tex = disp && disp->wall_id
+        ? disp->wall_types[disp->wall_id - 1] : NULL;
+    sfVector2u tex_size = tex ? sfTexture_getSize(tex) : (sfVector2u){0, 0};
     sfIntRect tex_rect = {0};
     sfColor shaded = {0};
 
+    if (tex == NULL)
+        return;
     tex_rect = (sfIntRect){(int)compute_tex_x(disp, tex_size.x),
         0, 1, (int)tex_size.y};
     sfRectangleShape_setTexture(wall, tex, sfTrue);
@@ -69,10 +73,10 @@ void draw_walls(game_t *game)
     sfRectangleShape *wall = sfRectangleShape_create();
     char **map = get_ressource("level", game->ressource_list);
 
-    for (size_t col = 0; col < NUM_RAYS; ++col) {
+    for (size_t col = 0; disp && wall && col < NUM_RAYS; ++col) {
         compute_col(disp, &game->plr, col, map);
         display_wall(game, disp, col, wall);
     }
     sfRectangleShape_destroy(wall);
-    free_struct(disp);
+    free(disp);
 }

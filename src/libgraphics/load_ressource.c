@@ -18,9 +18,9 @@
 #include "list.h"
 #include "struct/ressource.h"
 
-void *create_texture_from_file(const char *texture_path)
+void *create_texture_from_file(const char *path)
 {
-    sfTexture *texture = sfTexture_createFromFile(texture_path, NULL);
+    sfTexture *texture = path ? sfTexture_createFromFile(path, NULL) : NULL;
 
     if (texture == NULL)
         return NULL;

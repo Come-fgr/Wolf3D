@@ -9,6 +9,8 @@
 
 static void cache_wall_textures(game_t *game, sfTexture **types)
 {
+    if (game == NULL || types == NULL)
+        return;
     types[0] = (sfTexture *)get_ressource("redbrick", game->ressource_list);
     types[1] = (sfTexture *)get_ressource("eagle", game->ressource_list);
 }
@@ -17,6 +19,10 @@ raycaster_t *init_struct(game_t *game)
 {
     raycaster_t *disp_value = malloc(sizeof(raycaster_t));
 
+    if (disp_value == NULL || game == NULL) {
+        free(disp_value);
+        return NULL;
+    }
     cache_wall_textures(game, disp_value->wall_types);
     disp_value->wall_id = 0;
     disp_value->side = 0;
@@ -30,9 +36,4 @@ raycaster_t *init_struct(game_t *game)
     disp_value->wall_height = 0.0;
     disp_value->top = 0.0;
     return disp_value;
-}
-
-void free_struct(raycaster_t *disp_value)
-{
-    free(disp_value);
 }
