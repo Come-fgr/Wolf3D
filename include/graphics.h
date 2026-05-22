@@ -66,7 +66,6 @@ void destroy_text(component_t *);
 void destroy_animation(component_t *);
 
 // Events
-sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component);
 sfBool is_hovered(const sfRenderWindow *window, const component_t *component);
 
 //Entities list

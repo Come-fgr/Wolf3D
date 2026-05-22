@@ -12,16 +12,6 @@
 #include <SFML/System/Vector2.h>
 #include "graphics.h"
 
-sfBool is_clicked(const sfMouseButtonEvent *evt, const component_t *component)
-{
-    button_t *button = (button_t *)component->data;
-
-    return (evt->x > component->pos.x &&
-        evt->x < component->pos.x + button->rect.width) &&
-        (evt->y > component->pos.y &&
-        evt->y < component->pos.y + button->rect.height);
-}
-
 sfBool is_hovered(const sfRenderWindow *window, const component_t *component)
 {
     sfVector2i mouse = sfMouse_getPosition((sfWindow *)window);

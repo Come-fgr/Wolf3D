@@ -33,35 +33,40 @@ RAYCAST_FILES		=	castray.c			\
 						struct_manip.c		\
 						shading.c
 
-LIBGRAPHICS_FILES	=	counters/update_counters.c	\
-						counters/update_stamina.c	\
-						counters/update_fps.c		\
-						counters/update_score_text.c\
-						texts/update_text.c 		\
-						get_config_function.c		\
-						destroy_game.c				\
-						display_game.c				\
-						init_game.c					\
-						main_loop.c					\
-						update_game.c				\
-						button_functions.c			\
-						is_clicked.c				\
-						display_env_exist.c			\
-						load_ressource.c			\
-						text_function.c				\
-						update_player.c				\
-						get_ressource.c				\
-						create_text.c				\
-						create_sprite.c				\
-						center_text_on_sprite.c		\
-						on_click_functions.c		\
-						settings_buttons.c			\
-						apply_settings.c			\
-						animations_functions.c		\
-						save_system.c				\
-						create_window.c
+LIBGRAPHICS_FILES	=	counters/update_counters.c			\
+						counters/update_stamina.c			\
+						counters/update_fps.c				\
+						counters/update_score_text.c		\
+						\
+						texts/update_text.c 				\
+						\
+						game/destroy_game.c					\
+						game/display_game.c					\
+						game/init_game.c					\
+						game/main_loop.c					\
+						game/update_game.c					\
+						game/apply_settings.c				\
+						game/save_system.c					\
+						game/display_env_exist.c			\
+						\
+						objects/button_functions.c			\
+						\
+						ressources/load_ressource.c			\
+						ressources/get_config_function.c	\
+						ressources/get_ressource.c			\
+						\
+						objects/create_text.c				\
+						objects/create_window.c				\
+						objects/create_sprite.c				\
+						objects/text_function.c				\
+						objects/center_text_on_sprite.c		\
+						\
+						update/update_player.c				\
+						\
+						animations/animations_functions.c
 
 EVENTS_FILES		=	analyse_events.c 		\
+						is_hovered.c			\
 						key_event.c				\
 						player_move_stop.c 		\
 						player_move.c			\
@@ -70,7 +75,9 @@ EVENTS_FILES		=	analyse_events.c 		\
 						player_sprint.c 		\
 						player_flashlight.c 	\
 						handle_buttons_click.c	\
-						player_interact.c
+						player_interact.c		\
+						settings_buttons.c		\
+						on_click_functions.c
 
 LIBLIST_FILES		=	add_node.c			\
 						array_to_list.c		\
@@ -81,7 +88,7 @@ LIBLIST_FILES		=	add_node.c			\
 						file_to_list.c
 
 SRC_FILES	=	$(addprefix libmy/, $(LIBMY_FILES))				\
-				$(addprefix libgraphics/, $(LIBGRAPHICS_FILES))	\
+				$(addprefix graphics/, $(LIBGRAPHICS_FILES))	\
 				$(addprefix list/, $(LIBLIST_FILES))			\
 				$(addprefix events/, $(EVENTS_FILES))			\
 				$(addprefix raycast/, $(RAYCAST_FILES))
