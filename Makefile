@@ -36,6 +36,7 @@ RAYCAST_FILES		=	castray.c			\
 LIBGRAPHICS_FILES	=	counters/update_counters.c	\
 						counters/update_stamina.c	\
 						counters/update_fps.c		\
+						counters/update_score_text.c\
 						texts/update_text.c 		\
 						get_config_function.c		\
 						destroy_game.c				\
