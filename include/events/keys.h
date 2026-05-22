@@ -53,6 +53,8 @@ void player_sprint_stop(game_t *game, [[maybe_unused]] void *data);
 
 void player_flashlight_toggle(game_t *game, [[maybe_unused]] void *data);
 
+void player_interact(game_t *game, [[maybe_unused]] void *data);
+
 ////////////////////////////////////////////
 ////   Handler of KeyPressed Event
 ////////////////////////////////////////////
@@ -83,6 +85,7 @@ static const key_event_t key_pressed_evts[] = {
     { &player_move_backward, {sfKeyS, sfKeyDown, sfKeyUnknown} },
     { &player_rotate_left, {sfKeyA, sfKeyUnknown} },
     { &player_rotate_right, {sfKeyE, sfKeyUnknown} },
+    { &player_interact, {sfKeySpace, sfKeyUnknown} },
     { &got_to_prev_scene, {sfKeyEscape, sfKeyUnknown} },
     { &player_sprint_start, {sfKeyLShift, sfKeyUnknown} },
     { &player_flashlight_toggle, {sfKeyF, sfKeyUnknown} },
