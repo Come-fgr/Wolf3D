@@ -17,6 +17,8 @@
     #define DEFAULT_PLR_POS (sfVector2f){DEFAULT_PLR_POS_X, DEFAULT_PLR_POS_Y}
     #define DEFAULT_PLAYER_ANGLE (M_PI * 0.25f)
 
+    #define INTERACT_DIST TILE_SIZE * 0.75f
+
     // player.pos incrementing value per second
     #define DEFAULT_PLR_SPEED 150.0f
 
