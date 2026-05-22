@@ -16,6 +16,12 @@ void start_game(game_t *game, [[maybe_unused]] void *data);
 void exit_game(game_t *game, [[maybe_unused]] void *data);
 void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data);
 
+void increase_music_volume(game_t *game, [[maybe_unused]] void *data);
+void decrease_music_volume(game_t *game, [[maybe_unused]] void *data);
+void increase_fov(game_t *game, [[maybe_unused]] void *data);
+void decrease_fov(game_t *game, [[maybe_unused]] void *data);
+void change_window_mode(game_t *game, [[maybe_unused]] void *data);
+
 void update_life(game_t *game, void *data);
 
 typedef struct config_funct_s {
@@ -28,6 +34,11 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"start", start_game},
     {"quit", exit_game},
     {"settings", go_to_settings_scene},
+    {"+volume", increase_music_volume},
+    {"-volume", decrease_music_volume},
+    {"+fov", increase_fov},
+    {"-fov", decrease_fov},
+    {"fullscreen", change_window_mode},
     {"update_life", update_life}
 };
 

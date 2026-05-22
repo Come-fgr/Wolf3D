@@ -8,11 +8,12 @@
 #ifndef SETTINGS_H_
     #define SETTINGS_H_
 
+    #include <stdbool.h>
     #include <SFML/Graphics/RenderWindow.h>
 
 typedef struct settings_s {
     float music_volume;
-    sfVideoMode window_mode;
+    bool fullscreen;
     float fov;
 } settings_t;
 

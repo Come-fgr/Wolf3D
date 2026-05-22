@@ -117,6 +117,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     game->clock = sfClock_create();
     game->ressource_list = calloc(1, sizeof(list_t *));
     game->plr = (player_t){0};
+    game->settings = (settings_t){50, false, M_PI / 3.0f};
     init_player(&game->plr);
     game->cur_music = NULL;
     if (!game->window || !game->clock || !game->ressource_list)

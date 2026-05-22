@@ -32,7 +32,7 @@ typedef struct game_s {
     float delta_time;
     _Bool keys[sfKeyCount];
     sfMusic *cur_music;
-    settings_t *settings;
+    settings_t settings;
 } game_t;
 
 int init_game(game_t *game, bool flag_list[NB_FLAGS]);
