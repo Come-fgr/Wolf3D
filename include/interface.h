@@ -17,5 +17,6 @@ static const char FOV_LABEL_FORMAT[] = "%zu";
 static const char LIFE_LABEL_FORMAT[] = "Life: %zu/100";
 static const char STAMINA_LABEL_FORMAT[] = "Stamina: %zu/100";
 static const char FPS_LABEL_FORMAT[] = "FPS: %zu";
+static const char SCORE_LABEL_FORMAT[] = "Score: %zu";
 
 #endif /* !INTERFACE_H_ */

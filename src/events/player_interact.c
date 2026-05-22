@@ -26,7 +26,9 @@ void player_interact(game_t *game, [[maybe_unused]] void *data)
     tile_pos.y = (int)(hit.y / TILE_SIZE);
     if (tile_pos.x >= 0 && tile_pos.y >= 0 &&
         tile_pos.x < MAP_WIDTH && tile_pos.y < MAP_HEIGHT) {
-        if (map[tile_pos.y][tile_pos.x] == 'B')
+        if (map[tile_pos.y][tile_pos.x] == 'B') {
             map[tile_pos.y][tile_pos.x] = ' ';
+            game->score++;
+        }
     }
 }

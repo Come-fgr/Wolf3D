@@ -131,5 +131,6 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     game->cur_scene = MENU_START;
     game->prev_scene = NB_SCENE;
     game->run = true;
+    game->score = 0;
     return SUCCESS;
 }

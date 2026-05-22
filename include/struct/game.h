@@ -32,6 +32,7 @@ typedef struct game_s {
     scene_id_t prev_scene;
     player_t plr;
     float delta_time;
+    size_t score;
     bool keys[sfKeyCount];
     bool debug_mode;
     sfMusic *cur_music;
