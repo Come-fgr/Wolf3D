@@ -60,6 +60,8 @@ void load_player(game_t *game, [[maybe_unused]] void *data)
     game->plr.flash = (bool)get_field_value(&error, config[PLAYER_FLASH]);
     if (error != SUCCESS)
         init_player(&game->plr);
+    free(str);
+    free_array(config);
     start_game(game, NULL);
 }
 
@@ -83,4 +85,6 @@ void load_settings(settings_t *settings)
     settings->is_fullscreen = settings->fullscreen;
     if (error != SUCCESS)
         *settings = (settings_t){DEFAULT_VOLUME, false, false, DEFAULT_FOV};
+    free(str);
+    free_array(config);
 }
