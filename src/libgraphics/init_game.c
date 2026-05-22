@@ -104,8 +104,8 @@ static int init_scene_list(list_t **ressource_list,
 
 static void init_player(player_t *plr)
 {
-    plr->pos = (sfVector2f){ 160.0f, 160.0f };
-    plr->angle = (float)M_PI * 0.25f;
+    plr->pos = (sfVector2f){ DEFAULT_PLAYER_POS_X, DEFAULT_PLAYER_POS_Y};
+    plr->angle = (float)DEFAULT_PLAYER_ANGLE;
     plr->speed = DEFAULT_PLR_SPEED;
     plr->life = PLR_MAX_LIFE;
 }
