@@ -139,13 +139,10 @@ fclean: clean compress_assets
 re: fclean all
 
 compress_assets:
-	tar -czf $(ASSETS_TAR) $(ASSETS_DIR)
-	$(RM) -r $(ASSETS_DIR)
+	(test -e $(ASSETS_DIR) && tar -czf $(ASSETS_TAR) $(ASSETS_DIR) && $(RM) -r $(ASSETS_DIR)) || true
 
 decompress_assets:
-	tar -xzf $(ASSETS_TAR)
-	$(RM) -r $(ASSETS_TAR)
-
+	(test -e $(ASSETS_TAR) && tar -xzf $(ASSETS_TAR) && $(RM) -r $(ASSETS_TAR)) || true
 
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
