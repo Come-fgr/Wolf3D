@@ -19,7 +19,7 @@ void got_to_prev_scene(game_t *game, [[maybe_unused]] void *data)
         return;
     }
     game->prev_scene = game->cur_scene;
-    game->cur_scene = temp;
+    game->cur_scene = game->cur_scene == MENU_PAUSE ? GAME : temp;
 }
 
 void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data)
