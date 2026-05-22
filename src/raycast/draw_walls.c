@@ -47,10 +47,8 @@ static void display_wall(sfRenderWindow *win, raycaster_t *disp,
     sfRectangleShape_destroy(wall);
 }
 
-void draw_walls(sfRenderWindow *win, player_t *player)
+void draw_walls(sfRenderWindow *win, player_t *player, raycaster_t *disp)
 {
-    raycaster_t *disp = init_struct();
-
     for (int col = 0; col < NUM_RAYS; ++col) {
         disp->ray_angle = player->angle - disp->half_fov
             + ((float)col + 0.5f) * disp->angle_step;

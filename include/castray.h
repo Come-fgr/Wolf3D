@@ -26,7 +26,6 @@
     #define MAP_W 8
     #define MAP_H 8
 
-    #define FOV (M_PI / 3.0f)
     #define NUM_RAYS WIN_WIDTH
     #define RAY_STEP 0.1f
     #define COLOR_MAX 225
@@ -56,10 +55,10 @@ static const int MAP[MAP_H][MAP_W] = {
     {1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-void draw_walls(sfRenderWindow *win, player_t *player);
+void draw_walls(sfRenderWindow *win, player_t *player, raycaster_t *disp);
 void updating_player(player_t *player);
 void draw_world(game_t *game);
-raycaster_t *init_struct(void);
+raycaster_t *init_struct(float fov);
 void free_struct(raycaster_t *disp_value);
 float cast_single_ray(const player_t *player, raycaster_t *disp);
 

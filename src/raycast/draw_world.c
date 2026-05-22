@@ -12,6 +12,7 @@ void draw_world(game_t *game)
 {
     sfRectangleShape *rect = NULL;
     sfRenderWindow *win = game->window;
+    raycaster_t *disp = init_struct(game->settings.fov);
 
     rect = sfRectangleShape_create();
     sfRectangleShape_setSize(rect, (sfVector2f){WIN_WIDTH, WIN_HEIGHT / 2.0f});
@@ -22,5 +23,5 @@ void draw_world(game_t *game)
     sfRectangleShape_setFillColor(rect, (sfColor){60, 140, 60, 255});
     sfRenderWindow_drawRectangleShape(win, rect, NULL);
     sfRectangleShape_destroy(rect);
-    draw_walls(win, &game->plr);
+    draw_walls(win, &game->plr, disp);
 }
