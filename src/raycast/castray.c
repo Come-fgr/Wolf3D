@@ -18,7 +18,7 @@ static float norm_angle(float a)
     return a;
 }
 
-static void display_set(raycaster_t *disp, int cell, float x, float y)
+static void display_set(raycaster_t *disp, char cell, float x, float y)
 {
     disp->hitx = x;
     disp->hity = y;
@@ -38,8 +38,7 @@ static char map_at(float x, float y, char **map)
     tx = (int) (x / TILE_SIZE);
     ty = (int) (y / TILE_SIZE);
     if (tx < 0 || ty < 0 || tx >= MAP_WIDTH || ty >= MAP_HEIGHT)
-        return 0;
-    print_array(map);
+        return ' ';
     return map[ty][tx];
 }
 

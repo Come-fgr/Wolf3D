@@ -27,7 +27,7 @@
 
 typedef struct raycaster_s {
     sfTexture *wall_types[NBR_WALL_TYPE];
-    size_t wall_id;
+    unsigned char wall_id;
     int side;
     float half_fov;
     float angle_step;

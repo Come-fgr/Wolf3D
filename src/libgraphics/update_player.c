@@ -38,7 +38,6 @@ static bool is_walkable(float x, float y, char **map)
     if (tile_x < 0 || tile_y < 0 ||
         tile_x >= MAP_WIDTH || tile_y >= MAP_HEIGHT)
         return false;
-    print_array(map);
     return map[tile_y][tile_x] == ' ';
 }
 

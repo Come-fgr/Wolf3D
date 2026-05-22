@@ -12,9 +12,8 @@
     #include "graphics.h"
 
     #define TILE_SIZE 64
-    #define MAP_WIDTH 24
-    #define MAP_HEIGHT 24
-    #define MAP_SCALE 4
+    #define MAP_WIDTH 25
+    #define MAP_HEIGHT 25
     #define MAP_CENTER_X ((MAP_WIDTH * TILE_SIZE) / 2.0f)
     #define MAP_CENTER_Y ((MAP_HEIGHT * TILE_SIZE) / 2.0f)
 
