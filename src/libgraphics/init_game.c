@@ -113,7 +113,7 @@ static void init_player(player_t *plr)
 int init_game(game_t *game, bool flag_list[NB_FLAGS])
 {
     game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
-            WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
+            WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose | sfResize, NULL);
     game->view = sfView_create();
     game->clock = sfClock_create();
     game->ressource_list = calloc(1, sizeof(list_t *));
@@ -131,7 +131,7 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
         return ERROR;
     sfView_setSize(game->view, (sfVector2f){WINDOW_WIDTH, WINDOW_HEIGHT});
     sfView_setCenter(game->view, (sfVector2f){WINDOW_WIDTH / 2,
-        WINDOW_HEIGHT / 2});
+            WINDOW_HEIGHT / 2});
     sfRenderWindow_setView(game->window, game->view);
     sfRenderWindow_setFramerateLimit(game->window, FRAMERATE_LIMIT);
     game->cur_scene = MENU_START;

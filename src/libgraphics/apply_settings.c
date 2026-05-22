@@ -19,7 +19,7 @@ void apply_settings(game_t *game, [[maybe_unused]] void *data)
     if (game->settings.is_fullscreen && !game->settings.fullscreen) {
         sfRenderWindow_destroy(game->window);
         game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
-                WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
+                WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose | sfResize, NULL);
         game->settings.is_fullscreen = false;
     }
 }
