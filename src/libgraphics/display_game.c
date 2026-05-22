@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/VertexArray.h>
+#include <stdio.h>
 #include "graphics.h"
 #include "list.h"
 #include "castray.h"

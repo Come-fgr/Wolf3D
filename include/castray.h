@@ -14,26 +14,20 @@
 
     #include <math.h>
     #include <stdlib.h>
-    #include <stdio.h>
-    #include <stdbool.h>
 
+    #include "graphics.h"
     #include "struct/game.h"
     #include "struct/player.h"
 
-    #define WIN_WIDTH 1920
-    #define WIN_HEIGHT 1080
-    #define TILE_SIZE 64
-    #define MAP_W 8
-    #define MAP_H 8
-
     #define FOV (M_PI / 3.0f)
-    #define NUM_RAYS WIN_WIDTH
+    #define NUM_RAYS WINDOW_WIDTH
     #define RAY_STEP 0.1f
     #define COLOR_MAX 225
     #define FLASHLIGHT_DISTANCE 500.0f
 
 typedef struct raycaster_s {
     size_t wall_id;
+    int side;
     float half_fov;
     float angle_step;
     float ray_angle;
@@ -45,19 +39,7 @@ typedef struct raycaster_s {
     float top;
 } raycaster_t;
 
-static const int MAP[MAP_H][MAP_W] = {
-    {1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 1, 0, 0, 1},
-    {1, 0, 2, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 2, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1}
-};
-
-void draw_walls(sfRenderWindow *win, player_t *player);
-void updating_player(player_t *player);
+void draw_walls(game_t *game);
 void draw_world(game_t *game);
 raycaster_t *init_struct(void);
 void free_struct(raycaster_t *disp_value);

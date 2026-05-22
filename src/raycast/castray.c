@@ -5,6 +5,7 @@
 ** castray
 */
 
+#include "map.h"
 #include "castray.h"
 
 static float norm_angle(float a)
@@ -36,7 +37,7 @@ static int map_at(float x, float y)
         return 0;
     tx = (int) (x / TILE_SIZE);
     ty = (int) (y / TILE_SIZE);
-    if (tx < 0 || ty < 0 || tx >= MAP_W || ty >= MAP_H)
+    if (tx < 0 || ty < 0 || tx >= MAP_WIDTH || ty >= MAP_HEIGHT)
         return 0;
     return MAP[ty][tx];
 }

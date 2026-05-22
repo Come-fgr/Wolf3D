@@ -5,6 +5,8 @@
 ** draw_walls
 */
 
+#include "map.h"
+#include "graphics.h"
 #include "castray.h"
 
 static int shade_opacity(int alpha)
@@ -47,24 +49,26 @@ static void display_wall(sfRenderWindow *win, raycaster_t *disp,
     sfRectangleShape_destroy(wall);
 }
 
-void draw_walls(sfRenderWindow *win, player_t *player)
+void draw_walls(game_t *game)
 {
     raycaster_t *disp = init_struct();
+    sfRenderWindow *win = game->window;
+    player_t *plr = &game->plr;
 
     for (int col = 0; col < NUM_RAYS; ++col) {
-        disp->ray_angle = player->angle - disp->half_fov
+        disp->ray_angle = plr->angle - disp->half_fov
             + ((float)col + 0.5f) * disp->angle_step;
         disp->hitx = 0;
         disp->hity = 0;
         disp->wall_id = 0;
-        disp->raw_dist = cast_single_ray(player, disp);
+        disp->raw_dist = cast_single_ray(plr, disp);
         disp->corrected = disp->raw_dist
-            * cosf(disp->ray_angle - player->angle);
+            * cosf(disp->ray_angle - plr->angle);
         if (disp->corrected <= 0)
             disp->corrected = 0.0001f;
         disp->wall_height = (TILE_SIZE * 277.0f) / disp->corrected;
-        disp->top = (WIN_HEIGHT / 2.0f) - (disp->wall_height / 2.0f);
-        display_wall(win, disp, player, col);
+        disp->top = (WINDOW_HEIGHT / 2.0f) - (disp->wall_height / 2.0f);
+        display_wall(win, disp, plr, col);
     }
     free_struct(disp);
 }
