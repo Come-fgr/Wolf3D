@@ -20,31 +20,40 @@
 #include "config.h"
 #include "castray.h"
 
-static size_t set_animation_variables(component_t *component,
-    const char **config, list_t **ressource_list)
+static animation_t *create_animation(const char **config, sfTexture *texture,
+    sfVector2f *pos, size_t *error)
 {
     char *endptr = NULL;
-    size_t error = SUCCESS;
     animation_t *data = calloc(1, sizeof(animation_t));
-    sfTexture *texture = get_ressource(config[ANIMATION_TEXTURE],
-        ressource_list);
 
     if (data == NULL)
-        return 1;
-    component->entity = ANIMATION;
-    component->pos.x = get_field_value(&error, config[ANIMATION_POS_X]);
-    component->pos.y = get_field_value(&error, config[ANIMATION_POS_Y]);
-    data->rect.width = get_field_value(&error, config[ANIMATION_RECT_WIDTH]);
-    data->rect.height = get_field_value(&error, config[ANIMATION_RECT_HEIGHT]);
+        return NULL;
+    data->rect.width = get_field_value(error, config[ANIMATION_RECT_WIDTH]);
+    data->rect.height = get_field_value(error, config[ANIMATION_RECT_HEIGHT]);
     data->rect.left = 0;
     data->rect.top = 0;
     data->seconds = strtof(config[ANIMATION_SPEED], &endptr);
-    error += *endptr != '\0';
+    *error += *endptr != '\0';
     data->count = 0;
-    data->nb_frame = get_field_value(&error, config[ANIMATION_NB_FRAME]);
-    data->sprite = create_sprite(texture, &data->rect, &component->pos);
-    error += data->sprite == NULL;
-    component->data = data;
+    data->nb_frame = get_field_value(error, config[ANIMATION_NB_FRAME]);
+    data->sprite = create_sprite(texture, &data->rect, pos);
+    *error += data->sprite == NULL;
+    return data;
+}
+
+static size_t set_animation_variables(component_t *component,
+    const char **config, list_t **ressource_list)
+{
+    size_t error = SUCCESS;
+    sfTexture *texture = get_ressource(config[ANIMATION_TEXTURE],
+        ressource_list);
+
+    component->entity = ANIMATION;
+    component->pos.x = get_field_value(&error, config[ANIMATION_POS_X]);
+    component->pos.y = get_field_value(&error, config[ANIMATION_POS_Y]);
+    component->data = create_animation(config, texture, &component->pos,
+        &error);
+    error += component->data == NULL;
     return error;
 }
 
@@ -72,7 +81,7 @@ static void move_rect(sfIntRect *rect, size_t nb_frame)
     size_t offset = rect->width;
     size_t max_value = offset * (nb_frame - 1);
 
-    if (rect->left >= max_value) {
+    if ((size_t)rect->left >= max_value) {
         rect->left = 0;
     } else {
         rect->left += offset;

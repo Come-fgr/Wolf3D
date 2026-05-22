@@ -51,7 +51,8 @@ LIBGRAPHICS_FILES	=	counters/update_counters.c	\
 						settings_buttons.c			\
 						apply_settings.c			\
 						animations_functions.c		\
-						save_system.c
+						save_system.c				\
+						create_window.c
 
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\

@@ -20,32 +20,41 @@
 #include "config.h"
 #include "castray.h"
 
-static size_t set_button_variables(component_t *component, const char **config,
-    list_t **ressource_list)
+static button_t *create_button(const char **config, sfTexture *texture,
+    sfVector2f *pos, sfFont *font)
 {
-    size_t error = SUCCESS;
     button_t *data = calloc(1, sizeof(button_t));
-    sfTexture *texture = get_ressource(config[BUTTON_TEXTURE], ressource_list);
-    sfFont *font = get_ressource(config[BUTTON_FONT], ressource_list);
+    size_t error = SUCCESS;
 
     if (data == NULL)
-        return 1;
-    component->entity = BUTTON;
-    component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
-    component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
+        return NULL;
     data->rect.width = get_field_value(&error, config[BUTTON_RECT_WIDTH]);
     data->rect.height = get_field_value(&error, config[BUTTON_RECT_HEIGHT]);
     data->rect.left = 0;
     data->rect.top = 0;
-    data->sprite = create_sprite(texture, &data->rect, &component->pos);
+    data->sprite = create_sprite(texture, &data->rect, pos);
     error += data->sprite == NULL;
     data->text = create_text(font, config[BUTTON_STRING],
-        config[BUTTON_CHAR_SIZE], &component->pos);
+        config[BUTTON_CHAR_SIZE], pos);
     error += data->text == NULL;
     center_text_on_sprite(data->text, data->sprite);
     data->button_funct = get_config_function(config[BUTTON_FUNCT]);
     error += data->button_funct == NULL;
-    component->data = data;
+    return error == SUCCESS ? data : NULL;
+}
+
+static size_t set_button_variables(component_t *component, const char **config,
+    list_t **ressource_list)
+{
+    size_t error = SUCCESS;
+    sfTexture *texture = get_ressource(config[BUTTON_TEXTURE], ressource_list);
+    sfFont *font = get_ressource(config[BUTTON_FONT], ressource_list);
+
+    component->entity = BUTTON;
+    component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
+    component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
+    component->data = create_button(config, texture, &component->pos, font);
+    error += component->data == NULL;
     return error;
 }
 
