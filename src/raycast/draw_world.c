@@ -12,6 +12,8 @@ static void draw_sky(sfRenderWindow *win)
 {
     sfRectangleShape *rect = sfRectangleShape_create();
 
+    if (rect == NULL || win == NULL)
+        return;
     sfRectangleShape_setSize(rect,
         (sfVector2f){WINDOW_WIDTH, WINDOW_HEIGHT / 2.0f});
     sfRectangleShape_setPosition(rect, (sfVector2f){0, 0});
@@ -24,6 +26,8 @@ static void draw_ground(sfRenderWindow *win)
 {
     sfRectangleShape *rect = sfRectangleShape_create();
 
+    if (rect == NULL || win == NULL)
+        return;
     sfRectangleShape_setSize(rect,
         (sfVector2f){WINDOW_WIDTH, WINDOW_HEIGHT / 2.0f});
     sfRectangleShape_setPosition(rect, (sfVector2f){0, WINDOW_HEIGHT / 2.0f});
@@ -34,6 +38,8 @@ static void draw_ground(sfRenderWindow *win)
 
 void draw_world(game_t *game)
 {
+    if (game == NULL)
+        return;
     draw_sky(game->window);
     draw_ground(game->window);
     draw_walls(game);

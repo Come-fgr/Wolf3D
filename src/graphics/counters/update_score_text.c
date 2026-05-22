@@ -16,8 +16,10 @@ void update_score_text(game_t *game, [[maybe_unused]] void *data)
 {
     sfText *text = data;
     size_t needed = snprintf(NULL, 0, SCORE_LABEL_FORMAT, game->score) + 1;
-    char *buffer = malloc(needed);
+    char *buffer = calloc(1, needed);
 
+    if (buffer == NULL)
+        return;
     sprintf(buffer, SCORE_LABEL_FORMAT, game->score);
     sfText_setString(text, buffer);
     free(buffer);

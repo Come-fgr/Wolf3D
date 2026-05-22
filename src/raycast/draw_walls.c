@@ -88,6 +88,7 @@ void draw_walls(game_t *game)
         compute_col(disp, &game->plr, col, map);
         display_wall(game, disp, col, wall);
     }
-    sfRectangleShape_destroy(wall);
+    if (wall)
+        sfRectangleShape_destroy(wall);
     free(disp);
 }

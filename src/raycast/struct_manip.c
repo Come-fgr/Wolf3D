@@ -17,7 +17,7 @@ static void cache_wall_textures(game_t *game, sfTexture **types)
 
 raycaster_t *init_struct(game_t *game)
 {
-    raycaster_t *disp_value = malloc(sizeof(raycaster_t));
+    raycaster_t *disp_value = calloc(1, sizeof(raycaster_t));
 
     if (disp_value == NULL || game == NULL) {
         free(disp_value);
