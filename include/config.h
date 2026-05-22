@@ -25,6 +25,8 @@ void decrease_fov(game_t *game, [[maybe_unused]] void *data);
 void change_window_mode(game_t *game, [[maybe_unused]] void *data);
 
 void update_life(game_t *game, void *data);
+void update_stamina(game_t *game, void *data);
+void update_fps(game_t *game, void *data);
 void update_volume_text(game_t *game, [[maybe_unused]] void *data);
 void update_fov_text(game_t *game, [[maybe_unused]] void *data);
 void update_fullscreen_text(game_t *game, [[maybe_unused]] void *data);
@@ -51,6 +53,8 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"-fov", decrease_fov},
     {"fullscreen", change_window_mode},
     {"update_life", update_life},
+    {"update_stamina", update_stamina},
+    {"update_fps", update_fps},
     {"update_volume", update_volume_text},
     {"update_fov", update_fov_text},
     {"update_fullscreen", update_fullscreen_text},
