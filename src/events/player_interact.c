@@ -17,6 +17,7 @@ void player_interact(game_t *game, [[maybe_unused]] void *data)
     float hit_y = 0.0;
     int tile_x = 0;
     int tile_y = 0;
+    char **map = get_ressource("level", game->ressource_list);
 
     if (game == NULL)
         return;
@@ -28,7 +29,7 @@ void player_interact(game_t *game, [[maybe_unused]] void *data)
     tile_y = (int)(hit_y / TILE_SIZE);
     if (tile_x >= 0 && tile_y >= 0 &&
         tile_x < MAP_WIDTH && tile_y < MAP_HEIGHT) {
-        if (MAP[tile_y][tile_x] == 2)
-            MAP[tile_y][tile_x] = 0;
+        if (map[tile_y][tile_x] == 'B')
+            map[tile_y][tile_x] = ' ';
     }
 }

@@ -24,7 +24,8 @@ LIBMY_FILES			=	get_flags.c			\
 						concat_string.c		\
 						get_field_value.c	\
 						file_to_str.c		\
-						is_sep.c
+						is_sep.c			\
+						load_map.c
 
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\
@@ -57,8 +58,7 @@ LIBGRAPHICS_FILES	=	counters/update_counters.c	\
 						apply_settings.c			\
 						animations_functions.c		\
 						save_system.c				\
-						create_window.c				\
-						map.c
+						create_window.c
 
 EVENTS_FILES		=	analyse_events.c 		\
 						key_event.c				\

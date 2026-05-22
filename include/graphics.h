@@ -50,7 +50,7 @@ void load_settings(settings_t *settings);
 
 // Update
 int main_loop(bool flag_list[NB_FLAGS]);
-void update_player(player_t *plr, float delta);
+void update_player(player_t *plr, float delta, char **map);
 void update_text(game_t *game, const component_t *component);
 void update_button(game_t *game, const component_t *component);
 void update_animation(game_t *game, const component_t *component);

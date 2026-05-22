@@ -20,14 +20,16 @@ static float norm_angle(float a)
     return a;
 }
 
-static void compute_col(raycaster_t *disp, const player_t *player, int col)
+static void compute_col(raycaster_t *disp, const player_t *player, int col,
+    char **map)
 {
     disp->ray_angle = player->angle - disp->half_fov
         + ((float)col + 0.5f) * disp->angle_step;
     disp->hitx = 0;
     disp->hity = 0;
     disp->wall_id = 0;
-    disp->raw_dist = cast_single_ray(player, disp, norm_angle(disp->ray_angle));
+    disp->raw_dist = cast_single_ray(player, disp, norm_angle(disp->ray_angle),
+        map);
     disp->corrected = disp->raw_dist
         * cosf(disp->ray_angle - player->angle);
     if (disp->corrected <= 0)
@@ -80,9 +82,10 @@ void draw_walls(game_t *game)
 {
     raycaster_t *disp = init_struct(game);
     sfRectangleShape *wall = sfRectangleShape_create();
+    char **map = get_ressource("level", game->ressource_list);
 
     for (size_t col = 0; disp && wall && col < NUM_RAYS; ++col) {
-        compute_col(disp, &game->plr, col);
+        compute_col(disp, &game->plr, col, map);
         display_wall(game, disp, col, wall);
     }
     sfRectangleShape_destroy(wall);
