@@ -100,13 +100,13 @@ static int init_scene_list(list_t **ressource_list,
 
 void init_player(player_t *plr)
 {
-    plr->pos = (sfVector2f){ MAP_CENTER_X - 16.0f, MAP_CENTER_Y - 16.0f };
-    plr->angle = (float)M_PI * 0.25f;
+    plr->pos = DEFAULT_PLR_POS;
+    plr->angle = DEFAULT_PLAYER_ANGLE;
     plr->speed = DEFAULT_PLR_SPEED;
     plr->life = PLR_MAX_LIFE;
     plr->stamina = PLR_MAX_STAMINA;
     plr->flash = false;
-    plr->rot_vel = PLR_ROTATE_VALUE;
+    plr->rot_vel = false;
     plr->running = false;
     plr->vel = (sfVector2f){0, 0};
 }

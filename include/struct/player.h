@@ -12,8 +12,9 @@
     #include <stddef.h>
     #include <stdbool.h>
 
-    #define DEFAULT_PLAYER_POS_X 160.0f
-    #define DEFAULT_PLAYER_POS_Y 160.0f
+    #define DEFAULT_PLR_POS_X MAP_CENTER_X - 16.0f
+    #define DEFAULT_PLR_POS_Y MAP_CENTER_Y - 16.0f
+    #define DEFAULT_PLR_POS (sfVector2f){DEFAULT_PLR_POS_X, DEFAULT_PLR_POS_Y}
     #define DEFAULT_PLAYER_ANGLE (M_PI * 0.25f)
 
     // player.pos incrementing value per second
