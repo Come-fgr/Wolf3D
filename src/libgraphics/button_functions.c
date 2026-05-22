@@ -26,8 +26,10 @@ static button_t *create_button(const char **config, sfTexture *texture,
     button_t *data = calloc(1, sizeof(button_t));
     size_t error = SUCCESS;
 
-    if (data == NULL)
+    if (data == NULL || texture == NULL) {
+        free(data);
         return NULL;
+    }
     data->rect.width = get_field_value(&error, config[BUTTON_RECT_WIDTH]);
     data->rect.height = get_field_value(&error, config[BUTTON_RECT_HEIGHT]);
     data->rect.left = 0;

@@ -12,7 +12,7 @@ sfSprite *create_sprite(sfTexture *texture, sfIntRect *rect, sfVector2f *pos)
 {
     sfSprite *sprite = sfSprite_create();
 
-    if (sprite == NULL || texture == NULL || pos == NULL)
+    if (sprite == NULL || texture == NULL || pos == NULL || rect == NULL)
         return NULL;
     sfSprite_setTexture(sprite, texture, sfTrue);
     sfSprite_setTextureRect(sprite, *rect);
