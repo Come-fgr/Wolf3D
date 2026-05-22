@@ -62,3 +62,25 @@ void load_player(game_t *game, [[maybe_unused]] void *data)
         init_player(&game->plr);
     start_game(game, NULL);
 }
+
+void load_settings(settings_t *settings)
+{
+    size_t error = SUCCESS;
+    char *str = file_to_str(SAVE_FILE_SETTINGS);
+    char **config = str != NULL ? str_to_array(str, is_sep) : NULL;
+
+    if (config == NULL || array_len((const char **)config) !=
+        SETTINGS_NB_FIELDS) {
+        free(str);
+        free_array(config);
+        *settings = (settings_t){DEFAULT_VOLUME, false, false, DEFAULT_FOV};
+        return;
+    }
+    settings->music_volume = get_field_value_f(&error, config[SETTINGS_VOLUME]);
+    settings->fov = get_field_value_f(&error, config[SETTINGS_FOV]);
+    settings->fullscreen = (bool)get_field_value(&error,
+        config[SETTINGS_FULLSCREEN]);
+    settings->is_fullscreen = settings->fullscreen;
+    if (error != SUCCESS)
+        *settings = (settings_t){DEFAULT_VOLUME, false, false, DEFAULT_FOV};
+}

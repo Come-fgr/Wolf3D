@@ -110,4 +110,11 @@ enum {
     PLAYER_NB_FIELDS
 };
 
+enum {
+    SETTINGS_VOLUME,
+    SETTINGS_FOV,
+    SETTINGS_FULLSCREEN,
+    SETTINGS_NB_FIELDS
+};
+
 #endif /* !CONFIG_H_ */

@@ -9,10 +9,11 @@
 #include <SFML/Graphics/View.h>
 #include "graphics.h"
 
-sfRenderWindow *create_window(void)
+sfRenderWindow *create_window(bool fullscreen)
 {
     sfRenderWindow *window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
-            WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose | sfResize, NULL);
+            WINDOW_HEIGHT, 32}, WINDOW_NAME, fullscreen ? sfFullscreen :
+        sfClose | sfResize, NULL);
     sfView *view = sfView_create();
 
     if (window == NULL || view == NULL)
