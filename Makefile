@@ -111,9 +111,13 @@ COVR_FLAGS	=	--exclude tests/ --gcov-ignore-errors=no_working_dir_found	\
 
 VALGR_FLAGS	=	-s --leak-check=full
 
+ASSETS_DIR	=	assets/
+
+ASSETS_TAR	=	assets.gz
+
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJ)
+$(NAME): decompress_assets $(OBJ_DIR) $(OBJ)
 	$(CC) -o $(NAME) $(OBJ)	$(LDFLAGS)
 
 $(OBJ_DIR):
@@ -127,12 +131,21 @@ clean:
 	@$(RM) *.gcda
 	@$(RM) *.gcno
 
-fclean: clean
+fclean: clean compress_assets
 	@$(RM) $(NAME)
 	@$(RM) $(UT_NAME)
 	@$(RM) -r $(OBJ_DIR)
 
 re: fclean all
+
+compress_assets:
+	tar -czf $(ASSETS_TAR) $(ASSETS_DIR)
+	$(RM) -r $(ASSETS_DIR)
+
+decompress_assets:
+	tar -xzf $(ASSETS_TAR)
+	$(RM) -r $(ASSETS_TAR)
+
 
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
@@ -157,11 +170,13 @@ coverage: tests_run
 	@$(RM) $(UT_NAME)
 
 .PHONY:
-	all			\
-	clean		\
-	fclean		\
-	re			\
-	prof 		\
-	debug		\
-	test_run	\
-	coverage	\
+	all					\
+	clean				\
+	fclean				\
+	re					\
+	prof 				\
+	debug				\
+	test_run			\
+	coverage			\
+	compress_assets		\
+	decompress_assets	\
