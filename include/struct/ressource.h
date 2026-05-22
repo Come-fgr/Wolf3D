@@ -15,11 +15,13 @@
     #include <SFML/System/Vector2.h>
     #include <SFML/Graphics/Rect.h>
     #include <SFML/Audio/Music.h>
+    #include "my.h"
 
 typedef enum {
     TEXTURE,
     MUSIC,
     FONT,
+    MAP,
     NB_RESSOURCE_TYPE
 } ressource_type_t;
 
@@ -35,6 +37,7 @@ typedef struct ressource_dir_s {
 } ressource_dir_t;
 
 void *create_texture_from_file(const char *texture_path);
+void *load_map(const char *filepath);
 
 static const ressource_dir_t RESSOURCE_DIR[NB_RESSOURCE_TYPE] = {
     {"assets/sprite/", ".png", TEXTURE,
@@ -45,7 +48,8 @@ static const ressource_dir_t RESSOURCE_DIR[NB_RESSOURCE_TYPE] = {
         (destroy_funct_t *)sfMusic_destroy},
     {"assets/font/", ".ttf", FONT,
         (create_from_file_t *)sfFont_createFromFile,
-        (destroy_funct_t *)sfFont_destroy}
+        (destroy_funct_t *)sfFont_destroy},
+    {"assets/map/", ".map", MAP, load_map, (destroy_funct_t *)free_array}
 };
 
 typedef struct ressource_s {

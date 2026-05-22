@@ -27,7 +27,7 @@
 
 typedef struct raycaster_s {
     sfTexture *wall_types[NBR_WALL_TYPE];
-    size_t wall_id;
+    unsigned char wall_id;
     int side;
     float half_fov;
     float angle_step;
@@ -43,7 +43,9 @@ typedef struct raycaster_s {
 void draw_walls(game_t *game);
 void draw_world(game_t *game);
 raycaster_t *init_struct(game_t *game);
-float cast_single_ray(const player_t *player, raycaster_t *disp);
+float cast_single_ray(const player_t *player, raycaster_t *disp, float angle,
+    char **map);
+void free_struct(raycaster_t *disp_value);
 sfColor shade_color(float corrected_dist, bool flash);
 
 #endif //BS_HEADER_H_

@@ -24,7 +24,8 @@ LIBMY_FILES			=	get_flags.c			\
 						concat_string.c		\
 						get_field_value.c	\
 						file_to_str.c		\
-						is_sep.c
+						is_sep.c			\
+						load_map.c
 
 RAYCAST_FILES		=	castray.c			\
 						draw_world.c		\
@@ -59,15 +60,16 @@ LIBGRAPHICS_FILES	=	counters/update_counters.c	\
 						save_system.c				\
 						create_window.c
 
-EVENTS_FILES		=	analyse_events.c 	\
-						key_event.c			\
-						player_move_stop.c 	\
-						player_move.c		\
-						go_to_menu_scene.c 	\
-						player_rotation.c 	\
-						player_sprint.c 	\
-						player_flashlight.c \
-						handle_buttons_click.c
+EVENTS_FILES		=	analyse_events.c 		\
+						key_event.c				\
+						player_move_stop.c 		\
+						player_move.c			\
+						go_to_menu_scene.c 		\
+						player_rotation.c 		\
+						player_sprint.c 		\
+						player_flashlight.c 	\
+						handle_buttons_click.c	\
+						player_interact.c
 
 LIBLIST_FILES		=	add_node.c			\
 						array_to_list.c		\
