@@ -30,6 +30,7 @@ typedef struct game_s {
     list_t **ressource_list;
     scene_t scene_list[NB_SCENE];
     scene_id_t cur_scene;
+    scene_id_t prev_scene;
     player_t plr;
     float delta_time;
     _Bool keys[sfKeyCount];

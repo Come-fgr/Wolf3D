@@ -2,21 +2,30 @@
 ** EPITECH PROJECT, 2026
 ** private_Wolf3d
 ** File description:
-** go_to_pause_scene
+** change_scene
 */
 
+#include "config.h"
 #include "struct/game.h"
 
-void go_to_pause_scene(game_t *game)
+void got_to_prev_scene(game_t *game)
 {
+    scene_id_t temp = game->prev_scene;
+
     if (game == NULL)
         return;
-    game->cur_scene = MENU_PAUSE;
+    if (game->prev_scene == NB_SCENE) {
+        exit_game(game, NULL);
+        return;
+    }
+    game->prev_scene = game->cur_scene;
+    game->cur_scene = temp;
 }
 
 void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
+    game->prev_scene = game->cur_scene;
     game->cur_scene = SETTINGS;
 }

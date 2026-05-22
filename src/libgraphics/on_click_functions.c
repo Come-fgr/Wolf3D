@@ -12,6 +12,7 @@ void start_game(game_t *game, [[maybe_unused]] void *data)
 {
     if (game == NULL)
         return;
+    game->prev_scene = MENU_PAUSE;
     game->cur_scene = GAME;
 }
 
