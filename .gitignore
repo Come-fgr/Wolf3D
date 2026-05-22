@@ -2,6 +2,7 @@
 *~
 \#*#
 temp/*
+*.save
 
 # Binaries
 *.out

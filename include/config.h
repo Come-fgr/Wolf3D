@@ -30,6 +30,7 @@ void update_fov_text(game_t *game, [[maybe_unused]] void *data);
 void update_fullscreen_text(game_t *game, [[maybe_unused]] void *data);
 
 void apply_settings(game_t *game, [[maybe_unused]] void *data);
+void save_settings(game_t *game, [[maybe_unused]] void *data);
 
 typedef struct config_funct_s {
     char *name;
@@ -52,7 +53,8 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"update_fullscreen", update_fullscreen_text},
     {"apply_settings", apply_settings},
     {"prev_scene", got_to_prev_scene},
-    {"menu_start", go_to_start_scene}
+    {"menu_start", go_to_start_scene},
+    {"save_settings", save_settings}
 };
 
     #define NB_BUTTON LEN(CONFIG_FUNCTS)
