@@ -11,25 +11,22 @@
 
 void player_interact(game_t *game, [[maybe_unused]] void *data)
 {
-    float dir_x = 0.0;
-    float dir_y = 0.0;
-    float hit_x = 0.0;
-    float hit_y = 0.0;
-    int tile_x = 0;
-    int tile_y = 0;
+    sfVector2f dir = {0};
+    sfVector2f hit = {0};
+    sfVector2i tile_pos = {0};
     char **map = get_ressource("level", game->ressource_list);
 
     if (game == NULL)
         return;
-    dir_x = cosf(game->plr.angle);
-    dir_y = sinf(game->plr.angle);
-    hit_x = game->plr.pos.x + dir_x * INTERACT_DIST;
-    hit_y = game->plr.pos.y + dir_y * INTERACT_DIST;
-    tile_x = (int)(hit_x / TILE_SIZE);
-    tile_y = (int)(hit_y / TILE_SIZE);
-    if (tile_x >= 0 && tile_y >= 0 &&
-        tile_x < MAP_WIDTH && tile_y < MAP_HEIGHT) {
-        if (map[tile_y][tile_x] == 'B')
-            map[tile_y][tile_x] = ' ';
+    dir.x = cosf(game->plr.angle);
+    dir.y = sinf(game->plr.angle);
+    hit.x = game->plr.pos.x + dir.x * INTERACT_DIST;
+    hit.y = game->plr.pos.y + dir.y * INTERACT_DIST;
+    tile_pos.x = (int)(hit.x / TILE_SIZE);
+    tile_pos.y = (int)(hit.y / TILE_SIZE);
+    if (tile_pos.x >= 0 && tile_pos.y >= 0 &&
+        tile_pos.x < MAP_WIDTH && tile_pos.y < MAP_HEIGHT) {
+        if (map[tile_pos.y][tile_pos.x] == 'B')
+            map[tile_pos.y][tile_pos.x] = ' ';
     }
 }
