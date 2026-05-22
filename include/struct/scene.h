@@ -31,10 +31,10 @@ typedef struct scene_config_s {
 } scene_config_t;
 
 static const scene_config_t SCENES_CONFIG[NB_SCENE] = {
-    {GAME, "config/game_scene.config", "BT-7274_Redux"},
-    {MENU_START, "config/start_scene.config", "Cosmology"},
-    {MENU_PAUSE, "config/pause_scene.config", "Cosmology"},
-    {SETTINGS, "config/settings_scene.config", "Cosmology"}
+    {GAME, "config/game_scene.config", "BT-7274_Redux_cut"},
+    {MENU_START, "config/start_scene.config", "Cosmology_cut"},
+    {MENU_PAUSE, "config/pause_scene.config", "Cosmology_cut"},
+    {SETTINGS, "config/settings_scene.config", "Cosmology_cut"}
 };
 
 #endif /* !SCENE_H */
