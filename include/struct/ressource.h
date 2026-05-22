@@ -21,7 +21,7 @@ typedef enum {
     TEXTURE,
     MUSIC,
     FONT,
-    MAPP,
+    MAP,
     NB_RESSOURCE_TYPE
 } ressource_type_t;
 
@@ -49,7 +49,7 @@ static const ressource_dir_t RESSOURCE_DIR[NB_RESSOURCE_TYPE] = {
     {"assets/font/", ".ttf", FONT,
         (create_from_file_t *)sfFont_createFromFile,
         (destroy_funct_t *)sfFont_destroy},
-    {"assets/map/", ".map", MAPP, load_map, (destroy_funct_t *)free_array}
+    {"assets/map/", ".map", MAP, load_map, (destroy_funct_t *)free_array}
 };
 
 typedef struct ressource_s {

@@ -26,7 +26,7 @@ static void update_stamina(player_t *plr, float delta)
         plr->stamina = PLR_MAX_STAMINA;
 }
 
-static bool is_walkable(float x, float y)
+static bool is_walkable(float x, float y, char **map)
 {
     int tile_x = 0;
     int tile_y = 0;
@@ -38,31 +38,32 @@ static bool is_walkable(float x, float y)
     if (tile_x < 0 || tile_y < 0 ||
         tile_x >= MAP_WIDTH || tile_y >= MAP_HEIGHT)
         return false;
-    return MAP[tile_y][tile_x] == 0;
+    print_array(map);
+    return map[tile_y][tile_x] == ' ';
 }
 
-static bool can_move_to(float x, float y)
+static bool can_move_to(float x, float y, char **map)
 {
     float collision_radius = 6.0f;
 
-    return is_walkable(x - collision_radius, y - collision_radius)
-        && is_walkable(x + collision_radius, y - collision_radius)
-        && is_walkable(x - collision_radius, y + collision_radius)
-        && is_walkable(x + collision_radius, y + collision_radius);
+    return is_walkable(x - collision_radius, y - collision_radius, map)
+        && is_walkable(x + collision_radius, y - collision_radius, map)
+        && is_walkable(x - collision_radius, y + collision_radius, map)
+        && is_walkable(x + collision_radius, y + collision_radius, map);
 }
 
-static void apply_move(player_t *plr, float dx, float dy)
+static void apply_move(player_t *plr, float dx, float dy, char **map)
 {
     float next_x = plr->pos.x + dx;
     float next_y = plr->pos.y + dy;
 
-    if (can_move_to(next_x, plr->pos.y))
+    if (can_move_to(next_x, plr->pos.y, map))
         plr->pos.x = next_x;
-    if (can_move_to(plr->pos.x, next_y))
+    if (can_move_to(plr->pos.x, next_y, map))
         plr->pos.y = next_y;
 }
 
-void update_player(player_t *plr, float delta)
+void update_player(player_t *plr, float delta, char **map)
 {
     float updown_dx = 0.0;
     float updown_dy = 0.0;
@@ -77,5 +78,5 @@ void update_player(player_t *plr, float delta)
         * delta * plr->vel.x;
     leftright_dy = sinf(plr->angle - (M_PI / 2)) * plr->speed
         * delta * plr->vel.x;
-    apply_move(plr, updown_dx + leftright_dx, updown_dy + leftright_dy);
+    apply_move(plr, updown_dx + leftright_dx, updown_dy + leftright_dy, map);
 }
