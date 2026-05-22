@@ -21,6 +21,7 @@ typedef enum properties_e {
 typedef enum entity_id_e {
     BUTTON,
     TEXT,
+    ANIMATION,
     NB_ENT
 } entity_id_t;
 

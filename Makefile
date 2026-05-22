@@ -49,7 +49,8 @@ LIBGRAPHICS_FILES	=	counters/update_counters.c	\
 						center_text_on_sprite.c		\
 						on_click_functions.c		\
 						settings_buttons.c			\
-						apply_settings.c
+						apply_settings.c			\
+						animations_functions.c
 
 EVENTS_FILES		=	analyse_events.c 	\
 						key_event.c			\
