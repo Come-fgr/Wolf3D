@@ -10,8 +10,6 @@
 
 void apply_settings(game_t *game, [[maybe_unused]] void *data)
 {
-    if (game->cur_music != NULL)
-        sfMusic_setVolume(game->cur_music, game->settings.music_volume);
     if (!game->settings.is_fullscreen && game->settings.fullscreen) {
         sfRenderWindow_destroy(game->window);
         game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
