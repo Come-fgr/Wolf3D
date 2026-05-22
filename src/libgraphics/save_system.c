@@ -47,7 +47,7 @@ void load_player(game_t *game, [[maybe_unused]] void *data)
     char *str = file_to_str(SAVE_FILE_PLAYER);
     char **config = str != NULL ? str_to_array(str, is_sep) : NULL;
 
-    if (config == NULL || array_len((const char **)config) !=
+    if (game == NULL || config == NULL || array_len((const char **)config) !=
         PLAYER_NB_FIELDS) {
         free(str);
         free_array(config);

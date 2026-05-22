@@ -16,6 +16,8 @@
 
 static void update_stamina(player_t *plr, float delta)
 {
+    if (plr == NULL)
+        return;
     plr->stamina += plr->running
         ? -STAMINA_RUN_COST * delta : STAMINA_REGEN * delta;
     if (plr->stamina <= 0) {
@@ -53,9 +55,11 @@ static bool can_move_to(float x, float y)
 
 static void apply_move(player_t *plr, float dx, float dy)
 {
-    float next_x = plr->pos.x + dx;
-    float next_y = plr->pos.y + dy;
+    float next_x = plr ? plr->pos.x + dx : 0;
+    float next_y = plr ? plr->pos.y + dy : 0;
 
+    if (plr == NULL)
+        return;
     if (can_move_to(next_x, plr->pos.y))
         plr->pos.x = next_x;
     if (can_move_to(plr->pos.x, next_y))
@@ -69,6 +73,8 @@ void update_player(player_t *plr, float delta)
     float leftright_dx = 0.0;
     float leftright_dy = 0.0;
 
+    if (plr == NULL)
+        return;
     update_stamina(plr, delta);
     plr->angle += PLR_ROTATE_VALUE * plr->rot_vel * delta;
     updown_dx = cosf(plr->angle) * plr->speed * delta * plr->vel.y;

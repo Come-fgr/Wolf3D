@@ -9,24 +9,22 @@
 
 void increase_music_volume(game_t *game, [[maybe_unused]] void *data)
 {
-    game->settings.music_volume += game->settings.music_volume >= MAX_VOLUME ?
-        0 : 1;
+    game->settings.music_volume += game->settings.music_volume < MAX_VOLUME;
 }
 
 void decrease_music_volume(game_t *game, [[maybe_unused]] void *data)
 {
-    game->settings.music_volume -= game->settings.music_volume <= MIN_VOLUME ?
-        0 : 1;
+    game->settings.music_volume -= game->settings.music_volume > MIN_VOLUME;
 }
 
 void increase_fov(game_t *game, [[maybe_unused]] void *data)
 {
-    game->settings.fov += game->settings.fov >= MAX_FOV ? 0 : 1;
+    game->settings.fov += game->settings.fov < MAX_FOV;
 }
 
 void decrease_fov(game_t *game, [[maybe_unused]] void *data)
 {
-    game->settings.fov -= game->settings.fov <= MIN_FOV ? 0 : 1;
+    game->settings.fov -= game->settings.fov > MIN_FOV;
 }
 
 void change_window_mode(game_t *game, [[maybe_unused]] void *data)

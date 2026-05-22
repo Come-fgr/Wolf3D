@@ -24,6 +24,8 @@ static size_t set_text_variables(component_t *component, const char **config,
     size_t error = SUCCESS;
     text_t *data = calloc(1, sizeof(text_t));
 
+    if (component == NULL || config == NULL || data == NULL)
+        return FAIL;
     component->entity = TEXT;
     component->pos.x = get_field_value(&error, config[TEXT_POS_X]);
     component->pos.y = get_field_value(&error, config[TEXT_POS_Y]);
@@ -38,9 +40,13 @@ static size_t set_text_variables(component_t *component, const char **config,
 int init_text(component_t *component, const char **config,
     list_t **ressource_list, bool flag_list[NB_FLAGS])
 {
-    sfFont *font = get_ressource(config[TEXT_FONT], ressource_list);
+    sfFont *font = config
+        ? get_ressource(config[TEXT_FONT], ressource_list) : NULL;
     size_t error = SUCCESS;
 
+    if (font == NULL || component == NULL || config == NULL
+        || ressource_list == NULL || flag_list == NULL)
+        return FAIL;
     if (array_len(config) != TEXT_NB_FIELDS || font == NULL) {
         if (flag_list[DEBUG])
             dprintf(STDERR_FILENO, "%sError:\n%s%s%s\n", RED,
@@ -58,11 +64,15 @@ int init_text(component_t *component, const char **config,
 
 void display_text(sfRenderWindow *window, const component_t *component)
 {
+    if (window == NULL || component == NULL)
+        return;
     sfRenderWindow_drawText(window, ((text_t *)component->data)->text, NULL);
 }
 
 void destroy_text(component_t *component)
 {
+    if (component == NULL)
+        return;
     sfText_destroy(((text_t *)component->data)->text);
     free(component->data);
     free(component);
