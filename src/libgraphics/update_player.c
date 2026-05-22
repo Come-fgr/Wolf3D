@@ -55,7 +55,8 @@ static bool can_move_to(float x, float y, char **map)
 
 static void apply_move(player_t *plr, float dx, float dy, char **map)
 {
-    sfVector2f next = plr ? {plr->pos.x + dx, plr->pos.y + dy} : 0;
+    sfVector2f next = plr ? (sfVector2f){plr->pos.x + dx, plr->pos.y + dy} :
+    (sfVector2f){0};
 
     if (plr == NULL || map == NULL)
         return;
