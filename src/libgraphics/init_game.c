@@ -18,6 +18,7 @@
 #include "graphics.h"
 #include "list.h"
 #include "my.h"
+#include "map.h"
 
 static bool is_sep(char c)
 {
@@ -104,7 +105,7 @@ static int init_scene_list(list_t **ressource_list,
 
 static void init_player(player_t *plr)
 {
-    plr->pos = (sfVector2f){ 160.0f, 160.0f };
+    plr->pos = (sfVector2f){ MAP_CENTER_X - 16.0f, MAP_CENTER_Y - 16.0f };
     plr->angle = (float)M_PI * 0.25f;
     plr->speed = DEFAULT_PLR_SPEED;
     plr->life = PLR_MAX_LIFE;
