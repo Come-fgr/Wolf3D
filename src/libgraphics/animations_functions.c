@@ -46,6 +46,8 @@ static size_t set_animation_variables(component_t *component,
     sfTexture *texture = get_ressource(config[ANIMATION_TEXTURE],
         ressource_list);
 
+    if (texture == NULL)
+        return FAIL;
     component->entity = ANIMATION;
     component->pos.x = get_field_value(&error, config[ANIMATION_POS_X]);
     component->pos.y = get_field_value(&error, config[ANIMATION_POS_Y]);
