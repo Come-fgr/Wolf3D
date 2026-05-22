@@ -26,3 +26,15 @@ void save_settings(game_t *game, [[maybe_unused]] void *data)
         game->settings.fullscreen);
     close(fd);
 }
+
+void save_player(game_t *game, [[maybe_unused]] void *data)
+{
+    int fd = open(SAVE_FILE_PLAYER, O_WRONLY | O_TRUNC | O_CREAT,
+        S_IRWXU | S_IRWXG | S_IRWXO);
+
+    if (game == NULL || fd == ERROR)
+        return;
+    dprintf(fd, "%f;%f;%f;%lu;%u", game->plr.pos.x, game->plr.pos.y,
+        game->plr.angle, game->plr.life, game->plr.flash);
+    close(fd);
+}

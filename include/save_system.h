@@ -8,6 +8,7 @@
 #ifndef SAVE_SYSTEM_H_
     #define SAVE_SYSTEM_H_
 
-static const char SAVE_FILE_SETTINGS[] = "save/0.save";
+static const char SAVE_FILE_SETTINGS[] = "save/settings.save";
+static const char SAVE_FILE_PLAYER[] = "save/player.save";
 
 #endif /* !SAVE_SYSTEM_H_ */
