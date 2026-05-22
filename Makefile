@@ -115,6 +115,8 @@ ASSETS_DIR	=	assets/
 
 ASSETS_TAR	=	assets.gz
 
+SRC_TAR		=	src.gz
+
 all: $(NAME)
 
 $(NAME): decompress_assets $(OBJ_DIR) $(OBJ)
@@ -140,9 +142,11 @@ re: fclean all
 
 compress_assets:
 	(test -e $(ASSETS_DIR) && tar -czf $(ASSETS_TAR) $(ASSETS_DIR) && $(RM) -r $(ASSETS_DIR)) || true
+	(test -e $(SRC_DIR) && tar -czf $(SRC_TAR) $(SRC_DIR) && $(RM) -r $(SRC_DIR)) || true
 
 decompress_assets:
 	(test -e $(ASSETS_TAR) && tar -xzf $(ASSETS_TAR) && $(RM) -r $(ASSETS_TAR)) || true
+	(test -e $(SRC_TAR) && tar -xzf $(SRC_TAR) && $(RM) -r $(SRC_TAR)) || true
 
 debug:	CFLAGS += $(DEBUG_FLAGS)
 debug:	re
