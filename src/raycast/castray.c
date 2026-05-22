@@ -42,25 +42,40 @@ static int map_at(float x, float y)
     return MAP[ty][tx];
 }
 
+static void check_side(raycaster_t *disp, float past_x, float x)
+{
+    int tilex_past = (int)(past_x / TILE_SIZE);
+    int tilex_curr = (int)(x / TILE_SIZE);
+
+    if (tilex_past != tilex_curr)
+        disp->side = 0;
+    else
+        disp->side = 1;
+}
+
 float cast_single_ray(const player_t *player, raycaster_t *disp)
 {
     float angle = norm_angle(disp->ray_angle);
     float x = player->pos.x;
     float y = player->pos.y;
+    float past_x = x;
     float dist = 0.0f;
     float maxd = 1024.0f + (player->flash ? FLASHLIGHT_DISTANCE : 0.0f);
     int cell = 0;
 
     while (dist < maxd) {
+        past_x = x;
         x += cosf(angle) * RAY_STEP;
         y += sinf(angle) * RAY_STEP;
         dist += RAY_STEP;
         cell = map_at(x, y);
         if (cell != 0) {
             display_set(disp, cell, x, y);
+            check_side(disp, past_x, x);
             return dist;
         }
     }
     display_set(disp, cell, x, y);
+    disp->side = 0;
     return dist;
 }

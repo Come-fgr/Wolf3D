@@ -7,11 +7,19 @@
 
 #include "castray.h"
 
-raycaster_t *init_struct(void)
+static void cache_wall_textures(game_t *game, sfTexture **types)
+{
+    types[0] = (sfTexture *)get_ressource("redbrick", game->ressource_list);
+    types[1] = (sfTexture *)get_ressource("eagle", game->ressource_list);
+}
+
+raycaster_t *init_struct(game_t *game)
 {
     raycaster_t *disp_value = malloc(sizeof(raycaster_t));
 
+    cache_wall_textures(game, disp_value->wall_types);
     disp_value->wall_id = 0;
+    disp_value->side = 0;
     disp_value->half_fov = FOV / 2.0f;
     disp_value->angle_step = FOV / (float)NUM_RAYS;
     disp_value->ray_angle = 0.0;

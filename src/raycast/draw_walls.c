@@ -9,12 +9,6 @@
 #include "graphics.h"
 #include "castray.h"
 
-static void cache_wall_textures(game_t *game, sfTexture **types)
-{
-    types[0] = (sfTexture *)get_ressource("redbrick", game->ressource_list);
-    types[1] = (sfTexture *)get_ressource("eagle", game->ressource_list);
-}
-
 static void compute_col(raycaster_t *disp, const player_t *player, int col)
 {
     disp->ray_angle = player->angle - disp->half_fov
@@ -31,29 +25,52 @@ static void compute_col(raycaster_t *disp, const player_t *player, int col)
     disp->top = (WINDOW_HEIGHT / 2.0f) - (disp->wall_height / 2.0f);
 }
 
-static void display_wall(sfRenderWindow *win, raycaster_t *disp,
-    const player_t *player, int col)
+static int compute_tex_x(raycaster_t *disp, int tex_width)
 {
-    sfRectangleShape *wall = sfRectangleShape_create();
+    float wall_x = 0.0;
+    int tex_x = 0;
+
+    if (disp->side == 0)
+        wall_x = fmodf(disp->hity, (float)TILE_SIZE);
+    else
+        wall_x = fmodf(disp->hitx, (float)TILE_SIZE);
+    if (wall_x < 0.0f)
+        wall_x += TILE_SIZE;
+    tex_x = (int)((wall_x / (float)TILE_SIZE) * (float)tex_width);
+    if ((disp->side == 0 && cosf(disp->ray_angle) > 0.0f)
+        || (disp->side == 1 && sinf(disp->ray_angle) < 0.0f))
+        tex_x = tex_width - tex_x - 1;
+    return tex_x >= tex_width ? tex_width : tex_x;
+}
+
+static void display_wall(game_t *game, raycaster_t *disp, int col,
+    sfRectangleShape *wall)
+{
+    sfTexture *tex = disp->wall_types[disp->wall_id - 1];
+    sfVector2u tex_size = sfTexture_getSize(tex);
+    sfIntRect tex_rect = {0};
     sfColor shaded = {0};
 
+    tex_rect = (sfIntRect){(int)compute_tex_x(disp, tex_size.x),
+        0, 1, (int)tex_size.y};
+    sfRectangleShape_setTexture(wall, tex, sfTrue);
+    sfRectangleShape_setTextureRect(wall, tex_rect);
     sfRectangleShape_setSize(wall, (sfVector2f){1.0f, disp->wall_height});
     sfRectangleShape_setPosition(wall, (sfVector2f){(float)col, disp->top});
-    shaded = shade_color(disp->corrected, player->flash);
+    shaded = shade_color(disp->corrected, game->plr.flash);
     sfRectangleShape_setFillColor(wall, shaded);
-    sfRenderWindow_drawRectangleShape(win, wall, NULL);
-    sfRectangleShape_destroy(wall);
+    sfRenderWindow_drawRectangleShape(game->window, wall, NULL);
 }
 
 void draw_walls(game_t *game)
 {
-    raycaster_t *disp = init_struct();
-    sfTexture *wall_types[NBR_WALL_TYPE];
+    raycaster_t *disp = init_struct(game);
+    sfRectangleShape *wall = sfRectangleShape_create();
 
-    cache_wall_textures(game, wall_types);
     for (size_t col = 0; col < NUM_RAYS; ++col) {
         compute_col(disp, &game->plr, col);
-        display_wall(game->window, disp, &game->plr, col);
+        display_wall(game, disp, col, wall);
     }
+    sfRectangleShape_destroy(wall);
     free_struct(disp);
 }
