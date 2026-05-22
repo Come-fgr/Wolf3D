@@ -20,4 +20,5 @@ void update_score_text(game_t *game, [[maybe_unused]] void *data)
 
     sprintf(buffer, SCORE_LABEL_FORMAT, game->score);
     sfText_setString(text, buffer);
+    free(buffer);
 }
