@@ -20,13 +20,13 @@
 /***
  * @brief Function type to handle key pressed evt
  */
-typedef void (*key_event_fnct_t)(game_t *);
+typedef void (*event_fnct_t)(game_t *, [[maybe_unused]] void *);
 
 /***
  * @brief Key pressed event struct
  */
 typedef struct key_event_e {
-    key_event_fnct_t fnct;
+    event_fnct_t fnct;
     sfKeyCode keys[sfKeyCount];
 } key_event_t;
 
@@ -34,24 +34,24 @@ typedef struct key_event_e {
 ////      Managing game fncts           ////
 ////////////////////////////////////////////
 
-void player_move_left(game_t *game);
-void player_move_right(game_t *game);
-void player_move_forward(game_t *game);
-void player_move_backward(game_t *game);
+void player_move_left(game_t *game, [[maybe_unused]] void *data);
+void player_move_right(game_t *game, [[maybe_unused]] void *data);
+void player_move_forward(game_t *game, [[maybe_unused]] void *data);
+void player_move_backward(game_t *game, [[maybe_unused]] void *data);
 
-void player_move_stop_x(game_t *game);
-void player_move_stop_y(game_t *game);
+void player_move_stop_x(game_t *game, [[maybe_unused]] void *data);
+void player_move_stop_y(game_t *game, [[maybe_unused]] void *data);
 
-void go_to_menu_scene(game_t *game);
+void got_to_prev_scene(game_t *game, [[maybe_unused]] void *data);
 
-void player_rotate_right(game_t *game);
-void player_rotate_left(game_t *game);
-void player_rotate_stop(game_t *game);
+void player_rotate_right(game_t *game, [[maybe_unused]] void *data);
+void player_rotate_left(game_t *game, [[maybe_unused]] void *data);
+void player_rotate_stop(game_t *game, [[maybe_unused]] void *data);
 
-void player_sprint_start(game_t *game);
-void player_sprint_stop(game_t *game);
+void player_sprint_start(game_t *game, [[maybe_unused]] void *data);
+void player_sprint_stop(game_t *game, [[maybe_unused]] void *data);
 
-void player_flashlight_toggle(game_t *game);
+void player_flashlight_toggle(game_t *game, [[maybe_unused]] void *data);
 
 ////////////////////////////////////////////
 ////   Handler of KeyPressed Event
@@ -83,7 +83,7 @@ static const key_event_t key_pressed_evts[] = {
     { &player_move_backward, {sfKeyS, sfKeyDown, sfKeyUnknown} },
     { &player_rotate_left, {sfKeyA, sfKeyUnknown} },
     { &player_rotate_right, {sfKeyE, sfKeyUnknown} },
-    { &go_to_menu_scene, {sfKeyEscape, sfKeyUnknown} },
+    { &got_to_prev_scene, {sfKeyEscape, sfKeyUnknown} },
     { &player_sprint_start, {sfKeyLShift, sfKeyUnknown} },
     { &player_flashlight_toggle, {sfKeyF, sfKeyUnknown} },
     { NULL, {sfKeyUnknown} }

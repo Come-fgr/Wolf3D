@@ -19,7 +19,6 @@
     #include "struct/game.h"
     #include "struct/player.h"
 
-    #define FOV (M_PI / 3.0f)
     #define NUM_RAYS WINDOW_WIDTH
     #define RAY_STEP 0.1f
     #define COLOR_MAX 225

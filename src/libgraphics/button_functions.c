@@ -20,38 +20,40 @@
 #include "config.h"
 #include "castray.h"
 
-void start_game(game_t *game, [[maybe_unused]] void *data)
+static button_t *create_button(const char **config, sfTexture *texture,
+    sfVector2f *pos, sfFont *font)
 {
-    if (game == NULL)
-        return;
-    game->cur_scene = GAME;
-}
+    button_t *data = calloc(1, sizeof(button_t));
+    size_t error = SUCCESS;
 
-void exit_game(game_t *game, [[maybe_unused]] void *data)
-{
-    if (game == NULL)
-        return;
-    sfRenderWindow_close(game->window);
+    if (data == NULL)
+        return NULL;
+    data->rect.width = get_field_value(&error, config[BUTTON_RECT_WIDTH]);
+    data->rect.height = get_field_value(&error, config[BUTTON_RECT_HEIGHT]);
+    data->rect.left = 0;
+    data->rect.top = 0;
+    data->sprite = create_sprite(texture, &data->rect, pos);
+    error += data->sprite == NULL;
+    data->text = create_text(font, config[BUTTON_STRING],
+        config[BUTTON_CHAR_SIZE], pos);
+    error += data->text == NULL;
+    center_text_on_sprite(data->text, data->sprite);
+    data->button_funct = get_config_function(config[BUTTON_FUNCT]);
+    error += data->button_funct == NULL;
+    return error == SUCCESS ? data : NULL;
 }
 
 static size_t set_button_variables(component_t *component, const char **config,
     list_t **ressource_list)
 {
     size_t error = SUCCESS;
+    sfTexture *texture = get_ressource(config[BUTTON_TEXTURE], ressource_list);
+    sfFont *font = get_ressource(config[BUTTON_FONT], ressource_list);
 
     component->entity = BUTTON;
     component->pos.x = get_field_value(&error, config[BUTTON_POS_X]);
     component->pos.y = get_field_value(&error, config[BUTTON_POS_Y]);
-    component->rect.width = get_field_value(&error,
-        config[BUTTON_RECT_WIDTH]);
-    component->rect.height = get_field_value(&error,
-        config[BUTTON_RECT_HEIGHT]);
-    component->rect.left = 0;
-    component->rect.top = 0;
-    component->ressource = get_ressource(config[BUTTON_TEXTURE],
-        ressource_list);
-    error += component->ressource == NULL;
-    component->data = get_config_function(config[BUTTON_FUNCT]);
+    component->data = create_button(config, texture, &component->pos, font);
     error += component->data == NULL;
     return error;
 }
@@ -63,7 +65,7 @@ int init_button(component_t *component, const char **config,
 
     if (array_len(config) != BUTTON_NB_FIELDS) {
         if (flag_list[DEBUG])
-            dprintf(STDERR_FILENO, "%sError:\n\tWrong array size\n%s\n",
+            dprintf(STDERR_FILENO, "%sError: Wrong array size\n%s\n",
                 RED, RESET);
         return ERROR;
     }
@@ -75,21 +77,30 @@ int init_button(component_t *component, const char **config,
     return error != SUCCESS ? ERROR : SUCCESS;
 }
 
-//TODO: Set sprite in component->data
+void update_button(game_t *game, const component_t *component)
+{
+    button_t *button = component->data;
+
+    sfText_setColor(button->text, button->status == HOVER ? sfBlack : sfWhite);
+    button->rect.left = button->rect.width * button->status;
+    sfSprite_setTextureRect(button->sprite, button->rect);
+    button->status = is_hovered(game->window, component) ? HOVER : BASE;
+}
+
 void display_button(sfRenderWindow *window, const component_t *component)
 {
-    sfSprite *sprite = sfSprite_create();
+    button_t *button = component->data;
 
-    if (sprite == NULL)
-        return;
-    sfSprite_setTexture(sprite, (sfTexture *)component->ressource, sfTrue);
-    sfSprite_setTextureRect(sprite, component->rect);
-    sfSprite_setPosition(sprite, component->pos);
-    sfRenderWindow_drawSprite(window, sprite, NULL);
-    sfSprite_destroy(sprite);
+    sfRenderWindow_drawSprite(window, button->sprite, NULL);
+    sfRenderWindow_drawText(window, button->text, NULL);
 }
 
 void destroy_button(component_t *component)
 {
+    button_t *button = component->data;
+
+    sfSprite_destroy(button->sprite);
+    sfText_destroy(button->text);
+    free(button);
     free(component);
 }

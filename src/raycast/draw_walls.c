@@ -70,6 +70,7 @@ void draw_walls(game_t *game)
     for (size_t col = 0; col < NUM_RAYS; ++col) {
         compute_col(disp, &game->plr, col);
         display_wall(game, disp, col, wall);
+
     }
     sfRectangleShape_destroy(wall);
     free_struct(disp);

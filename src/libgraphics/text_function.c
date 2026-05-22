@@ -19,24 +19,17 @@
 #include "config.h"
 
 static size_t set_text_variables(component_t *component, const char **config,
-    sfFont *font, text_t *data)
+    sfFont *font)
 {
-    sfText *text = sfText_create();
-    char *endptr = NULL;
     size_t error = SUCCESS;
+    text_t *data = calloc(1, sizeof(text_t));
 
-    if (text == NULL)
-        return ERROR;
     component->entity = TEXT;
-    sfText_setString(text, config[TEXT_STRING]);
-    sfText_setFont(text, font);
     component->pos.x = get_field_value(&error, config[TEXT_POS_X]);
     component->pos.y = get_field_value(&error, config[TEXT_POS_Y]);
-    sfText_setCharacterSize(text, strtol(config[TEXT_CHAR_SIZE], &endptr, 10));
-    error += *endptr != '\0';
-    sfText_setColor(text, sfWhite);
-    sfText_setPosition(text, component->pos);
-    data->text = text;
+    data->text = create_text(font, config[TEXT_STRING], config[TEXT_CHAR_SIZE],
+        &component->pos);
+    error += data->text == NULL;
     data->update_text = get_config_function(config[TEXT_UPDATE_FN]);
     component->data = data;
     return error;
@@ -45,18 +38,17 @@ static size_t set_text_variables(component_t *component, const char **config,
 int init_text(component_t *component, const char **config,
     list_t **ressource_list, bool flag_list[NB_FLAGS])
 {
-    text_t *data = calloc(1, sizeof(text_t));
     sfFont *font = get_ressource(config[TEXT_FONT], ressource_list);
     size_t error = SUCCESS;
 
-    if (array_len(config) != TEXT_NB_FIELDS || font == NULL || data == NULL) {
+    if (array_len(config) != TEXT_NB_FIELDS || font == NULL) {
         if (flag_list[DEBUG])
             dprintf(STDERR_FILENO, "%sError:\n%s%s%s\n", RED,
                 array_len(config) != TEXT_NB_FIELDS ? "\tWrong arr size\n" : "",
                 font == NULL ? "\tFont is NULL\n" : "", RESET);
         return ERROR;
     }
-    error = set_text_variables(component, config, font, data);
+    error = set_text_variables(component, config, font);
     if (flag_list[DEBUG])
         printf("Load text \"%s\" = %s%s%s\n",
             config[TEXT_STRING], error == SUCCESS ? GREEN : RED,

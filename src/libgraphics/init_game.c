@@ -13,17 +13,12 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
-
+#include <SFML/Graphics/View.h>
 #include "macro.h"
 #include "graphics.h"
 #include "list.h"
 #include "my.h"
 #include "map.h"
-
-static bool is_sep(char c)
-{
-    return c == SEPARATOR;
-}
 
 static component_t *str_to_component(char *str, list_t
     **ressource_list, bool flag_list[NB_FLAGS])
@@ -103,7 +98,7 @@ static int init_scene_list(list_t **ressource_list,
     return SUCCESS;
 }
 
-static void init_player(player_t *plr)
+void init_player(player_t *plr)
 {
     plr->pos = (sfVector2f){ MAP_CENTER_X - 16.0f, MAP_CENTER_Y - 16.0f };
     plr->angle = (float)M_PI * 0.25f;
@@ -114,8 +109,8 @@ static void init_player(player_t *plr)
 
 int init_game(game_t *game, bool flag_list[NB_FLAGS])
 {
-    game->window = sfRenderWindow_create((sfVideoMode){WINDOW_WIDTH,
-            WINDOW_HEIGHT, 32}, WINDOW_NAME, sfClose, NULL);
+    load_settings(&game->settings);
+    game->window = create_window(game->settings.fullscreen);
     game->clock = sfClock_create();
     game->ressource_list = calloc(1, sizeof(list_t *));
     game->debug_mode = flag_list[DEBUG];
@@ -129,7 +124,8 @@ int init_game(game_t *game, bool flag_list[NB_FLAGS])
     if (init_scene_list(game->ressource_list, game->scene_list,
             flag_list) == ERROR)
         return ERROR;
-    sfRenderWindow_setFramerateLimit(game->window, FRAMERATE_LIMIT);
     game->cur_scene = MENU_START;
+    game->prev_scene = NB_SCENE;
+    game->run = true;
     return SUCCESS;
 }

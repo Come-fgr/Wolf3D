@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Texture.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/View.h>
 #include "graphics.h"
 
 static void free_ressource(ressource_t *ressource)

@@ -20,8 +20,8 @@ raycaster_t *init_struct(game_t *game)
     cache_wall_textures(game, disp_value->wall_types);
     disp_value->wall_id = 0;
     disp_value->side = 0;
-    disp_value->half_fov = FOV / 2.0f;
-    disp_value->angle_step = FOV / (float)NUM_RAYS;
+    disp_value->half_fov = DEG_TO_RAD(game->settings.fov) / 2.0f;
+    disp_value->angle_step = DEG_TO_RAD(game->settings.fov) / (float)NUM_RAYS;
     disp_value->ray_angle = 0.0;
     disp_value->hitx = 0.0;
     disp_value->hity = 0.0;

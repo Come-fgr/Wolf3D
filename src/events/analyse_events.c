@@ -27,8 +27,10 @@ sfEvent analyse_events(game_t *game)
     if (game == NULL)
         return evt;
     while (sfRenderWindow_pollEvent(game->window, &evt)) {
-        if (evt.type == sfEvtClosed)
+        if (evt.type == sfEvtClosed) {
             sfRenderWindow_close(game->window);
+            game->run = false;
+        }
         trigger_associated_ev(&evt, game);
     }
     return evt;
