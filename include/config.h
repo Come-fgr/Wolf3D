@@ -41,6 +41,7 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"_", NULL},
     {"start", start_game},
     {"quit", exit_game},
+    {"pause", got_to_prev_scene},
     {"settings", go_to_settings_scene},
     {"+volume", increase_music_volume},
     {"-volume", decrease_music_volume},
