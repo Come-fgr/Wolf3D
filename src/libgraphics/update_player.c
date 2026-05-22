@@ -43,7 +43,7 @@ static bool is_walkable(float x, float y)
 
 static bool can_move_to(float x, float y)
 {
-    float collision_radius = 12.0f;
+    float collision_radius = 6.0f;
 
     return is_walkable(x - collision_radius, y - collision_radius)
         && is_walkable(x + collision_radius, y - collision_radius)
