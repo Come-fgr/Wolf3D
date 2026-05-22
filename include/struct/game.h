@@ -15,6 +15,7 @@
     #include <SFML/Audio/Music.h>
     #include "struct/scene.h"
     #include "struct/player.h"
+    #include "struct/settings.h"
     #include "list.h"
     #include "my.h"
 
@@ -31,6 +32,7 @@ typedef struct game_s {
     float delta_time;
     _Bool keys[sfKeyCount];
     sfMusic *cur_music;
+    settings_t *settings;
 } game_t;
 
 int init_game(game_t *game, bool flag_list[NB_FLAGS]);
