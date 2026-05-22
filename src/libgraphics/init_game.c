@@ -105,6 +105,10 @@ void init_player(player_t *plr)
     plr->speed = DEFAULT_PLR_SPEED;
     plr->life = PLR_MAX_LIFE;
     plr->stamina = PLR_MAX_STAMINA;
+    plr->flash = false;
+    plr->rot_vel = PLR_ROTATE_VALUE;
+    plr->running = false;
+    plr->vel = (sfVector2f){0, 0};
 }
 
 int init_game(game_t *game, bool flag_list[NB_FLAGS])

@@ -11,7 +11,7 @@
 #include "interface.h"
 #include "struct/game.h"
 
-void update_stamina(game_t *game, [[maybe_unused]] void *data)
+void update_stamina_text(game_t *game, [[maybe_unused]] void *data)
 {
     sfText *text = data;
     char result[MAX_STAMINA_LABEL_LEN];
