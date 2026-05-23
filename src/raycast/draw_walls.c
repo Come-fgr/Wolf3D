@@ -82,7 +82,7 @@ void draw_walls(game_t *game)
 {
     raycaster_t *disp = init_struct(game);
     sfRectangleShape *wall = sfRectangleShape_create();
-    char **map = get_ressource("level", game->ressource_list);
+    char **map = get_ressource("maze", game->ressource_list);
 
     for (size_t col = 0; disp && wall && col < NUM_RAYS; ++col) {
         compute_col(disp, &game->plr, col, map);

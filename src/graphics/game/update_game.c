@@ -39,7 +39,7 @@ static float get_delta_time(sfClock *clock)
 
 void update_game(game_t *game)
 {
-    char **map = game ? get_ressource("level", game->ressource_list) : NULL;
+    char **map = game ? get_ressource("maze", game->ressource_list) : NULL;
 
     if (game == NULL || game->clock == NULL)
         return;

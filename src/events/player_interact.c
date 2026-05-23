@@ -14,7 +14,7 @@ void player_interact(game_t *game, [[maybe_unused]] void *data)
     sfVector2f dir = {0};
     sfVector2f hit = {0};
     sfVector2i tile_pos = {0};
-    char **map = get_ressource("level", game->ressource_list);
+    char **map = get_ressource("maze", game->ressource_list);
 
     if (game == NULL)
         return;
