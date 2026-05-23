@@ -102,6 +102,7 @@ typedef struct animation_s {
     sfSprite *sprite;
     sfIntRect rect;
     size_t nb_frame;
+    size_t offset;
     float seconds;
     float count;
     bool reverse;

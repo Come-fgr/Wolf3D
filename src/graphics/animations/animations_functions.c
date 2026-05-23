@@ -35,6 +35,7 @@ static animation_t *create_animation(const char **config, sfTexture *texture,
     data->count = 0;
     data->reverse = false;
     data->nb_frame = get_field_value(error, config[ANIMATION_NB_FRAME]);
+    data->offset = get_field_value(error, config[ANIMATION_OFFSET]);
     data->sprite = create_sprite(texture, &data->rect, pos);
     *error += data->sprite == NULL;
     return data;
@@ -77,9 +78,10 @@ int init_animation(component_t *component, const char **config,
     return error != SUCCESS ? ERROR : SUCCESS;
 }
 
-static void move_rect(sfIntRect *rect, size_t nb_frame, bool *reverse)
+static void move_rect(sfIntRect *rect, size_t offset, size_t nb_frame,
+    bool *reverse)
 {
-    size_t offset = rect->width;
+    //size_t offset = rect->width;
     size_t max_value = offset * (nb_frame - 1);
 
     if ((size_t)rect->left >= max_value)
@@ -95,7 +97,8 @@ void update_animation(game_t *game, const component_t *component)
 
     animation->count += game->delta_time;
     if (animation->count >= animation->seconds) {
-        move_rect(&animation->rect, animation->nb_frame, &animation->reverse);
+        move_rect(&animation->rect, animation->offset,
+            animation->nb_frame, &animation->reverse);
         sfSprite_setTextureRect(animation->sprite, animation->rect);
         animation->count = 0;
     }
