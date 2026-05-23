@@ -104,6 +104,7 @@ typedef struct animation_s {
     size_t nb_frame;
     float seconds;
     float count;
+    bool reverse;
 } animation_t;
 
 #endif /* !GRAPHICS_H_ */
