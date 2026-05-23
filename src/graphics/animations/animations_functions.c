@@ -81,7 +81,6 @@ int init_animation(component_t *component, const char **config,
 static void move_rect(sfIntRect *rect, size_t offset, size_t nb_frame,
     bool *reverse)
 {
-    //size_t offset = rect->width;
     size_t max_value = offset * (nb_frame - 1);
 
     if ((size_t)rect->left >= max_value)
