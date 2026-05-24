@@ -17,6 +17,7 @@ void start_game(game_t *game, [[maybe_unused]] void *data);
 void exit_game(game_t *game, [[maybe_unused]] void *data);
 void go_to_settings_scene(game_t *game, [[maybe_unused]] void *data);
 void go_to_start_scene(game_t *game, [[maybe_unused]] void *data);
+void go_to_credits_scene(game_t *game, [[maybe_unused]] void *data);
 
 void increase_music_volume(game_t *game, [[maybe_unused]] void *data);
 void decrease_music_volume(game_t *game, [[maybe_unused]] void *data);
@@ -65,7 +66,8 @@ static const config_funct_t CONFIG_FUNCTS[] = {
     {"menu_start", go_to_start_scene},
     {"save_settings", save_settings},
     {"save_player", save_player},
-    {"load_player", load_player}
+    {"load_player", load_player},
+    {"credits", go_to_credits_scene}
 };
 
     #define NB_BUTTON LEN(CONFIG_FUNCTS)

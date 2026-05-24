@@ -37,3 +37,11 @@ void go_to_start_scene(game_t *game, [[maybe_unused]] void *data)
     game->prev_scene = NB_SCENE;
     game->cur_scene = MENU_START;
 }
+
+void go_to_credits_scene(game_t *game, [[maybe_unused]] void *data)
+{
+    if (game == NULL)
+        return;
+    game->prev_scene = game->cur_scene;
+    game->cur_scene = CREDITS;
+}
